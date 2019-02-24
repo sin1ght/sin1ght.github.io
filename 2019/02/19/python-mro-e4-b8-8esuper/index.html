@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title> Python3 MRO与super		 | sinight&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0x1 MRO二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的m">
+<meta name="keywords" content="web安全，后端开发，前端开发，pyhton，php">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" Python3 MRO与super		">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/python-mro-e4-b8-8esuper/index.html">
+<meta property="og:site_name" content="sinight&#39;s blog">
+<meta property="og:description" content="0x1 MRO二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的m">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg">
+<meta property="og:updated_time" content="2019-02-24T15:58:13.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" Python3 MRO与super		">
+<meta name="twitter:description" content="0x1 MRO二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的m">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="sinight&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">sinight&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一个菜菜的程序员</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python-mro-e4-b8-8esuper" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/19/python-mro-e4-b8-8esuper/" class="article-date">
+  <time datetime="2019-02-19T13:58:13.000Z" itemprop="datePublished">2019-02-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/WEB前端-后端/">WEB前端/后端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+       Python3 MRO与super		
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。 拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code> <a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a> 此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
+<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><pre><code>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。
+</code></pre><p><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。 <code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/19/python-mro-e4-b8-8esuper/" data-id="cjsj3nhg2000qjsv3hfa5opum" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/24/python3-e7-94-9f-e6-88-90-e5-99-a8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+           Python3 生成器		
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/20/supervisor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"> Supervisor		</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/WEB前端-后端/">WEB前端/后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/24/nginx-location-e8-a7-84-e5-88-99/"> Nginx location规则		</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/24/python3-e7-94-9f-e6-88-90-e5-99-a8/"> Python3 生成器		</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/19/python-mro-e4-b8-8esuper/"> Python3 MRO与super		</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/20/supervisor/"> Supervisor		</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 sinight<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
