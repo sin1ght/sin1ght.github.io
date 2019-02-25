@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 11:01:48" itemprop="dateModified" datetime="2019-02-25T11:01:48+08:00">2019-02-25</time>
+                <time title="修改时间：2019-02-25 17:32:59" itemprop="dateModified" datetime="2019-02-25T17:32:59+08:00">2019-02-25</time>
               
             
           </span>
@@ -462,7 +462,7 @@
       
         
           <blockquote>
-<p>官方文档:<a href="http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location" target="_blank" rel="noopener">http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location</a></p>
+<p>官方文档:<code>http://nginx.org/en/docs/http/ngx_http_core_module.html#location</code></p>
 </blockquote>
 <pre><code>Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }
             location @name { ... }
@@ -601,7 +601,7 @@ Context:    server, location
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 13:35:41" itemprop="dateModified" datetime="2019-02-25T13:35:41+08:00">2019-02-25</time>
+                <time title="修改时间：2019-02-25 17:31:18" itemprop="dateModified" datetime="2019-02-25T17:31:18+08:00">2019-02-25</time>
               
             
           </span>
@@ -656,58 +656,11 @@ Context:    server, location
 <p>在 Python 中，使用了<code>yield</code>的函数被称为生成器（generator）。在通过<code>__next__()</code> 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 <code>__next__()</code> 方法时从当前位置继续运行，没有下一个yield时抛出<code>StopIteration</code>的异常。生成器可以用for循环迭代。</p>
 </blockquote>
 <h3 id="1-列表生成式"><a href="#1-列表生成式" class="headerlink" title="1.列表生成式"></a>1.列表生成式</h3><p>将列表生成式的<code>[]</code>改成<code>()</code>，就创建了一个生成器<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>L = [x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>L</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x104feab40</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><pre><code>含有`yield`关键字的函数被认为是生成器。
-</code></pre><p>斐波拉契数列：</p>
-<pre><code>def fib(max):
-    n, a, b = 0, 0, 1
-    while n &lt; max:
-        yield b
-        a, b = b, a + b
-        n = n + 1
-</code></pre><h3 id="3-next-and-send"><a href="#3-next-and-send" class="headerlink" title="3.___next__() and send()"></a>3.<code>___next__()</code> and <code>send()</code></h3><ul>
-<li><code>___next__()</code>，执行到下一个yield处，并返回值，</li>
-<li><code>send(val)</code>，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值<code>(m= yield 5)</code>，yield 5这个表达式是没有返回值的，所以m=None，但是<code>send(val)</code>可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处</li>
-<li><code>___next__()</code> == <code>send(None)</code></li>
-</ul>
-<p>生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产…</p>
-<pre><code>def consumer():
-    r = &apos;&apos;
-    while True:
-        n = yield r
-        if not n:
-            return
-        print(&apos;[CONSUMER] Consuming %s...&apos; % n)
-        r = &apos;200 OK&apos;
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><blockquote>
+<p>含有<code>yield</code>关键字的函数被认为是生成器。</p>
+</blockquote>
+<p>斐波拉契数列：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fib</span><span class="params">(max)</span>:</span></span><br><span class="line">        n, a, b = <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &lt; max:</span><br><span class="line">            <span class="keyword">yield</span> b</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">            n = n + <span class="number">1</span></span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line"><span class="comment">### 3.`___next__()` and `send()`</span></span><br><span class="line"></span><br><span class="line">*   `___next__()`，执行到下一个<span class="keyword">yield</span>处，并返回值，</span><br><span class="line">*   `send(val)`，执行到下一个<span class="keyword">yield</span>处，并返回值，val可以设置上一个<span class="keyword">yield</span>表达式的返回值`(m= <span class="keyword">yield</span> <span class="number">5</span>)`，<span class="keyword">yield</span> <span class="number">5</span>这个表达式是没有返回值的，所以m=<span class="keyword">None</span>，但是`send(val)`可以设置m=val，第一次运行next时在<span class="keyword">yield</span>处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个<span class="keyword">yield</span>处</span><br><span class="line">*   `___next__()` == `send(<span class="keyword">None</span>)`</span><br><span class="line"></span><br><span class="line">生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产...</span><br><span class="line">```python</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">consumer</span><span class="params">()</span>:</span></span><br><span class="line">        r = <span class="string">''</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            n = <span class="keyword">yield</span> r</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> n:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            print(<span class="string">'[CONSUMER] Consuming %s...'</span> % n)</span><br><span class="line">            r = <span class="string">'200 OK'</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">produce</span><span class="params">(c)</span>:</span></span><br><span class="line">        c.send(<span class="keyword">None</span>)</span><br><span class="line">        n = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n &lt; <span class="number">5</span>:</span><br><span class="line">            n = n + <span class="number">1</span></span><br><span class="line">            print(<span class="string">'[PRODUCER] Producing %s...'</span> % n)</span><br><span class="line">            r = c.send(n)</span><br><span class="line">            print(<span class="string">'[PRODUCER] Consumer return: %s'</span> % r)</span><br><span class="line">        c.close()</span><br><span class="line">    </span><br><span class="line">    c = consumer()</span><br><span class="line">    produce(c)</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line">结果:</span><br><span class="line">```python</span><br><span class="line">    [PRODUCER] Producing <span class="number">1.</span>..             </span><br><span class="line">    [CONSUMER] Consuming <span class="number">1.</span>..             </span><br><span class="line">    [PRODUCER] Consumer <span class="keyword">return</span>: <span class="number">200</span> OK    </span><br><span class="line">    [PRODUCER] Producing <span class="number">2.</span>..             </span><br><span class="line">    [CONSUMER] Consuming <span class="number">2.</span>..             </span><br><span class="line">    [PRODUCER] Consumer <span class="keyword">return</span>: <span class="number">200</span> OK    </span><br><span class="line">    [PRODUCER] Producing <span class="number">3.</span>..             </span><br><span class="line">    [CONSUMER] Consuming <span class="number">3.</span>..             </span><br><span class="line">    [PRODUCER] Consumer <span class="keyword">return</span>: <span class="number">200</span> OK    </span><br><span class="line">    [PRODUCER] Producing <span class="number">4.</span>..             </span><br><span class="line">    [CONSUMER] Consuming <span class="number">4.</span>..             </span><br><span class="line">    [PRODUCER] Consumer <span class="keyword">return</span>: <span class="number">200</span> OK    </span><br><span class="line">    [PRODUCER] Producing <span class="number">5.</span>..             </span><br><span class="line">    [CONSUMER] Consuming <span class="number">5.</span>..             </span><br><span class="line">    [PRODUCER] Consumer <span class="keyword">return</span>: <span class="number">200</span> OK</span><br></pre></td></tr></table></figure></p>
 
-def produce(c):
-    c.send(None)
-    n = 0
-    while n &lt; 5:
-        n = n + 1
-        print(&apos;[PRODUCER] Producing %s...&apos; % n)
-        r = c.send(n)
-        print(&apos;[PRODUCER] Consumer return: %s&apos; % r)
-    c.close()
-
-c = consumer()
-produce(c)
-</code></pre><p>结果:</p>
-<pre><code>[PRODUCER] Producing 1...             
-[CONSUMER] Consuming 1...             
-[PRODUCER] Consumer return: 200 OK    
-[PRODUCER] Producing 2...             
-[CONSUMER] Consuming 2...             
-[PRODUCER] Consumer return: 200 OK    
-[PRODUCER] Producing 3...             
-[CONSUMER] Consuming 3...             
-[PRODUCER] Consumer return: 200 OK    
-[PRODUCER] Producing 4...             
-[CONSUMER] Consuming 4...             
-[PRODUCER] Consumer return: 200 OK    
-[PRODUCER] Producing 5...             
-[CONSUMER] Consuming 5...             
-[PRODUCER] Consumer return: 200 OK
-</code></pre>
           
         
       
@@ -825,7 +778,7 @@ produce(c)
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 17:29:59" itemprop="dateModified" datetime="2019-02-25T17:29:59+08:00">2019-02-25</time>
               
             
           </span>
@@ -876,9 +829,14 @@ produce(c)
       
         
           
-            <h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。 拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code> <a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a> 此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
-<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><pre><code>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。
-</code></pre><p><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。 <code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</p>
+            <h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。</p>
+<p>MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。</p>
+<p>拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code></p>
+<p><a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a></p>
+<p>此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
+<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><blockquote>
+<p>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。<br><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。<br><code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</p>
+</blockquote>
 
           
         
@@ -1198,7 +1156,7 @@ supervisorctl  stop [all]|[name] #关闭所有/指定的程序进程
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 17:27:23" itemprop="dateModified" datetime="2019-02-25T17:27:23+08:00">2019-02-25</time>
               
             
           </span>
@@ -1257,9 +1215,8 @@ supervisorctl  stop [all]|[name] #关闭所有/指定的程序进程
 </blockquote>
 <p><a href="https://github.com/taopeach1998/CQU" target="_blank" rel="noopener">项目传送门</a></p>
 <h3 id="0x1环境"><a href="#0x1环境" class="headerlink" title="0x1环境"></a>0x1环境</h3><blockquote>
-<p>Pipfile,Pipfile.lock中可以看到所有依赖信息</p>
+<p>Pipfile,Pipfile.lock中可以看到所有依赖信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/taopeach1998/CQU.git </span><br><span class="line">pipenv --python 3 </span><br><span class="line">pipenv install </span><br><span class="line">pipenv shell </span><br><span class="line">python manage.py</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<p>git clone <a href="https://github.com/taopeach1998/CQU.git" target="_blank" rel="noopener">https://github.com/taopeach1998/CQU.git</a> pipenv –python 3 pipenv install pipenv shell python manage.py</p>
 <h3 id="0x2使用"><a href="#0x2使用" class="headerlink" title="0x2使用"></a>0x2使用</h3><blockquote>
 <p>当前教务网系统实现查成绩功能，sakai系统实现查看本学期课程未完成作业功能</p>
 </blockquote>
@@ -1274,20 +1231,21 @@ supervisorctl  stop [all]|[name] #关闭所有/指定的程序进程
 <p>可以以插件的方式向现有的jww,sakai系统增加新的功能,只需要在plugin/sakai或者plugin/jww中添加文件即可</p>
 </blockquote>
 <p>一个例子</p>
-<pre><code>&apos;&apos;&apos;
-:desc:这是一个测试
-:usage:
-test
-&apos;&apos;&apos;
+<pre><code class="python"><span class="string">'''</span>
+<span class="string">:desc:这是一个测试</span>
+<span class="string">:usage:</span>
+<span class="string">test</span>
+<span class="string">'''</span>
 
 
-def run(session,args):
-    &apos;&apos;&apos;
-    :param session: requests.Session对象,当前系统的会话
-    :param args:一个列表
-    &apos;&apos;&apos;
-    print(&apos;this is a test!&apos;)
-</code></pre><ul>
+<span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(session,args)</span>:</span>
+    <span class="string">'''</span>
+<span class="string">    :param session: requests.Session对象,当前系统的会话</span>
+<span class="string">    :param args:一个列表</span>
+<span class="string">    '''</span>
+    print(<span class="string">'this is a test!'</span>)
+</code></pre>
+<ul>
 <li>文件名字就是插件名字</li>
 <li>:desc: 插件描述</li>
 <li>:usage: 插件使用方式</li>
@@ -1411,7 +1369,7 @@ def run(session,args):
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 17:25:28" itemprop="dateModified" datetime="2019-02-25T17:25:28+08:00">2019-02-25</time>
               
             
           </span>
@@ -1470,84 +1428,15 @@ def run(session,args):
 </blockquote>
 <h3 id="1-asyncio-coroutine-yield-from"><a href="#1-asyncio-coroutine-yield-from" class="headerlink" title="1.@ asyncio.coroutine/yield from"></a>1.@ asyncio.coroutine/yield from</h3><ul>
 <li><a href="mailto:`@asyncio.coroutine" target="_blank" rel="noopener">`@asyncio.coroutine</a>`把一个函数标记为协程</li>
-<li><p><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权</p>
-<p>import time<br>import asyncio<br>import random</p>
-</li>
+<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权</li>
 </ul>
-<pre><code>now = lambda : time.time()
-
-@asyncio.coroutine
-def do_some_work(x):
-    print(&quot;{} start&quot;.format(x))
-    yield from asyncio.sleep(2)
-    print(&quot;{} end&quot;.format(x))
-
-
-start = now()
-
-loop = asyncio.get_event_loop()
-tasks = [asyncio.ensure_future(do_some_work(i)) for i in range(10)]
-
-loop.run_until_complete(asyncio.wait(tasks))
-print(&quot;Time:&quot;,now()-start)
-</code></pre><h3 id="2-async-await"><a href="#2-async-await" class="headerlink" title="2.async/await"></a>2.async/await</h3><ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"><span class="meta">@asyncio.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+<h3 id="2-async-await"><a href="#2-async-await" class="headerlink" title="2.async/await"></a>2.async/await</h3><ul>
 <li><code>async</code>代替<a href="mailto:`@asyncio.coroutine" target="_blank" rel="noopener">`@asyncio.coroutine</a>`</li>
-<li><p><code>await</code>代替<code>yield from</code></p>
-<p>import time<br>import asyncio<br>import random</p>
-</li>
+<li><code>await</code>代替<code>yield from</code></li>
 </ul>
-<pre><code>now = lambda : time.time()
-
-
-async def do_some_work(x):
-    print(&quot;{} start&quot;.format(x))
-    await asyncio.sleep(2)
-    print(&quot;{} end&quot;.format(x))
-
-
-start = now()
-
-loop = asyncio.get_event_loop()
-tasks = [asyncio.ensure_future(do_some_work(i)) for i in range(10)]
-
-loop.run_until_complete(asyncio.wait(tasks))
-print(&quot;Time:&quot;,now()-start)
-</code></pre><h3 id="3-aiohttp"><a href="#3-aiohttp" class="headerlink" title="3.aiohttp"></a>3.aiohttp</h3><pre><code>import asyncio
-import aiohttp
-
-
-async def task(url):
-        print(&apos;start {}&apos;.format(url))
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as resp:
-                content=await resp.text()
-                print(&apos;{1} bytes from {0}&apos;.format(url,len(content)))
-
-urls=[&apos;https://github.com/&apos;,&apos;https://www.baidu.com/&apos;,&apos;https://www.python.org/&apos;]
-
-event_loop=asyncio.get_event_loop()
-
-tasks=[asyncio.ensure_future(task(i)) for i in urls]
-
-event_loop.run_until_complete(asyncio.wait(tasks))
-</code></pre><h3 id="4-gevent"><a href="#4-gevent" class="headerlink" title="4.gevent"></a>4.gevent</h3><ul>
-<li>python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。</li>
-<li>monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞</li>
-<li><p>遇到io阻塞自动挂起，执行其他任务</p>
-<p>from gevent import monkey<br>monkey.patch_all()<br>import gevent<br>from urllib import request</p>
-<p>def f(url):</p>
-<pre><code>print(&apos;GET: %s&apos; % url)
-resp = request.urlopen(url)
-data = resp.read()
-print(&apos;%d bytes received from %s.&apos; % (len(data), url))
-</code></pre><p>gevent.joinall([</p>
-<pre><code>gevent.spawn(f, &apos;https://github.com/&apos;),
-gevent.spawn(f, &apos;https://www.baidu.com/&apos;),
-gevent.spawn(f, &apos; https://www.python.org/&apos;),
-</code></pre><p>])</p>
-</li>
-</ul>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+<h3 id="3-aiohttp"><a href="#3-aiohttp" class="headerlink" title="3.aiohttp"></a>3.aiohttp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">import</span> asyncio</span><br><span class="line">    <span class="keyword">import</span> aiohttp</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">task</span><span class="params">(url)</span>:</span></span><br><span class="line">            print(<span class="string">'start &#123;&#125;'</span>.format(url))</span><br><span class="line">            <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">                <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> resp:</span><br><span class="line">                    content=<span class="keyword">await</span> resp.text()</span><br><span class="line">                    print(<span class="string">'&#123;1&#125; bytes from &#123;0&#125;'</span>.format(url,len(content)))</span><br><span class="line">    </span><br><span class="line">    urls=[<span class="string">'https://github.com/'</span>,<span class="string">'https://www.baidu.com/'</span>,<span class="string">'https://www.python.org/'</span>]</span><br><span class="line">    </span><br><span class="line">    event_loop=asyncio.get_event_loop()</span><br><span class="line">    </span><br><span class="line">    tasks=[asyncio.ensure_future(task(i)) <span class="keyword">for</span> i <span class="keyword">in</span> urls]</span><br><span class="line">    </span><br><span class="line">    event_loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line"><span class="comment">### 4.gevent</span></span><br><span class="line"></span><br><span class="line">*   python通过<span class="keyword">yield</span>提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。</span><br><span class="line">*   monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞</span><br><span class="line">*   遇到io阻塞自动挂起，执行其他任务</span><br><span class="line">```python</span><br><span class="line">    <span class="keyword">from</span> gevent <span class="keyword">import</span> monkey</span><br><span class="line">    monkey.patch_all()</span><br><span class="line">    <span class="keyword">import</span> gevent</span><br><span class="line">    <span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(url)</span>:</span></span><br><span class="line">        print(<span class="string">'GET: %s'</span> % url)</span><br><span class="line">        resp = request.urlopen(url)</span><br><span class="line">        data = resp.read()</span><br><span class="line">        print(<span class="string">'%d bytes received from %s.'</span> % (len(data), url))</span><br><span class="line">    </span><br><span class="line">    gevent.joinall([</span><br><span class="line">            gevent.spawn(f, <span class="string">'https://github.com/'</span>),</span><br><span class="line">            gevent.spawn(f, <span class="string">'https://www.baidu.com/'</span>),</span><br><span class="line">            gevent.spawn(f, <span class="string">' https://www.python.org/'</span>),</span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
           
         
       

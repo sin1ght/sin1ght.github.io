@@ -105,7 +105,7 @@
 <meta property="og:description" content="0x1 MRO二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的m">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg">
-<meta property="og:updated_time" content="2019-02-24T15:58:13.338Z">
+<meta property="og:updated_time" content="2019-02-25T09:29:59.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Python3 MRO与super		">
 <meta name="twitter:description" content="0x1 MRO二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的m">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 17:29:59" itemprop="dateModified" datetime="2019-02-25T17:29:59+08:00">2019-02-25</time>
               
             
           </span>
@@ -460,9 +460,14 @@
       
 
       
-        <h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。 拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code> <a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a> 此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
-<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><pre><code>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。
-</code></pre><p><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。 <code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</p>
+        <h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。</p>
+<p>MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。</p>
+<p>拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code></p>
+<p><a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a></p>
+<p>此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
+<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><blockquote>
+<p>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。<br><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。<br><code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</p>
+</blockquote>
 
       
     </div>

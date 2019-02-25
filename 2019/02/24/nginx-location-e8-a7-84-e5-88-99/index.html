@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="官方文档:http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, loca">
+  <meta name="description" content="官方文档:http://nginx.org/en/docs/http/ngx_http_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, locati">
 <meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
 <meta property="og:type" content="article">
 <meta property="og:title" content=" Nginx location规则		">
 <meta property="og:url" content="https://sin1ght.github.io/2019/02/24/nginx-location-e8-a7-84-e5-88-99/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="官方文档:http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, loca">
+<meta property="og:description" content="官方文档:http://nginx.org/en/docs/http/ngx_http_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, locati">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T03:01:48.911Z">
+<meta property="og:updated_time" content="2019-02-25T09:32:59.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Nginx location规则		">
-<meta name="twitter:description" content="官方文档:http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, loca">
+<meta name="twitter:description" content="官方文档:http://nginx.org/en/docs/http/ngx_http_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, locati">
 
 
 
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 11:01:48" itemprop="dateModified" datetime="2019-02-25T11:01:48+08:00">2019-02-25</time>
+                <time title="修改时间：2019-02-25 17:32:59" itemprop="dateModified" datetime="2019-02-25T17:32:59+08:00">2019-02-25</time>
               
             
           </span>
@@ -459,7 +459,7 @@
 
       
         <blockquote>
-<p>官方文档:<a href="http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location" target="_blank" rel="noopener">http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location</a></p>
+<p>官方文档:<code>http://nginx.org/en/docs/http/ngx_http_core_module.html#location</code></p>
 </blockquote>
 <pre><code>Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }
             location @name { ... }
@@ -474,26 +474,30 @@ Context:    server, location
 <li>如果最大前缀匹配使用<code>^~</code>，则不进行后面的正则匹配</li>
 <li><p><code>=</code>表示精确匹配，一旦匹配，就结束</p>
 <a id="more"></a>
-<p>官网的例子:</p>
-<p>location = / {</p>
-<pre><code>[ configuration A ]
-</code></pre><p>}</p>
-<p>location / {</p>
-<pre><code>[ configuration B ]
-</code></pre><p>}</p>
-<p>location /documents/ {</p>
-<pre><code>[ configuration C ]
-</code></pre><p>}</p>
-<p>location ^~ /images/ {</p>
-<pre><code>[ configuration D ]
-</code></pre><p>}</p>
-<p>location ~* .(gif|jpg|jpeg)$ {</p>
-<pre><code>[ configuration E ]
-</code></pre><p>}</p>
+<pre><code>官网的例子:
+
+location = / {
+    [ configuration A ]
+}
+
+location / {
+    [ configuration B ]
+}
+
+location /documents/ {
+    [ configuration C ]
+}
+
+location ^~ /images/ {
+    [ configuration D ]
+}
+
+location ~* \.(gif|jpg|jpeg)$ {
+    [ configuration E ]
+}
+</code></pre></li>
+<li><p><code>&#39;/&#39;</code>匹配A</p>
 </li>
-</ul>
-<ul>
-<li><code>&#39;/&#39;</code>匹配A</li>
 <li><code>&#39;/index.html&#39;</code>匹配B</li>
 <li><code>&#39;/documents/document.html&#39;</code>匹配C</li>
 <li><code>&#39;/images/1.gif&#39;</code>匹配D</li>

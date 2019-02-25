@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg 2)分号后面的不被解析  1.asp;.jpg 3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx   2.IIS写权限用curl  -i  -X  OPTIONS  www.example.com 测试是">
+  <meta name="description" content="1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg  2)分号后面的不被解析  1.asp;.jpg  3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx   2.IIS写权限用curl  -i  -X  OPTIONS  www.example.com 测">
 <meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
 <meta property="og:type" content="article">
 <meta property="og:title" content=" web容器上传文件利用方式总结		">
 <meta property="og:url" content="https://sin1ght.github.io/2018/06/22/web-e5-ae-b9-e5-99-a8-e4-b8-8a-e4-bc-a0-e6-96-87-e4-bb-b6-e5-88-a9-e7-94-a8-e6-96-b9-e5-bc-8f-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg 2)分号后面的不被解析  1.asp;.jpg 3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx   2.IIS写权限用curl  -i  -X  OPTIONS  www.example.com 测试是">
+<meta property="og:description" content="1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg  2)分号后面的不被解析  1.asp;.jpg  3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx   2.IIS写权限用curl  -i  -X  OPTIONS  www.example.com 测">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-24T15:58:13.325Z">
+<meta property="og:updated_time" content="2019-02-25T09:18:34.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" web容器上传文件利用方式总结		">
-<meta name="twitter:description" content="1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg 2)分号后面的不被解析  1.asp;.jpg 3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx   2.IIS写权限用curl  -i  -X  OPTIONS  www.example.com 测试是">
+<meta name="twitter:description" content="1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg  2)分号后面的不被解析  1.asp;.jpg  3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx   2.IIS写权限用curl  -i  -X  OPTIONS  www.example.com 测">
 
 
 
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 17:18:34" itemprop="dateModified" datetime="2019-02-25T17:18:34+08:00">2019-02-25</time>
               
             
           </span>
@@ -461,11 +461,14 @@
       
 
       
-        <h2 id="1-IIS-6-0"><a href="#1-IIS-6-0" class="headerlink" title="1.IIS 6.0"></a>1.IIS 6.0</h2><p>1)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg 2)分号后面的不被解析  1.asp;.jpg 3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx  </p>
+        <h2 id="1-IIS-6-0"><a href="#1-IIS-6-0" class="headerlink" title="1.IIS 6.0"></a>1.IIS 6.0</h2><p>1)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg </p>
+<p>2)分号后面的不被解析  1.asp;.jpg </p>
+<p>3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx  </p>
 <h2 id="2-IIS写权限"><a href="#2-IIS写权限" class="headerlink" title="2.IIS写权限"></a>2.IIS写权限</h2><p>用curl  -i  -X  OPTIONS  <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> 测试是否支持PUT  </p>
 <h2 id="3-php-CGI解析漏洞-nginx-ii7-0-iis7-5等"><a href="#3-php-CGI解析漏洞-nginx-ii7-0-iis7-5等" class="headerlink" title="3.php CGI解析漏洞(nginx/ii7.0/iis7.5等)"></a>3.php CGI解析漏洞(nginx/ii7.0/iis7.5等)</h2><p>在PHP的配置文件中有一个关键的选项cgi.fix_pathinfo，默认是开启的，当URL中有不存在的文件，PHP就会向前递归解析。 1.jpg/xxx.php可以执行  </p>
 <h2 id="4-Nginx空字节代码执行-php-漏洞"><a href="#4-Nginx空字节代码执行-php-漏洞" class="headerlink" title="4.Nginx空字节代码执行(php)漏洞"></a>4.Nginx空字节代码执行(php)漏洞</h2><p>Ngnix在遇到%00空字节时与后端FastCGI处理不一致 nginx 0.5.<em> nginx 0.6.</em> nginx 0.7 &lt;= 0.7.65 nginx 0.8 &lt;= 0.8.37 1.jpg%00.php可执行  </p>
-<h2 id="5-Apache-1-x-2-x-解析漏洞"><a href="#5-Apache-1-x-2-x-解析漏洞" class="headerlink" title="5.Apache(1.x/2.x)解析漏洞"></a>5.Apache(1.x/2.x)解析漏洞</h2><p>1) Apache在解析文件时有一个原则：当碰到不认识的扩展名时，将会从后面向前解析，直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 1.php.xxx可执行 2)上传.htaccess,使jpg可执行 <filesmatch *.jpg>SetHandler  application/x-httpd-php<filesmatch>  </filesmatch></filesmatch></p>
+<h2 id="5-Apache-1-x-2-x-解析漏洞"><a href="#5-Apache-1-x-2-x-解析漏洞" class="headerlink" title="5.Apache(1.x/2.x)解析漏洞"></a>5.Apache(1.x/2.x)解析漏洞</h2><p>1) Apache在解析文件时有一个原则：当碰到不认识的扩展名时，将会从后面向前解析，直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 1.php.xxx可执行 </p>
+<p>2)上传.htaccess,使jpg可执行 <filesmatch *.jpg>SetHandler  application/x-httpd-php<filesmatch>  </filesmatch></filesmatch></p>
 <h2 id="6-Windows"><a href="#6-Windows" class="headerlink" title="6.Windows"></a>6.Windows</h2><p>在windows环境下，<code>xx.jpg[空格]</code> 或<code>xx.jpg.</code> 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点 可以通过1.php.  ,  1.php[空格]绕过黑名单</p>
 
       
