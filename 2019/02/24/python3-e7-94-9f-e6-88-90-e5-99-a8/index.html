@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Sinight Awesome">
 <meta property="og:description" content="在 Python 中，使用了yield的函数被称为生成器（generator）。在通过__next__() 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 __next__() 方法时从当前位置继续运行，没有下一个yield时抛出StopIteration的异常。生成器可以用for循环迭代。  1.列表生成式 将列表生成式的[]改成()，就创建了一个生成器  &amp;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T09:58:09.705Z">
+<meta property="og:updated_time" content="2019-02-25T10:03:26.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Python3 生成器		">
 <meta name="twitter:description" content="在 Python 中，使用了yield的函数被称为生成器（generator）。在通过__next__() 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 __next__() 方法时从当前位置继续运行，没有下一个yield时抛出StopIteration的异常。生成器可以用for循环迭代。  1.列表生成式 将列表生成式的[]改成()，就创建了一个生成器  &amp;">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 17:58:09" itemprop="dateModified" datetime="2019-02-25T17:58:09+08:00">2019-02-25</time>
+                <time title="修改时间：2019-02-25 18:03:26" itemprop="dateModified" datetime="2019-02-25T18:03:26+08:00">2019-02-25</time>
               
             
           </span>
@@ -469,13 +469,17 @@
 <p>含有<code>yield</code>关键字的函数被认为是生成器。</p>
 </blockquote>
 <p>斐波拉契数列：</p>
-<pre><code>def fib(max):
+<pre><code>
+def fib(max):
     n, a, b = 0, 0, 1
-    while n &lt; max:
+    while n < max:
         yield b
         a, b = b, a + b
         n = n + 1
-</code></pre><h3 id="3-next-and-send"><a href="#3-next-and-send" class="headerlink" title="3.___next__() and send()"></a>3.<code>___next__()</code> and <code>send()</code></h3><ul>
+</code></pre>
+
+
+<h3 id="3-next-and-send"><a href="#3-next-and-send" class="headerlink" title="3.___next__() and send()"></a>3.<code>___next__()</code> and <code>send()</code></h3><ul>
 <li><code>___next__()</code>，执行到下一个yield处，并返回值，</li>
 <li><code>send(val)</code>，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值<code>(m= yield 5)</code>，yield 5这个表达式是没有返回值的，所以m=None，但是<code>send(val)</code>可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处</li>
 <li><code>___next__()</code> == <code>send(None)</code></li>
