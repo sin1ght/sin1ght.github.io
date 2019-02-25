@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="win20031wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xp1REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00">
+  <meta name="description" content="win2003wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xpREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 0000">
 <meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
 <meta property="og:type" content="article">
 <meta property="og:title" content=" cmd开启3389		">
 <meta property="og:url" content="https://sin1ght.github.io/2018/07/29/cmd-e5-bc-80-e5-90-af3389/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="win20031wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xp1REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00">
+<meta property="og:description" content="win2003wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xpREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 0000">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-02-25T09:15:51.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" cmd开启3389		">
-<meta name="twitter:description" content="win20031wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xp1REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00">
+<meta name="twitter:description" content="win2003wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xpREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 0000">
 
 
 
@@ -461,8 +461,8 @@
       
 
       
-        <p>win2003<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic RDTOGGLE WHERE ServerName='<span class="variable">%COMPUTERNAME%</span>' <span class="keyword">call</span> SetAllowTSConnections <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>win2003，xp<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d <span class="number">00000000</span> /f</span><br></pre></td></tr></table></figure></p>
+        <p>win2003<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">wmic RDTOGGLE WHERE ServerName='<span class="variable">%COMPUTERNAME%</span>' <span class="keyword">call</span> SetAllowTSConnections <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>win2003，xp<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d <span class="number">00000000</span> /f</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
