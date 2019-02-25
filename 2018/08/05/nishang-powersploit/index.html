@@ -105,7 +105,7 @@
 <meta property="og:description" content="nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本  1.Powershell查看执行策略 Get-ExecutionPolicy  Restricted  //这是默认的设置。不能执行PowerShell脚本 AllSigned   /">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/08/05/PDo9gA.png">
-<meta property="og:updated_time" content="2019-02-24T15:58:14.233Z">
+<meta property="og:updated_time" content="2019-02-25T10:06:57.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Nishang&#x2F;PowerSploit		">
 <meta name="twitter:description" content="nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本  1.Powershell查看执行策略 Get-ExecutionPolicy  Restricted  //这是默认的设置。不能执行PowerShell脚本 AllSigned   /">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:14" itemprop="dateModified" datetime="2019-02-24T23:58:14+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 18:06:57" itemprop="dateModified" datetime="2019-02-25T18:06:57+08:00">2019-02-25</time>
               
             
           </span>
@@ -473,7 +473,8 @@ Restricted  //这是默认的设置。不能执行PowerShell脚本
 AllSigned   //只有数字签名的脚本将会运行，此外，会提示你允许运行那些使用指定的证书签名的脚本
 RemoteSigned    //经本地编写的脚本将会运行，从网络下载的脚本运行，除非他们签名了并且你批准了的签名的证书
 UnRestricted    //所有的脚本都将运行
-</code></pre><p>设置执行策略，需要管理员权限</p>
+</code></pre><a id="more"></a>
+<p>设置执行策略，需要管理员权限</p>
 <pre><code>set-ExecutionPolicy
 </code></pre><p>绕过执行策略执行脚本</p>
 <pre><code>PowerShell.exe -ExecutionPolicy Bypass -File xxx.ps1

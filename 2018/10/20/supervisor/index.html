@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Sinight Awesome">
 <meta property="og:description" content="Supervisor是一个linux进程控制系统,让后台进程在会话结束的时候也照常运行，比如运行python flask应用  1.配置文件apt-get install supervisor安装完后，默认配置文件在/etc/supervisor/supervisord.conf echo_supervisord_conf 可以看到示例配置文件 [include] files = /etc/su">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-24T15:58:13.353Z">
+<meta property="og:updated_time" content="2019-02-25T10:07:30.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Supervisor		">
 <meta name="twitter:description" content="Supervisor是一个linux进程控制系统,让后台进程在会话结束的时候也照常运行，比如运行python flask应用  1.配置文件apt-get install supervisor安装完后，默认配置文件在/etc/supervisor/supervisord.conf echo_supervisord_conf 可以看到示例配置文件 [include] files = /etc/su">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 18:07:30" itemprop="dateModified" datetime="2019-02-25T18:07:30+08:00">2019-02-25</time>
               
             
           </span>
@@ -467,7 +467,8 @@
 <h3 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1.配置文件"></a>1.配置文件</h3><p><code>apt-get install supervisor</code>安装完后，默认配置文件在<code>/etc/supervisor/supervisord.conf</code> <code>echo_supervisord_conf</code> 可以看到示例配置文件</p>
 <pre><code>[include]
 files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置文件，在该配置文件中增加[program:x]部分，用来运行我们自己的程序
-</code></pre><h3 id="2-进程管理配置文件"><a href="#2-进程管理配置文件" class="headerlink" title="2.进程管理配置文件"></a>2.进程管理配置文件</h3><pre><code>；/etc/supervisor/conf.d/test.conf 
+</code></pre><a id="more"></a>
+<h3 id="2-进程管理配置文件"><a href="#2-进程管理配置文件" class="headerlink" title="2.进程管理配置文件"></a>2.进程管理配置文件</h3><pre><code>；/etc/supervisor/conf.d/test.conf 
 [program:x] ;x是program名称
 command =python test.py ;包含一个命令，当这个program启动时执行
 directory = /home/si/ ;执行子进程时supervisord暂时切换到该目录

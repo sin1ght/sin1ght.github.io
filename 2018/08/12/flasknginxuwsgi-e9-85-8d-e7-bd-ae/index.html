@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Sinight Awesome">
 <meta property="og:description" content="uwsgi配置（.ini）[uwsgi] socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写 wsgi-file = manage.py  #项目启动文件 callable = app  #主应用名 processes = 4   #开启进程">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-24T15:58:13.334Z">
+<meta property="og:updated_time" content="2019-02-25T10:06:25.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" flask+nginx+uwsgi配置		">
 <meta name="twitter:description" content="uwsgi配置（.ini）[uwsgi] socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写 wsgi-file = manage.py  #项目启动文件 callable = app  #主应用名 processes = 4   #开启进程">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 18:06:25" itemprop="dateModified" datetime="2019-02-25T18:06:25+08:00">2019-02-25</time>
               
             
           </span>
@@ -476,7 +476,8 @@ gid=1000 #用户组id
 disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中
 logto =uwsgi_web.log
 virtualenv＝/home/proj/virtualenv #python虚拟环境
-</code></pre><h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><pre><code>server {
+</code></pre><a id="more"></a>
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><pre><code>server {
     listen       1234;#web服务监听端口
     server_name  0.0.0.0;#域名/ip
     location / {

@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Sinight Awesome">
 <meta property="og:description" content="asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。  1.@ asyncio.coroutine/yield from @asyncio.coroutine把一个函数标记为协程 yield">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T09:58:31.120Z">
+<meta property="og:updated_time" content="2019-02-25T10:07:05.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Python异步IO		">
 <meta name="twitter:description" content="asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。  1.@ asyncio.coroutine/yield from @asyncio.coroutine把一个函数标记为协程 yield">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 17:58:31" itemprop="dateModified" datetime="2019-02-25T17:58:31+08:00">2019-02-25</time>
+                <time title="修改时间：2019-02-25 18:07:05" itemprop="dateModified" datetime="2019-02-25T18:07:05+08:00">2019-02-25</time>
               
             
           </span>
@@ -466,9 +466,10 @@
 </blockquote>
 <h3 id="1-asyncio-coroutine-yield-from"><a href="#1-asyncio-coroutine-yield-from" class="headerlink" title="1.@ asyncio.coroutine/yield from"></a>1.@ asyncio.coroutine/yield from</h3><ul>
 <li><font color="#ff2a2a">@asyncio.coroutine</font>把一个函数标记为协程</li>
-<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权</li>
-</ul>
+<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权<a id="more"></a>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"><span class="meta">@asyncio.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="2-async-await"><a href="#2-async-await" class="headerlink" title="2.async/await"></a>2.async/await</h3><ul>
 <li><code>async</code>代替<font color="#ff2a2a">@asyncio.coroutine</font></li>
 <li><code>await</code>代替<code>yield from</code></li>

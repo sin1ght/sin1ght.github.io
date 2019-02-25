@@ -105,7 +105,7 @@
 <meta property="og:description" content="1.（前期准备）得到udf.dll 16进制先在本地用udf专用马将udf.dll导出 select hex(load_file(&amp;apos;C:\\Users\\si\\Desktop\\udf.dll&amp;apos;)) into dumpfile &amp;apos;C:\\Users\\si\\Desktop\\udf.txt&amp;apos; 得到udf.dll的16进制（outfile 函数会在行末端写">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftqho3s5puj30tq0460sm.jpg">
-<meta property="og:updated_time" content="2019-02-24T15:58:13.327Z">
+<meta property="og:updated_time" content="2019-02-25T10:06:47.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Mysql udf提权		">
 <meta name="twitter:description" content="1.（前期准备）得到udf.dll 16进制先在本地用udf专用马将udf.dll导出 select hex(load_file(&amp;apos;C:\\Users\\si\\Desktop\\udf.dll&amp;apos;)) into dumpfile &amp;apos;C:\\Users\\si\\Desktop\\udf.txt&amp;apos; 得到udf.dll的16进制（outfile 函数会在行末端写">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-25 18:06:47" itemprop="dateModified" datetime="2019-02-25T18:06:47+08:00">2019-02-25</time>
               
             
           </span>
@@ -465,7 +465,7 @@
       
         <h4 id="1-（前期准备）得到udf-dll-16进制"><a href="#1-（前期准备）得到udf-dll-16进制" class="headerlink" title="1.（前期准备）得到udf.dll 16进制"></a>1.（前期准备）得到udf.dll 16进制</h4><p>先在本地用udf专用马将udf.dll导出</p>
 <pre><code>select hex(load_file(&apos;C:\\Users\\si\\Desktop\\udf.dll&apos;)) into dumpfile &apos;C:\\Users\\si\\Desktop\\udf.txt&apos;
-</code></pre><p>得到udf.dll的16进制（outfile 函数会在行末端写入新行，还会转义换行符，导致2进制可执行文件会被破坏，而dumpfile函数不对任何列或行进行终止，也不执行任何转义处理，所以可以得到一个完整的可执行文件） <img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftqho3s5puj30tq0460sm.jpg" alt></p>
+</code></pre><p>得到udf.dll的16进制（outfile 函数会在行末端写入新行，还会转义换行符，导致2进制可执行文件会被破坏，而dumpfile函数不对任何列或行进行终止，也不执行任何转义处理，所以可以得到一个完整的可执行文件） <img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftqho3s5puj30tq0460sm.jpg" alt><br><a id="more"></a></p>
 <h4 id="2-在靶机将udf-dll导出到相应目录"><a href="#2-在靶机将udf-dll导出到相应目录" class="headerlink" title="2.在靶机将udf.dll导出到相应目录"></a>2.在靶机将udf.dll导出到相应目录</h4><blockquote>
 <p>mysql版本 &lt; 5.2 , UDF导出到系统目录c:/windows/system32/ mysql版本 &gt; 5.2 ，UDF导出到安装路径MySQL\Lib\Plugin\</p>
 </blockquote>
