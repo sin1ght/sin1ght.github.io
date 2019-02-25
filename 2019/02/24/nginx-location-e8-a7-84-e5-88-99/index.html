@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Sinight Awesome">
 <meta property="og:description" content="官方文档:http://nginx.org/en/docs/http/ngx_http_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, locati">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T09:48:26.459Z">
+<meta property="og:updated_time" content="2019-02-25T09:51:30.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=" Nginx location规则		">
 <meta name="twitter:description" content="官方文档:http://nginx.org/en/docs/http/ngx_http_core_module.html#location  Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }             location @name { ... } Default:    — Context:    server, locati">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 17:48:26" itemprop="dateModified" datetime="2019-02-25T17:48:26+08:00">2019-02-25</time>
+                <time title="修改时间：2019-02-25 17:51:30" itemprop="dateModified" datetime="2019-02-25T17:51:30+08:00">2019-02-25</time>
               
             
           </span>
@@ -475,27 +475,14 @@ Context:    server, location
 <li><code>=</code>表示精确匹配，一旦匹配，就结束<a id="more"></a>
 </li>
 </ul>
-<p>官网的例子:</p>
-<pre><code>location = / {
-    [ configuration A ]
-}
-
-location / {
-    [ configuration B ]
-}
-
-location /documents/ {
-    [ configuration C ]
-}
-
-location ^~ /images/ {
-    [ configuration D ]
-}
-
-location ~* \.(gif|jpg|jpeg)$ {
-    [ configuration E ]
-}
-</code></pre><ul>
+<blockquote>
+<p>官网的例子<br><code>`</code><br>location = / {<br>    [ configuration A ]<br>}</p>
+</blockquote>
+<p>location / {<br>    [ configuration B ]<br>}</p>
+<p>location /documents/ {<br>    [ configuration C ]<br>}</p>
+<p>location ^~ /images/ {<br>    [ configuration D ]<br>}</p>
+<p>location ~* .(gif|jpg|jpeg)$ {<br>    [ configuration E ]<br>}<br><code>`</code>    </p>
+<ul>
 <li><code>&#39;/&#39;</code>匹配A</li>
 <li><code>&#39;/index.html&#39;</code>匹配B</li>
 <li><code>&#39;/documents/document.html&#39;</code>匹配C</li>
