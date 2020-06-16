@@ -349,6 +349,220 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2020/03/16/mpvue踩坑之旅/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sinight">
+      <meta itemprop="description" content="潜心学习,不忘初心">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sinight Awesome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/16/mpvue踩坑之旅/" class="post-title-link" itemprop="url">mpvue踩坑之旅</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-16 14:28:47" itemprop="dateCreated datePublished" datetime="2020-03-16T14:28:47+08:00">2020-03-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-19 20:01:22" itemprop="dateModified" datetime="2020-04-19T20:01:22+08:00">2020-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端-后端/" itemprop="url" rel="index"><span itemprop="name">WEB前端/后端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2020/03/16/mpvue踩坑之旅/" class="leancloud_visitors" data-flag-title="mpvue踩坑之旅">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。<a href="http://mpvue.com/mpvue/" target="_blank" rel="noopener">http://mpvue.com/mpvue/</a></p>
+</blockquote>
+<ul>
+<li><p>引入sass</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm i -D sass-loader node-sass</span><br><span class="line">由于webpack版本太低，所以sass-loader的版本也得低一些，<span class="number">7</span>，<span class="number">6</span>都可</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入sass全局文件</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br><span class="line"></span><br><span class="line">npm install sass-resources-loader --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改mpvue的配置文件build/utils.js</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    css: generateLoaders(),</span><br><span class="line">    wxss: generateLoaders(),</span><br><span class="line">    postcss: generateLoaders(),</span><br><span class="line">    less: generateLoaders(<span class="string">'less'</span>),</span><br><span class="line">    sass: generateLoaders(<span class="string">'sass'</span>, &#123; <span class="attr">indentedSyntax</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">    <span class="comment">//修改开始</span></span><br><span class="line">    scss: generateLoaders(<span class="string">'sass'</span>).concat(</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="string">'sass-resources-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          resources: path.resolve(__dirname, <span class="string">'../src/global.scss'</span>)<span class="comment">// 此路径就是你定义全局scss变量的路径，可随你自己的更改</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">//修改结束</span></span><br><span class="line">    stylus: generateLoaders(<span class="string">'stylus'</span>),</span><br><span class="line">    styl: generateLoaders(<span class="string">'stylus'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>引入第三方微信小程序组件库</li>
+</ul>
+<ol>
+<li>将组件库下载至static文件夹</li>
+<li>在需要引入组件的页面新建配置文件main.json</li>
+<li>配置usingComponents<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"usingComponents"</span>: &#123;</span><br><span class="line">        <span class="string">"i-icon"</span>: <span class="string">"../../../static/ivew/icon/index"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>监听组件的事件</li>
+</ul>
+<ol>
+<li>mpvue对这些事件对象进行了包装，原本可以直接通过函数接收的event对象被包装到了mp属性中</li>
+<li>mpvue不支持对vue的自定义组件绑定click 等<code>原生事件</code>，需要在组件内部自行emit事件</li>
+</ol>
+<ul>
+<li>所有页面vue生命周期函数中的beforeCreate和created是一起执行的,可以使用mounted,beforeMount,onshow,onhide等代替</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2019/05/19/webpack4打包原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -430,6 +644,17 @@
           
 
           
+          
+            <span id="/2019/05/19/webpack4打包原理/" class="leancloud_visitors" data-flag-title="webpack4打包原理">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -609,6 +834,17 @@
           
 
           
+          
+            <span id="/2019/02/24/nginx-location-e8-a7-84-e5-88-99/" class="leancloud_visitors" data-flag-title=" Nginx location规则		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -800,6 +1036,17 @@ Context:    server, location
 
           
           
+            <span id="/2019/02/24/python3-e7-94-9f-e6-88-90-e5-99-a8/" class="leancloud_visitors" data-flag-title=" Python3 生成器		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
           
 
@@ -981,6 +1228,17 @@ Context:    server, location
           
 
           
+          
+            <span id="/2019/02/19/python-mro-e4-b8-8esuper/" class="leancloud_visitors" data-flag-title=" Python3 MRO与super		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1165,6 +1423,17 @@ Context:    server, location
           
 
           
+          
+            <span id="/2018/10/20/supervisor/" class="leancloud_visitors" data-flag-title=" Supervisor		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1351,6 +1620,17 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
 
           
           
+            <span id="/2018/09/16/e5-ad-a6-e6-a0-a1-e5-a4-9a-e4-b8-aa-e7-b3-bb-e7-bb-9f-e7-9a-84-e5-91-bd-e4-bb-a4-e8-a1-8c-e5-ae-a2-e6-88-b7-e7-ab-af/" class="leancloud_visitors" data-flag-title=" 学校多个系统的命令行客户端		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
           
 
@@ -1536,6 +1816,17 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
 
           
           
+            <span id="/2018/09/09/python-e5-bc-82-e6-ad-a5io/" class="leancloud_visitors" data-flag-title=" Python异步IO		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
           
 
@@ -1720,6 +2011,17 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
 
           
           
+            <span id="/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/" class="leancloud_visitors" data-flag-title=" 绕过CDN查找真实ip		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
           
 
@@ -1903,6 +2205,17 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
 
           
           
+            <span id="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/" class="leancloud_visitors" data-flag-title=" flask+nginx+uwsgi配置		">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
           
 
@@ -1944,201 +2257,6 @@ virtualenv＝/home/proj/virtualenv #python虚拟环境
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sinight">
-      <meta itemprop="description" content="潜心学习,不忘初心">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sinight Awesome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/" class="post-title-link" itemprop="url"> 内网渗透之进入内网		</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-05 22:41:03" itemprop="dateCreated datePublished" datetime="2018-08-05T22:41:03+08:00">2018-08-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-25 18:05:58" itemprop="dateModified" datetime="2019-02-25T18:05:58+08:00">2019-02-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-msf"><a href="#1-msf" class="headerlink" title="1.msf"></a>1.msf</h3><p>拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网</p>
-<pre><code>meterpreter&gt;run get_local_subnets //获取子网/子网掩码
-
-添加路由
-meterpreter&gt;run autoroute -s 子网/子网掩码
-或
-msf&gt;route add 子网 子网掩码 seesion_id
-
-内网主机存活扫描
-meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.1.0/24
-</code></pre><p>使nmap等工具也可以扫描内网</p>
-<pre><code>1.scoks4代理（支持tcp,sock5支持tcp/udp）
-use auxiliary/server/socks4a
-
-2.proxychains/proxifier等全局代理软件
-proxychains4 nmap -sT ip
-</code></pre>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2231,7 +2349,7 @@ proxychains4 nmap -sT ip
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2357,7 +2475,7 @@ proxychains4 nmap -sT ip
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -2808,6 +2926,74 @@ proxychains4 nmap -sT ip
 
 
   
+  
+  <script>
+    
+    function showTime(Counter) {
+      var entries = [];
+      var $visitors = $('.leancloud_visitors');
+
+      $visitors.each(function() {
+        entries.push( $(this).attr('id').trim() );
+      });
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { '$in': entries } }) })
+        .done(function({ results }) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if (countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'MgxUz5N1vBQ1UxJYdX6iiPEJ-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'MgxUz5N1vBQ1UxJYdX6iiPEJ-gzGzoHsz',
+                'X-LC-Key': 'w7zAHYFu0dhqRH9bNEGg4gzN',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            if ($('.post-title-link').length >= 1) {
+              showTime(Counter);
+            }
+          
+        });
+    });
+  </script>
+
+
 
   
 
