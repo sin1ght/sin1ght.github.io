@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sass npm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可  引入sass全局文件 npm install sass-loader node-sass --sav">
+  <meta name="description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可">
 <meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mpvue踩坑之旅">
 <meta property="og:url" content="https://sin1ght.github.io/2020/03/16/mpvue踩坑之旅/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sass npm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可  引入sass全局文件 npm install sass-loader node-sass --sav">
+<meta property="og:description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-19T12:01:22.600Z">
+<meta property="og:updated_time" content="2020-06-16T07:37:25.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mpvue踩坑之旅">
-<meta name="twitter:description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sass npm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可  引入sass全局文件 npm install sass-loader node-sass --sav">
+<meta name="twitter:description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可">
 
 
 
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-04-19 20:01:22" itemprop="dateModified" datetime="2020-04-19T20:01:22+08:00">2020-04-19</time>
+                <time title="修改时间：2020-06-16 15:37:25" itemprop="dateModified" datetime="2020-06-16T15:37:25+08:00">2020-06-16</time>
               
             
           </span>
@@ -476,14 +476,15 @@
 <p>mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。<a href="http://mpvue.com/mpvue/" target="_blank" rel="noopener">http://mpvue.com/mpvue/</a></p>
 </blockquote>
 <ul>
-<li><p>引入sass</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm i -D sass-loader node-sass</span><br><span class="line">由于webpack版本太低，所以sass-loader的版本也得低一些，<span class="number">7</span>，<span class="number">6</span>都可</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>引入sass全局文件</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br><span class="line"></span><br><span class="line">npm install sass-resources-loader --save-dev</span><br></pre></td></tr></table></figure>
+<li>引入sass<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm i -D sass-loader node-sass</span><br><span class="line">由于webpack版本太低，所以sass-loader的版本也得低一些，<span class="number">7</span>，<span class="number">6</span>都可</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改mpvue的配置文件build/utils.js</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    css: generateLoaders(),</span><br><span class="line">    wxss: generateLoaders(),</span><br><span class="line">    postcss: generateLoaders(),</span><br><span class="line">    less: generateLoaders(<span class="string">'less'</span>),</span><br><span class="line">    sass: generateLoaders(<span class="string">'sass'</span>, &#123; <span class="attr">indentedSyntax</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">    <span class="comment">//修改开始</span></span><br><span class="line">    scss: generateLoaders(<span class="string">'sass'</span>).concat(</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="string">'sass-resources-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          resources: path.resolve(__dirname, <span class="string">'../src/global.scss'</span>)<span class="comment">// 此路径就是你定义全局scss变量的路径，可随你自己的更改</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">//修改结束</span></span><br><span class="line">    stylus: generateLoaders(<span class="string">'stylus'</span>),</span><br><span class="line">    styl: generateLoaders(<span class="string">'stylus'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>引入sass全局文件<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br><span class="line"></span><br><span class="line">npm install sass-resources-loader --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>修改mpvue的配置文件build/utils.js<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    css: generateLoaders(),</span><br><span class="line">    wxss: generateLoaders(),</span><br><span class="line">    postcss: generateLoaders(),</span><br><span class="line">    less: generateLoaders(<span class="string">'less'</span>),</span><br><span class="line">    sass: generateLoaders(<span class="string">'sass'</span>, &#123; <span class="attr">indentedSyntax</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">    <span class="comment">//修改开始</span></span><br><span class="line">    scss: generateLoaders(<span class="string">'sass'</span>).concat(</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="string">'sass-resources-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          resources: path.resolve(__dirname, <span class="string">'../src/global.scss'</span>)</span><br><span class="line">          <span class="comment">// 此路径就是你定义全局scss变量的路径，可随你自己的更改</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">//修改结束</span></span><br><span class="line">    stylus: generateLoaders(<span class="string">'stylus'</span>),</span><br><span class="line">    styl: generateLoaders(<span class="string">'stylus'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>引入第三方微信小程序组件库</li>
 </ul>
