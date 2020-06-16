@@ -7,6 +7,9 @@
       <categories>
         <category>WEB前端/后端</category>
       </categories>
+      <tags>
+        <tag>mpvue</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[webpack4打包原理]]></title>

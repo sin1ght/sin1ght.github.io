@@ -97,14 +97,14 @@
 
 
   <meta name="description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可">
-<meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
+<meta name="keywords" content="mpvue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mpvue踩坑之旅">
 <meta property="og:url" content="https://sin1ght.github.io/2020/03/16/mpvue踩坑之旅/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
 <meta property="og:description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-16T07:54:04.633Z">
+<meta property="og:updated_time" content="2020-06-16T07:58:31.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mpvue踩坑之旅">
 <meta name="twitter:description" content="mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/   引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可">
@@ -409,7 +409,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-16 15:54:04" itemprop="dateModified" datetime="2020-06-16T15:54:04+08:00">2020-06-16</time>
+                <time title="修改时间：2020-06-16 15:58:31" itemprop="dateModified" datetime="2020-06-16T15:58:31+08:00">2020-06-16</time>
               
             
           </span>
@@ -440,17 +440,6 @@
           
 
           
-          
-            <span id="/2020/03/16/mpvue踩坑之旅/" class="leancloud_visitors" data-flag-title="mpvue踩坑之旅">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
           
 
           
@@ -523,6 +512,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mpvue/" rel="tag"># mpvue</a>
+          
+        </div>
       
 
       
@@ -626,6 +621,19 @@
                 </div>
               
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
               
             </nav>
           
@@ -1186,66 +1194,6 @@
 
 
   
-  
-  <script>
-    
-    function addCount(Counter) {
-      var $visitors = $('.leancloud_visitors');
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
-        .done(function({ results }) {
-          if (results.length > 0) {
-            var counter = results[0];
-            
-            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
-            
-              .done(function() {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.time + 1);
-              })
-            
-              .fail(function ({ responseJSON }) {
-                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
-              })
-          } else {
-            
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
-            
-          }
-        })
-        .fail(function ({ responseJSON }) {
-          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
-        });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'MgxUz5N1vBQ1UxJYdX6iiPEJ-gzGzoHsz')
-        .done(function({ api_server }) {
-          var Counter = function(method, url, data) {
-            return $.ajax({
-              method: method,
-              url: 'https://' + api_server + '/1.1' + url,
-              headers: {
-                'X-LC-Id': 'MgxUz5N1vBQ1UxJYdX6iiPEJ-gzGzoHsz',
-                'X-LC-Key': 'w7zAHYFu0dhqRH9bNEGg4gzN',
-                'Content-Type': 'application/json',
-              },
-              data: data
-            });
-          };
-          
-            addCount(Counter);
-          
-        });
-    });
-  </script>
-
-
 
   
 
