@@ -15,7 +15,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -349,6 +349,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2020/08/10/webapck构建react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sinight">
+      <meta itemprop="description" content="潜心学习,不忘初心">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sinight Awesome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/08/10/webapck构建react/" class="post-title-link" itemprop="url">webpack构建react项目</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-08-10 14:28:47" itemprop="dateCreated datePublished" datetime="2020-08-10T14:28:47+08:00">2020-08-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-24 23:26:10" itemprop="dateModified" datetime="2020-08-24T23:26:10+08:00">2020-08-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端-后端/" itemprop="url" rel="index"><span itemprop="name">WEB前端/后端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="1-创建基本项目结构"><a href="#1-创建基本项目结构" class="headerlink" title="1.创建基本项目结构"></a>1.创建基本项目结构</h4><p>安装react typescript</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add react react-dom</span><br><span class="line"></span><br><span class="line">yarn add -D @types/react @types/react-dom</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add typescript -D</span><br></pre></td></tr></table></figure>
+<p>配置typescript</p>
+<p>tsconfig.json</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="string">"jsx"</span>: <span class="string">"react"</span>, <span class="comment">//在tsx里面支持jsx</span></span><br><span class="line">        <span class="string">"isolatedModules"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"esModuleInterop"</span>:<span class="literal">true</span>, </span><br><span class="line">        <span class="comment">//允许从没有设置默认导出的模块中默认导入 import * as fs from 'fs' 等于 import fs from 'fs'</span></span><br><span class="line">        <span class="string">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"baseUrl"</span>:<span class="string">"./"</span>, <span class="comment">//解析非相对模块名的基准目录</span></span><br><span class="line">        <span class="string">"paths"</span>: &#123;</span><br><span class="line">            <span class="comment">// 配置模块路径映射</span></span><br><span class="line">            <span class="string">"@/*"</span>: [<span class="string">"./src/*"</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"skipLibCheck"</span>:<span class="literal">true</span>,<span class="comment">//忽略所有的声明文件（ *.d.ts）的类型检查</span></span><br><span class="line">        <span class="comment">// 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误</span></span><br><span class="line">        <span class="string">"target"</span>: <span class="string">"ES2019"</span>,</span><br><span class="line">        <span class="string">"module"</span>: <span class="string">"ESNext"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"include"</span>: [</span><br><span class="line">        <span class="string">"./src/**/*"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/08/10/webapck构建react/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2020/03/16/mpvue踩坑之旅/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -411,7 +595,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-16 15:58:31" itemprop="dateModified" datetime="2020-06-16T15:58:31+08:00">2020-06-16</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -579,12 +763,24 @@
                 
               
 
-              <time title="创建时间：2019-05-19 13:25:10 / 修改时间：14:49:50" itemprop="dateCreated datePublished" datetime="2019-05-19T13:25:10+08:00">2019-05-19</time>
+              <time title="创建时间：2019-05-19 13:25:10" itemprop="dateCreated datePublished" datetime="2019-05-19T13:25:10+08:00">2019-05-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -766,7 +962,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 19:02:48" itemprop="dateModified" datetime="2019-02-25T19:02:48+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -956,7 +1152,7 @@ Context:    server, location
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:07:27" itemprop="dateModified" datetime="2019-02-25T18:07:27+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -1138,7 +1334,7 @@ Context:    server, location
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:07:17" itemprop="dateModified" datetime="2019-02-25T18:07:17+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -1319,7 +1515,7 @@ Context:    server, location
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:07:30" itemprop="dateModified" datetime="2019-02-25T18:07:30+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -1504,7 +1700,7 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:06:17" itemprop="dateModified" datetime="2019-02-25T18:06:17+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -1689,7 +1885,7 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:07:05" itemprop="dateModified" datetime="2019-02-25T18:07:05+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -1873,7 +2069,7 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -1940,200 +2136,6 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
 </ul>
 
           
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sinight">
-      <meta itemprop="description" content="潜心学习,不忘初心">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sinight Awesome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/" class="post-title-link" itemprop="url"> flask+nginx+uwsgi配置		</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-12 12:07:52" itemprop="dateCreated datePublished" datetime="2018-08-12T12:07:52+08:00">2018-08-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-25 18:06:25" itemprop="dateModified" datetime="2019-02-25T18:06:25+08:00">2019-02-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端-后端/" itemprop="url" rel="index"><span itemprop="name">WEB前端/后端</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="uwsgi配置（-ini）"><a href="#uwsgi配置（-ini）" class="headerlink" title="uwsgi配置（.ini）"></a>uwsgi配置（.ini）</h3><pre><code>[uwsgi]
-socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock
-chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写
-wsgi-file = manage.py  #项目启动文件
-callable = app  #主应用名
-processes = 4   #开启进程数
-buffer-size = 65535
-master = true #允许uwsgi主进程
-plugins = python #解决python与uwsgi兼容问题
-#sudo apt-get install uwsgi-plugin-python
-uid=1000 #设置运行用户uid/用户名
-gid=1000 #用户组id
-disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中
-logto =uwsgi_web.log
-virtualenv＝/home/proj/virtualenv #python虚拟环境
-</code></pre>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
         
       
     </div>
@@ -2253,7 +2255,9 @@ virtualenv＝/home/proj/virtualenv #python虚拟环境
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

