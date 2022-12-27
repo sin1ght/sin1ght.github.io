@@ -96,24 +96,32 @@
 
 
 
-  <meta name="description" content="潜心学习,不忘初心">
-<meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sinight Awesome">
-<meta property="og:url" content="https://sin1ght.github.io/categories/WEB安全/index.html">
+  <meta name="description" content="typography.paragraph 组件实现了单行/多行溢出展示tooltip的功能  1.判断是否可以使用CSS实现单行模式且支持textOverflow 或者 多行模式且支持webkitLineClamp则判断为可以使用CSS实现溢出  通过判断样式名是否在documentElement.style中存在来判断是否支持此样式  2.CSS实现溢出情况下判断是否溢出单行时先设置样式whi">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="antd多行溢出tooltip实现">
+<meta property="og:url" content="https://sin1ght.github.io/2022/12/27/antd多行溢出tooltip实现/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="潜心学习,不忘初心">
+<meta property="og:description" content="typography.paragraph 组件实现了单行/多行溢出展示tooltip的功能  1.判断是否可以使用CSS实现单行模式且支持textOverflow 或者 多行模式且支持webkitLineClamp则判断为可以使用CSS实现溢出  通过判断样式名是否在documentElement.style中存在来判断是否支持此样式  2.CSS实现溢出情况下判断是否溢出单行时先设置样式whi">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-ae8d22e31dce693f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-3415f3971b001ed1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-5d2793beb83bd23f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-920ea434c4241429.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-0a477ec260f6611d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-8d86c7cd564e9a52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2022-12-27T05:27:55.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sinight Awesome">
-<meta name="twitter:description" content="潜心学习,不忘初心">
+<meta name="twitter:title" content="antd多行溢出tooltip实现">
+<meta name="twitter:description" content="typography.paragraph 组件实现了单行/多行溢出展示tooltip的功能  1.判断是否可以使用CSS实现单行模式且支持textOverflow 或者 多行模式且支持webkitLineClamp则判断为可以使用CSS实现溢出  通过判断样式名是否在documentElement.style中存在来判断是否支持此样式  2.CSS实现溢出情况下判断是否溢出单行时先设置样式whi">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5964747-ae8d22e31dce693f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sin1ght.github.io/categories/WEB安全/">
+  <link rel="canonical" href="https://sin1ght.github.io/2022/12/27/antd多行溢出tooltip实现/">
 
 
 
@@ -123,7 +131,7 @@
   };
 </script>
 
-  <title>分类: WEB安全 | Sinight Awesome</title>
+  <title>antd多行溢出tooltip实现 | Sinight Awesome</title>
   
 
 
@@ -171,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,7 +248,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -287,22 +295,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -348,239 +340,206 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>WEB安全<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2022/12/27/antd多行溢出tooltip实现/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sinight">
+      <meta itemprop="description" content="潜心学习,不忘初心">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sinight Awesome">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/" itemprop="url">
-            
-              <span itemprop="name"> 绕过CDN查找真实ip		</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">antd多行溢出tooltip实现
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-09-02T13:45:48+08:00" content="2018-09-02">
-          09-02
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-12-27 14:28:47 / 修改时间：13:27:55" itemprop="dateCreated datePublished" datetime="2022-12-27T14:28:47+08:00">2022-12-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端/" itemprop="url" rel="index"><span itemprop="name">WEB前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/" itemprop="url">
-            
-              <span itemprop="name"> 内网渗透之进入内网		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-05T22:41:03+08:00" content="2018-08-05">
-          08-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/08/05/nishang-powersploit/" itemprop="url">
-            
-              <span itemprop="name"> Nishang/PowerSploit		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-05T21:40:57+08:00" content="2018-08-05">
-          08-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/08/03/windows-e6-8f-90-e6-9d-83-e5-af-b9-e7-85-a7-e8-a1-a8/" itemprop="url">
-            
-              <span itemprop="name"> windows提权对照表		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-08-03T15:48:14+08:00" content="2018-08-03">
-          08-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/07/29/cmd-e5-bc-80-e5-90-af3389/" itemprop="url">
-            
-              <span itemprop="name"> cmd开启3389		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-07-29T10:20:11+08:00" content="2018-07-29">
-          07-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/07/29/mysql-udf-e6-8f-90-e6-9d-83/" itemprop="url">
-            
-              <span itemprop="name"> Mysql udf提权		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-07-29T10:05:15+08:00" content="2018-07-29">
-          07-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/" itemprop="url">
-            
-              <span itemprop="name"> Mssql开启xp_cmdshell		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-07-29T08:41:00+08:00" content="2018-07-29">
-          07-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/06/22/web-e5-ae-b9-e5-99-a8-e4-b8-8a-e4-bc-a0-e6-96-87-e4-bb-b6-e5-88-a9-e7-94-a8-e6-96-b9-e5-bc-8f-e6-80-bb-e7-bb-93/" itemprop="url">
-            
-              <span itemprop="name"> web容器上传文件利用方式总结		</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-06-22T15:19:54+08:00" content="2018-06-22">
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <blockquote>
+<p>typography.paragraph 组件实现了单行/多行溢出展示tooltip的功能</p>
+</blockquote>
+<h2 id="1-判断是否可以使用CSS实现"><a href="#1-判断是否可以使用CSS实现" class="headerlink" title="1.判断是否可以使用CSS实现"></a>1.判断是否可以使用CSS实现</h2><p>单行模式且支持<code>textOverflow</code> 或者 多行模式且支持<code>webkitLineClamp</code>则判断为可以使用CSS实现溢出</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-ae8d22e31dce693f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>通过判断样式名是否在<code>documentElement.style</code>中存在来判断是否支持此样式</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-3415f3971b001ed1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="2-CSS实现溢出情况下判断是否溢出"><a href="#2-CSS实现溢出情况下判断是否溢出" class="headerlink" title="2.CSS实现溢出情况下判断是否溢出"></a>2.CSS实现溢出情况下判断是否溢出</h2><p>单行时先设置样式<code>white-space: nowrap</code>使文本不换行，再判断<code>rangeWidth&gt;textEleWidth</code>或者<code>scrollWidth&gt;offsetWidth</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-5d2793beb83bd23f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>多行时则直接判断<code>offsetHeight &lt; scrollHeight</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-920ea434c4241429.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="3-JS实现多行溢出"><a href="#3-JS实现多行溢出" class="headerlink" title="3.JS实现多行溢出"></a>3.JS实现多行溢出</h2><p>通过渲染一个隐藏的不换行<code>span</code>元素获取单行的文本高度<code>ref.current?.offsetHeight</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-0a477ec260f6611d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>通过<code>ref.offsetHeight &gt; rows * singleRowHeight</code>判断当前dom高度是否大于最大行数的理论高度来判断是否溢出，同时通过<code>二分查找</code>来查找溢出的临界点</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-8d86c7cd564e9a52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/10/webapck构建react/" rel="next" title="webpack构建react项目">
+                <i class="fa fa-chevron-left"></i> webpack构建react项目
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -600,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -747,6 +715,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-判断是否可以使用CSS实现"><span class="nav-number">1.</span> <span class="nav-text">1.判断是否可以使用CSS实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-CSS实现溢出情况下判断是否溢出"><span class="nav-number">2.</span> <span class="nav-text">2.CSS实现溢出情况下判断是否溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JS实现多行溢出"><span class="nav-number">3.</span> <span class="nav-text">3.JS实现多行溢出</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -874,6 +859,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -884,6 +873,8 @@
   
   
 
+
+  
 
 
   
