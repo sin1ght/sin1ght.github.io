@@ -96,25 +96,33 @@
 
 
 
-  <meta name="description" content="关闭EXEC sp_configure &amp;apos;show advanced options&amp;apos;, 1; //显示或修改高级选项 RECONFIGURE; EXEC sp_configure &amp;apos;xp_cmdshell&amp;apos;,0; RECONFIGURE;">
-<meta name="keywords" content="sinight,web安全,后端开发,前端开发,pyhton,php">
+  <meta name="description" content="antd 4.x  1.问题现象表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式  2.在antd中定位相关代码审查元素后发现，该样式由 .ant-table-ping-right .ant-table-cell-fix-right-first:after两个类控制，当阴影消失后类.ant-table-ping-right消失  在rc-table/src/table">
+<meta name="keywords" content="antd">
 <meta property="og:type" content="article">
-<meta property="og:title" content=" Mssql开启xp_cmdshell		">
-<meta property="og:url" content="https://sin1ght.github.io/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/index.html">
+<meta property="og:title" content="antd表格fixed列无滚动条情况下出现阴影排查">
+<meta property="og:url" content="https://sin1ght.github.io/2022/12/27/antd表格fixed列无滚动条情况下出现阴影排查/index.html">
 <meta property="og:site_name" content="Sinight Awesome">
-<meta property="og:description" content="关闭EXEC sp_configure &amp;apos;show advanced options&amp;apos;, 1; //显示或修改高级选项 RECONFIGURE; EXEC sp_configure &amp;apos;xp_cmdshell&amp;apos;,0; RECONFIGURE;">
+<meta property="og:description" content="antd 4.x  1.问题现象表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式  2.在antd中定位相关代码审查元素后发现，该样式由 .ant-table-ping-right .ant-table-cell-fix-right-first:after两个类控制，当阴影消失后类.ant-table-ping-right消失  在rc-table/src/table">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-08-24T14:47:22.956Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-9894b3853dd9d0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-9a4cb1ddd0ba1787.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-9ae11a2210dc2197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-5a0045b3a358a636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-145d462603af1d20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2022-12-27T05:50:18.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" Mssql开启xp_cmdshell		">
-<meta name="twitter:description" content="关闭EXEC sp_configure &amp;apos;show advanced options&amp;apos;, 1; //显示或修改高级选项 RECONFIGURE; EXEC sp_configure &amp;apos;xp_cmdshell&amp;apos;,0; RECONFIGURE;">
+<meta name="twitter:title" content="antd表格fixed列无滚动条情况下出现阴影排查">
+<meta name="twitter:description" content="antd 4.x  1.问题现象表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式  2.在antd中定位相关代码审查元素后发现，该样式由 .ant-table-ping-right .ant-table-cell-fix-right-first:after两个类控制，当阴影消失后类.ant-table-ping-right消失  在rc-table/src/table">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5964747-9894b3853dd9d0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
 
 
 
-  <link rel="canonical" href="https://sin1ght.github.io/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/">
+  <link rel="canonical" href="https://sin1ght.github.io/2022/12/27/antd表格fixed列无滚动条情况下出现阴影排查/">
 
 
 
@@ -124,7 +132,7 @@
   };
 </script>
 
-  <title> Mssql开启xp_cmdshell		 | Sinight Awesome</title>
+  <title>antd表格fixed列无滚动条情况下出现阴影排查 | Sinight Awesome</title>
   
 
 
@@ -349,7 +357,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2022/12/27/antd表格fixed列无滚动条情况下出现阴影排查/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sinight">
@@ -366,7 +374,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"> Mssql开启xp_cmdshell		
+          <h1 class="post-title" itemprop="name headline">antd表格fixed列无滚动条情况下出现阴影排查
 
               
             
@@ -392,24 +400,12 @@
                 
               
 
-              <time title="创建时间：2018-07-29 08:41:00" itemprop="dateCreated datePublished" datetime="2018-07-29T08:41:00+08:00">2018-07-29</time>
+              <time title="创建时间：2022-12-27 14:28:47 / 修改时间：13:50:18" itemprop="dateCreated datePublished" datetime="2022-12-27T14:28:47+08:00">2022-12-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-08-24 22:47:22" itemprop="dateModified" datetime="2020-08-24T22:47:22+08:00">2020-08-24</time>
               
             
           </span>
@@ -426,7 +422,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端/" itemprop="url" rel="index"><span itemprop="name">WEB前端</span></a></span>
 
                 
                 
@@ -461,21 +457,24 @@
       
 
       
-        <h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项
-RECONFIGURE;
-EXEC sp_configure &apos;xp_cmdshell&apos;,0;
-RECONFIGURE;
-</code></pre><a id="more"></a>
-<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1;
-RECONFIGURE;
-EXEC sp_configure &apos;xp_cmdshell&apos;, 1;
-RECONFIGURE;
-</code></pre><p>在注入点运行上述语句时,如果出现这样的回显,<code>标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在</code>,可执行以下语句</p>
-<pre><code>EXEC sp_configure &apos;show advanced options&apos;,1;
-RECONFIGURE;
-EXEC sp_configure &apos;user connections&apos;,1;
-RECONFIGURE;
-</code></pre>
+        <blockquote>
+<p>antd 4.x</p>
+</blockquote>
+<h2 id="1-问题现象"><a href="#1-问题现象" class="headerlink" title="1.问题现象"></a>1.问题现象</h2><p>表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9894b3853dd9d0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="2-在antd中定位相关代码"><a href="#2-在antd中定位相关代码" class="headerlink" title="2.在antd中定位相关代码"></a>2.在antd中定位相关代码</h2><p>审查元素后发现，该样式由 <code>.ant-table-ping-right</code> <code>.ant-table-cell-fix-right-first:after</code>两个类控制，当阴影消失后类<code>.ant-table-ping-right</code>消失</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9a4cb1ddd0ba1787.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>在rc-table/src/table.tsx中搜索相关类名定位到了相关代码</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9ae11a2210dc2197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/5964747-5a0045b3a358a636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>查看代码逻辑 <code>if (scrollWidth === clientWidth)</code> ，发现无法滚动时按正常逻辑是会 <code>setPingedRight(false)</code>的，那问题应该就出现在<code>scrollWidth</code> <code>clientWidth</code> 这两个值上</p>
+<h2 id="3-断点调试"><a href="#3-断点调试" class="headerlink" title="3.断点调试"></a>3.断点调试</h2><p>某一刻 <code>scrollWidth</code> 变的很大<code>3286</code>，观察发现此时column4没有超长溢出展示省略号</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-145d462603af1d20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>column4的单行溢出tooltip功能使用的是<code>Typography.Paragraph</code>组件，去掉溢出样式后验证表格<code>scrollWidth</code>发现正是<code>Typography.Paragraph</code>组件在计算单行溢出时导致表格<code>scrollWidth</code>变大</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="4-Typography-Paragraph-关键代码"><a href="#4-Typography-Paragraph-关键代码" class="headerlink" title="4.Typography.Paragraph 关键代码"></a>4.Typography.Paragraph 关键代码</h2><p>在判断单行溢出时会先设置样式<code>white-space: nowrap</code>使文字不换行，然后判断<code>rangeWidth &gt; textEleWidth</code>或者<code>scrollWidth &gt; offsetWidth</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="5-解决方案"><a href="#5-解决方案" class="headerlink" title="5.解决方案"></a>5.解决方案</h2><p>使用<code>Typography.Paragraph</code>的多行溢出，rows&gt;1</p>
+
       
     </div>
 
@@ -496,6 +495,12 @@ RECONFIGURE;
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/antd/" rel="tag"># antd</a>
+          
+        </div>
+      
 
       
       
@@ -505,8 +510,8 @@ RECONFIGURE;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/linux-postgresql-e4-bd-bf-e7-94-a8/" rel="next" title=" linux postgresql 使用		">
-                <i class="fa fa-chevron-left"></i>  linux postgresql 使用		
+              <a href="/2020/08/10/webapck构建react/" rel="next" title="webpack构建react项目">
+                <i class="fa fa-chevron-left"></i> webpack构建react项目
               </a>
             
           </div>
@@ -515,8 +520,8 @@ RECONFIGURE;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/29/mysql-udf-e6-8f-90-e6-9d-83/" rel="prev" title=" Mysql udf提权		">
-                 Mysql udf提权		 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/12/27/antd多行溢出tooltip实现/" rel="prev" title="antd多行溢出tooltip实现">
+                antd多行溢出tooltip实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -729,7 +734,7 @@ RECONFIGURE;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#关闭"><span class="nav-number">1.</span> <span class="nav-text">关闭</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开启"><span class="nav-number">2.</span> <span class="nav-text">开启</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-问题现象"><span class="nav-number">1.</span> <span class="nav-text">1.问题现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-在antd中定位相关代码"><span class="nav-number">2.</span> <span class="nav-text">2.在antd中定位相关代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-断点调试"><span class="nav-number">3.</span> <span class="nav-text">3.断点调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Typography-Paragraph-关键代码"><span class="nav-number">4.</span> <span class="nav-text">4.Typography.Paragraph 关键代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-解决方案"><span class="nav-number">5.</span> <span class="nav-text">5.解决方案</span></a></li></ol></div>
             
 
           </div>

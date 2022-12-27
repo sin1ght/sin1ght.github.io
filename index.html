@@ -394,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2022-12-27 14:28:47 / 修改时间：13:27:55" itemprop="dateCreated datePublished" datetime="2022-12-27T14:28:47+08:00">2022-12-27</time>
+              <time title="创建时间：2022-12-27 14:28:47 / 修改时间：13:48:54" itemprop="dateCreated datePublished" datetime="2022-12-27T14:28:47+08:00">2022-12-27</time>
             
 
             
@@ -468,6 +468,183 @@
 <p><img src="https://upload-images.jianshu.io/upload_images/5964747-0a477ec260f6611d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>通过<code>ref.offsetHeight &gt; rows * singleRowHeight</code>判断当前dom高度是否大于最大行数的理论高度来判断是否溢出，同时通过<code>二分查找</code>来查找溢出的临界点</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/5964747-8d86c7cd564e9a52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2022/12/27/antd表格fixed列无滚动条情况下出现阴影排查/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sinight">
+      <meta itemprop="description" content="潜心学习,不忘初心">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sinight Awesome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/12/27/antd表格fixed列无滚动条情况下出现阴影排查/" class="post-title-link" itemprop="url">antd表格fixed列无滚动条情况下出现阴影排查</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-12-27 14:28:47 / 修改时间：13:50:18" itemprop="dateCreated datePublished" datetime="2022-12-27T14:28:47+08:00">2022-12-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端/" itemprop="url" rel="index"><span itemprop="name">WEB前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>antd 4.x</p>
+</blockquote>
+<h2 id="1-问题现象"><a href="#1-问题现象" class="headerlink" title="1.问题现象"></a>1.问题现象</h2><p>表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9894b3853dd9d0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="2-在antd中定位相关代码"><a href="#2-在antd中定位相关代码" class="headerlink" title="2.在antd中定位相关代码"></a>2.在antd中定位相关代码</h2><p>审查元素后发现，该样式由 <code>.ant-table-ping-right</code> <code>.ant-table-cell-fix-right-first:after</code>两个类控制，当阴影消失后类<code>.ant-table-ping-right</code>消失</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9a4cb1ddd0ba1787.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>在rc-table/src/table.tsx中搜索相关类名定位到了相关代码</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9ae11a2210dc2197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/5964747-5a0045b3a358a636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>查看代码逻辑 <code>if (scrollWidth === clientWidth)</code> ，发现无法滚动时按正常逻辑是会 <code>setPingedRight(false)</code>的，那问题应该就出现在<code>scrollWidth</code> <code>clientWidth</code> 这两个值上</p>
+<h2 id="3-断点调试"><a href="#3-断点调试" class="headerlink" title="3.断点调试"></a>3.断点调试</h2><p>某一刻 <code>scrollWidth</code> 变的很大<code>3286</code>，观察发现此时column4没有超长溢出展示省略号</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-145d462603af1d20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>column4的单行溢出tooltip功能使用的是<code>Typography.Paragraph</code>组件，去掉溢出样式后验证表格<code>scrollWidth</code>发现正是<code>Typography.Paragraph</code>组件在计算单行溢出时导致表格<code>scrollWidth</code>变大</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="4-Typography-Paragraph-关键代码"><a href="#4-Typography-Paragraph-关键代码" class="headerlink" title="4.Typography.Paragraph 关键代码"></a>4.Typography.Paragraph 关键代码</h2><p>在判断单行溢出时会先设置样式<code>white-space: nowrap</code>使文字不换行，然后判断<code>rangeWidth &gt; textEleWidth</code>或者<code>scrollWidth &gt; offsetWidth</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="5-解决方案"><a href="#5-解决方案" class="headerlink" title="5.解决方案"></a>5.解决方案</h2><p>使用<code>Typography.Paragraph</code>的多行溢出，rows&gt;1</p>
 
           
         
@@ -1983,195 +2160,11 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://sin1ght.github.io/2018/09/09/python-e5-bc-82-e6-ad-a5io/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sinight">
-      <meta itemprop="description" content="潜心学习,不忘初心">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sinight Awesome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/09/python-e5-bc-82-e6-ad-a5io/" class="post-title-link" itemprop="url"> Python异步IO		</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-09 16:05:00" itemprop="dateCreated datePublished" datetime="2018-09-09T16:05:00+08:00">2018-09-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-08-24 22:47:23" itemprop="dateModified" datetime="2020-08-24T22:47:23+08:00">2020-08-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB前端-后端/" itemprop="url" rel="index"><span itemprop="name">WEB前端/后端</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。</p>
-</blockquote>
-<h3 id="1-asyncio-coroutine-yield-from"><a href="#1-asyncio-coroutine-yield-from" class="headerlink" title="1.@ asyncio.coroutine/yield from"></a>1.@ asyncio.coroutine/yield from</h3><ul>
-<li><font color="#ff2a2a">@asyncio.coroutine</font>把一个函数标记为协程</li>
-<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/09/09/python-e5-bc-82-e6-ad-a5io/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2215,7 +2208,7 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2251,7 +2244,9 @@ files = /etc/supervisor/conf.d/*.conf #该目录下增加我们自己的配置�
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
